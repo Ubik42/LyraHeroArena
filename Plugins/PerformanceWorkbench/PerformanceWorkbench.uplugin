@@ -1,0 +1,27 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0",
+  "FriendlyName": "性能工作台",
+  "Description": "在 Unreal Editor 内启动固定条件性能实验并读取实验室结果。",
+  "Category": "Performance",
+  "CreatedBy": "Ubik",
+  "IsBetaVersion": true,
+  "Modules": [
+    {
+      "Name": "PerformanceWorkbench",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "PerformanceLab",
+      "Enabled": true
+    },
+    {
+      "Name": "AutomatedPerfTesting",
+      "Enabled": true
+    }
+  ]
+}
