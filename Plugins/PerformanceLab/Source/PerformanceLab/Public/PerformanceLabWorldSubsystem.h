@@ -65,6 +65,7 @@ private:
     bool bNavigationLoadRequested = false;
     bool bNavigationBudgetRequested = false;
     bool bAnimationBudgetRequested = false;
+    bool bCharacterRenderSignificanceRequested = false;
     int32 PawnCount = 0;
     int32 AIControllerCount = 0;
     int32 PossessedAIPawnCount = 0;
@@ -72,7 +73,9 @@ private:
     int32 ShadowCastingCharacterCount = 0;
     int32 ManagedSignificanceObjectCount = 0;
     int32 AnimationBudgetedMeshCount = 0;
+    int32 AnimationSignificanceAppliedCount = 0;
     int32 AnimationFullRateProtectedCount = 0;
+    int32 AnimationLocalPlayerProtectedCount = 0;
     int32 AnimationBudgetEligibleCount = 0;
     int32 NetConnectionCount = 0;
     int32 TargetConnectionCount = 0;

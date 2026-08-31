@@ -159,6 +159,8 @@ void UPerformanceLabWorldSubsystem::ReadCommandLine()
     bNavigationBudgetRequested = FParse::Param(FCommandLine::Get(), TEXT("PerfLabNavigationBudget"));
     bAnimationBudgetRequested = FParse::Param(FCommandLine::Get(), TEXT("PerfLabAnimationBudget"))
         || FParse::Param(FCommandLine::Get(), TEXT("LyraCharacterAnimationBudget"));
+    bCharacterRenderSignificanceRequested = FParse::Param(FCommandLine::Get(), TEXT("PerfLabCharacterRenderSignificance"))
+        || FParse::Param(FCommandLine::Get(), TEXT("LyraCharacterRenderSignificance"));
     if (!RequestedPresetId.IsEmpty())
     {
         Session.PresetId = RequestedPresetId;
@@ -304,7 +306,7 @@ void UPerformanceLabWorldSubsystem::ReadCommandLine()
         FPerformanceQualityGuard BudgetedMeshes;
         BudgetedMeshes.Id = TEXT("animation-budgeted-mesh-count");
         BudgetedMeshes.MetricOrPath = TEXT("animationBudgetedMeshCount.mean");
-        BudgetedMeshes.ExpectedValue = Preset.Load.AgentCount;
+        BudgetedMeshes.ExpectedValue = Preset.Load.AgentCount * 0.9;
         Preset.Guards.Add(BudgetedMeshes);
 
         FPerformanceQualityGuard NormalRHI;
@@ -326,8 +328,20 @@ void UPerformanceLabWorldSubsystem::ReadCommandLine()
             FPerformanceQualityGuard ManagedCharacters;
             ManagedCharacters.Id = TEXT("animation-managed-character-count");
             ManagedCharacters.MetricOrPath = TEXT("managedSignificanceObjects.mean");
-            ManagedCharacters.ExpectedValue = Preset.Load.AgentCount;
+            ManagedCharacters.ExpectedValue = Preset.Load.AgentCount * 0.9;
             Preset.Guards.Add(ManagedCharacters);
+
+            FPerformanceQualityGuard AppliedSignificance;
+            AppliedSignificance.Id = TEXT("animation-significance-applied");
+            AppliedSignificance.MetricOrPath = TEXT("animationSignificanceAppliedCount.mean");
+            AppliedSignificance.ExpectedValue = Preset.Load.AgentCount * 0.9;
+            Preset.Guards.Add(AppliedSignificance);
+
+            FPerformanceQualityGuard LocalPlayerProtected;
+            LocalPlayerProtected.Id = TEXT("animation-local-player-protected");
+            LocalPlayerProtected.MetricOrPath = TEXT("animationLocalPlayerProtectedCount.mean");
+            LocalPlayerProtected.ExpectedValue = 1.0;
+            Preset.Guards.Add(LocalPlayerProtected);
 
             FPerformanceQualityGuard ProtectedNearField;
             ProtectedNearField.Id = TEXT("animation-near-field-protected");
@@ -340,6 +354,76 @@ void UPerformanceLabWorldSubsystem::ReadCommandLine()
             BudgetEligible.MetricOrPath = TEXT("animationBudgetEligibleCount.mean");
             BudgetEligible.ExpectedValue = Preset.Load.AgentCount * 0.25;
             Preset.Guards.Add(BudgetEligible);
+        }
+    }
+    else if (Session.Dimension == TEXT("RenderingLOD"))
+    {
+        Preset.Capture.bLockInitialPlayerView = true;
+        Preset.Guards.RemoveAll([](const FPerformanceQualityGuard& Guard)
+        {
+            return Guard.Id == TEXT("possessed-ai-pawn-count");
+        });
+
+        FPerformanceQualityGuard LivePawns;
+        LivePawns.Id = TEXT("rendering-live-pawn-average");
+        LivePawns.MetricOrPath = TEXT("possessedAIPawnCount.mean");
+        LivePawns.ExpectedValue = Preset.Load.AgentCount * 0.9;
+        Preset.Guards.Add(LivePawns);
+
+        FPerformanceQualityGuard CharacterLoad;
+        CharacterLoad.Id = TEXT("rendering-character-load");
+        CharacterLoad.MetricOrPath = TEXT("lyraCharacters.mean");
+        CharacterLoad.ExpectedValue = Preset.Load.AgentCount * 0.9;
+        Preset.Guards.Add(CharacterLoad);
+
+        FPerformanceQualityGuard NormalRHI;
+        NormalRHI.Id = TEXT("rendering-normal-rhi");
+        NormalRHI.MetricOrPath = TEXT("normalRHI");
+        NormalRHI.Operator = EPerformanceGuardOperator::Equal;
+        NormalRHI.ExpectedValue = 1.0;
+        Preset.Guards.Add(NormalRHI);
+
+        FPerformanceQualityGuard FixedView;
+        FixedView.Id = TEXT("rendering-fixed-player-view");
+        FixedView.MetricOrPath = TEXT("initialViewLocked");
+        FixedView.Operator = EPerformanceGuardOperator::Equal;
+        FixedView.ExpectedValue = 1.0;
+        Preset.Guards.Add(FixedView);
+
+        FPerformanceQualityGuard FarFieldLoad;
+        FarFieldLoad.Id = TEXT("rendering-far-field-load");
+        FarFieldLoad.MetricOrPath = TEXT("maxCharacterViewDistance.mean");
+        FarFieldLoad.ExpectedValue = ULyraSignificanceManager::GetCharacterShadowMaxDistance() * 1.25;
+        Preset.Guards.Add(FarFieldLoad);
+
+        if (bCharacterRenderSignificanceRequested)
+        {
+            FPerformanceQualityGuard ManagedCharacters;
+            ManagedCharacters.Id = TEXT("rendering-managed-character-count");
+            ManagedCharacters.MetricOrPath = TEXT("managedSignificanceObjects.mean");
+            ManagedCharacters.ExpectedValue = Preset.Load.AgentCount * 0.9;
+            Preset.Guards.Add(ManagedCharacters);
+
+            FPerformanceQualityGuard NearFieldShadows;
+            NearFieldShadows.Id = TEXT("rendering-near-field-shadows-preserved");
+            NearFieldShadows.MetricOrPath = TEXT("shadowCastingCharacters.mean");
+            NearFieldShadows.ExpectedValue = 1.0;
+            Preset.Guards.Add(NearFieldShadows);
+
+            FPerformanceQualityGuard FarFieldShadowsReduced;
+            FarFieldShadowsReduced.Id = TEXT("rendering-far-field-shadows-reduced");
+            FarFieldShadowsReduced.MetricOrPath = TEXT("shadowCastingCharacters.mean");
+            FarFieldShadowsReduced.Operator = EPerformanceGuardOperator::LessOrEqual;
+            FarFieldShadowsReduced.ExpectedValue = Preset.Load.AgentCount * 0.75;
+            Preset.Guards.Add(FarFieldShadowsReduced);
+        }
+        else
+        {
+            FPerformanceQualityGuard BaselineShadows;
+            BaselineShadows.Id = TEXT("rendering-baseline-shadow-load");
+            BaselineShadows.MetricOrPath = TEXT("shadowCastingCharacters.mean");
+            BaselineShadows.ExpectedValue = Preset.Load.AgentCount * 0.9;
+            Preset.Guards.Add(BaselineShadows);
         }
     }
 }
@@ -434,7 +518,9 @@ void UPerformanceLabWorldSubsystem::Tick(float DeltaTime)
     RecordMetric(TEXT("shadowCastingCharacters"), ShadowCastingCharacterCount);
     RecordMetric(TEXT("managedSignificanceObjects"), ManagedSignificanceObjectCount);
     RecordMetric(TEXT("animationBudgetedMeshCount"), AnimationBudgetedMeshCount);
+    RecordMetric(TEXT("animationSignificanceAppliedCount"), AnimationSignificanceAppliedCount);
     RecordMetric(TEXT("animationFullRateProtectedCount"), AnimationFullRateProtectedCount);
+    RecordMetric(TEXT("animationLocalPlayerProtectedCount"), AnimationLocalPlayerProtectedCount);
     RecordMetric(TEXT("animationBudgetEligibleCount"), AnimationBudgetEligibleCount);
     RecordMetric(TEXT("minCharacterViewDistance"), MinCharacterViewDistance);
     RecordMetric(TEXT("maxCharacterViewDistance"), MaxCharacterViewDistance);
@@ -453,7 +539,9 @@ void UPerformanceLabWorldSubsystem::Tick(float DeltaTime)
     CSV_CUSTOM_STAT(PerformanceLab, ShadowCastingCharacters, ShadowCastingCharacterCount, ECsvCustomStatOp::Set);
     CSV_CUSTOM_STAT(PerformanceLab, ManagedSignificanceObjects, ManagedSignificanceObjectCount, ECsvCustomStatOp::Set);
     CSV_CUSTOM_STAT(PerformanceLab, AnimationBudgetedMeshes, AnimationBudgetedMeshCount, ECsvCustomStatOp::Set);
+    CSV_CUSTOM_STAT(PerformanceLab, AnimationSignificanceApplied, AnimationSignificanceAppliedCount, ECsvCustomStatOp::Set);
     CSV_CUSTOM_STAT(PerformanceLab, AnimationFullRateProtected, AnimationFullRateProtectedCount, ECsvCustomStatOp::Set);
+    CSV_CUSTOM_STAT(PerformanceLab, AnimationLocalPlayerProtected, AnimationLocalPlayerProtectedCount, ECsvCustomStatOp::Set);
     CSV_CUSTOM_STAT(PerformanceLab, AnimationBudgetEligible, AnimationBudgetEligibleCount, ECsvCustomStatOp::Set);
     CSV_CUSTOM_STAT(PerformanceLab, MinCharacterViewDistance, MinCharacterViewDistance, ECsvCustomStatOp::Set);
     CSV_CUSTOM_STAT(PerformanceLab, MaxCharacterViewDistance, MaxCharacterViewDistance, ECsvCustomStatOp::Set);
@@ -564,7 +652,9 @@ void UPerformanceLabWorldSubsystem::CountAgents()
     ShadowCastingCharacterCount = 0;
     ManagedSignificanceObjectCount = 0;
     AnimationBudgetedMeshCount = 0;
+    AnimationSignificanceAppliedCount = 0;
     AnimationFullRateProtectedCount = 0;
+    AnimationLocalPlayerProtectedCount = 0;
     AnimationBudgetEligibleCount = 0;
     ReplicatedFixtureCount = 0;
     AIBrainComponentCount = 0;
@@ -652,15 +742,19 @@ void UPerformanceLabWorldSubsystem::CountAgents()
         {
             ++AnimationBudgetedMeshCount;
         }
+        if (It->HasAnimationBudgetSignificance())
+        {
+            ++AnimationSignificanceAppliedCount;
+            const bool bProtected = It->IsAnimationFullRateProtected();
+            AnimationFullRateProtectedCount += bProtected ? 1 : 0;
+            AnimationBudgetEligibleCount += bProtected ? 0 : 1;
+            AnimationLocalPlayerProtectedCount += bProtected && It->IsPlayerControlled() && It->IsLocallyControlled() ? 1 : 0;
+        }
         if (bHasViewLocation)
         {
             const double Distance = FVector::Distance(ViewLocation, It->GetActorLocation());
             LocalMinDistance = FMath::Min(LocalMinDistance, Distance);
             MaxCharacterViewDistance = FMath::Max(MaxCharacterViewDistance, Distance);
-            const bool bProtected = (It->IsPlayerControlled() && It->IsLocallyControlled())
-                || Distance <= ULyraSignificanceManager::GetCharacterAnimationFullRateDistance();
-            AnimationFullRateProtectedCount += bProtected ? 1 : 0;
-            AnimationBudgetEligibleCount += bProtected ? 0 : 1;
         }
     }
     if (bHasViewLocation && LyraCharacterCount > 0)
@@ -1325,7 +1419,9 @@ void UPerformanceLabWorldSubsystem::WriteRunJson(const TCHAR* FileName, bool bFi
     Root->SetBoolField(TEXT("navigationLoadEnabled"), bNavigationLoadRequested);
     Root->SetBoolField(TEXT("navigationBudgetEnabled"), bNavigationBudgetRequested);
     Root->SetBoolField(TEXT("animationBudgetEnabled"), bAnimationBudgetRequested);
+    Root->SetBoolField(TEXT("characterRenderSignificanceEnabled"), bCharacterRenderSignificanceRequested);
     Root->SetNumberField(TEXT("animationFullRateDistance"), ULyraSignificanceManager::GetCharacterAnimationFullRateDistance());
+    Root->SetNumberField(TEXT("characterShadowMaxDistance"), ULyraSignificanceManager::GetCharacterShadowMaxDistance());
     Root->SetNumberField(TEXT("navigationDecisionIntervalMs"), 200.0);
     Root->SetNumberField(TEXT("navigationReplanCooldownMs"), bNavigationBudgetRequested ? 800.0 : 0.0);
     Root->SetNumberField(TEXT("navigationGoalMergeDistance"), bNavigationBudgetRequested ? 40.0 : 0.0);
