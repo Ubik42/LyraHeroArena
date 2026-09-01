@@ -30,7 +30,7 @@ void UHeroArenaGameplayAbility_StickyBomb::ActivateAbility(
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	ALyraCharacter* Character = GetLyraCharacterFromActorInfo();
-	if (!Character || !CommitAbility(Handle, ActorInfo, ActivationInfo))
+	if (!Character || !CommitUltimateAbility(Handle, ActorInfo, ActivationInfo))
 	{
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
 		return;

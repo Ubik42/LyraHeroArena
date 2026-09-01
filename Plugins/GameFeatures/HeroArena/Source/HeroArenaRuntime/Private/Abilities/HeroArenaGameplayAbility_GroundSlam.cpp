@@ -43,7 +43,7 @@ void UHeroArenaGameplayAbility_GroundSlam::ActivateAbility(const FGameplayAbilit
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	ALyraCharacter* Character = GetLyraCharacterFromActorInfo();
-	if (!IsValid(Character) || !CommitAbility(Handle, ActorInfo, ActivationInfo))
+	if (!IsValid(Character) || !CommitUltimateAbility(Handle, ActorInfo, ActivationInfo))
 	{
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
 		return;
@@ -106,6 +106,16 @@ bool UHeroArenaGameplayAbility_GroundSlam::TryAffectEnemy(AActor* TargetActor, c
 	const FVector Offset = TargetActor->GetActorLocation() - Origin;
 	if (FMath::Abs(Offset.Z) > VerticalTolerance || Offset.Size2D() > Range ||
 		FVector::DotProduct(Offset.GetSafeNormal2D(), Forward) < MinimumForwardDot)
+	{
+		return false;
+	}
+
+	FCollisionQueryParams VisibilityParams(SCENE_QUERY_STAT(HeroArenaGroundSlamVisibility), true, SourceActor);
+	FHitResult VisibilityHit;
+	const FVector TraceOffset(0.0f, 0.0f, 50.0f);
+	if (GetWorld()->LineTraceSingleByChannel(VisibilityHit, Origin + TraceOffset,
+		TargetActor->GetActorLocation() + TraceOffset, ECC_Visibility, VisibilityParams)
+		&& VisibilityHit.GetActor() != TargetActor)
 	{
 		return false;
 	}

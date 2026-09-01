@@ -1,6 +1,7 @@
 #include "Abilities/HeroArenaStrikerAbilitySet.h"
 
 #include "Abilities/HeroArenaGameplayAbility_Sprint.h"
+#include "Abilities/HeroArenaGameplayAbility_BotSpiralGrenade.h"
 #include "Abilities/HeroArenaGameplayAbility_RecoveryField.h"
 #include "Abilities/HeroArenaGameplayAbility_WeaponOverload.h"
 #include "Abilities/HeroArenaGameplayAbility_SelectHero.h"
@@ -27,6 +28,10 @@ UHeroArenaStrikerAbilitySet::UHeroArenaStrikerAbilitySet(const FObjectInitialize
 		SpiralGrenade.AbilityLevel = 1;
 		SpiralGrenade.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.SpiralGrenade"));
 	}
+
+	FLyraAbilitySet_GameplayAbility& BotSpiralGrenade = GrantedGameplayAbilities.AddDefaulted_GetRef();
+	BotSpiralGrenade.Ability = UHeroArenaGameplayAbility_BotSpiralGrenade::StaticClass();
+	BotSpiralGrenade.AbilityLevel = 1;
 
 	FLyraAbilitySet_GameplayAbility& RecoveryField = GrantedGameplayAbilities.AddDefaulted_GetRef();
 	RecoveryField.Ability = UHeroArenaGameplayAbility_RecoveryField::StaticClass();

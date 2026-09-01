@@ -126,6 +126,64 @@ void UHeroArenaRecallHistoryComponent::CaptureSample()
 	}
 }
 
+bool UHeroArenaRecallHistoryComponent::HasUsefulRecallSample(const float MinimumHealthGain) const
+{
+	APlayerState* PlayerState = Cast<APlayerState>(GetOwner());
+	ACharacter* Character = PlayerState ? Cast<ACharacter>(PlayerState->GetPawn()) : nullptr;
+	ULyraHealthComponent* Health = ULyraHealthComponent::FindHealthComponent(Character);
+	const UWorld* World = GetWorld();
+	if (!PlayerState || !PlayerState->HasAuthority() || !World || !IsPhaseSelected()
+		|| !Character || !Health || Health->IsDeadOrDying() || Health->GetHealth() <= 0.0f
+		|| World->GetTimeSeconds() < NextRecallAllowedServerTime)
+	{
+		return false;
+	}
+
+	ULyraInventoryItemInstance* CurrentPistolItem = nullptr;
+	int32 CurrentMagazineAmmo = 0;
+	int32 CurrentMagazineCapacity = 0;
+	if (!GetCurrentPistolState(
+		Character, CurrentPistolItem, CurrentMagazineAmmo, CurrentMagazineCapacity))
+	{
+		return false;
+	}
+
+	const float TargetTime = World->GetTimeSeconds() - RecallDelay;
+	int32 TargetIndex = INDEX_NONE;
+	for (int32 Index = Samples.Num() - 1; Index >= 0; --Index)
+	{
+		if (Samples[Index].Pawn.Get() == Character && Samples[Index].ServerTime <= TargetTime)
+		{
+			TargetIndex = Index;
+			break;
+		}
+	}
+	if (TargetIndex == INDEX_NONE)
+	{
+		return false;
+	}
+
+	for (int32 Index = TargetIndex; Index < Samples.Num(); ++Index)
+	{
+		const FRecallSample& Sample = Samples[Index];
+		if (Sample.Pawn.Get() != Character)
+		{
+			continue;
+		}
+		if (Sample.PistolItem.Get() != CurrentPistolItem)
+		{
+			return false;
+		}
+		if (IsLocationLegal(Character, Sample.Location, Sample.Rotation))
+		{
+			const float RestoredHealth = FMath::Clamp(Sample.Health, 1.0f, Health->GetMaxHealth());
+			return RestoredHealth - Health->GetHealth() >= FMath::Max(0.0f, MinimumHealthGain);
+		}
+	}
+
+	return false;
+}
+
 bool UHeroArenaRecallHistoryComponent::TryRecallPosition(FHeroArenaRecallResult& OutResult)
 {
 	OutResult = FHeroArenaRecallResult();

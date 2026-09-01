@@ -1,11 +1,11 @@
 #pragma once
 
-#include "AbilitySystem/Abilities/LyraGameplayAbility.h"
+#include "Abilities/HeroArenaGameplayAbility_Ultimate.h"
 #include "HeroArenaGameplayAbility_StickyBomb.generated.h"
 
 /** Phase ultimate: predicts activation/cooldown locally; the server owns projectile state and damage. */
 UCLASS()
-class HEROARENARUNTIME_API UHeroArenaGameplayAbility_StickyBomb : public ULyraGameplayAbility
+class HEROARENARUNTIME_API UHeroArenaGameplayAbility_StickyBomb : public UHeroArenaGameplayAbility_Ultimate
 {
 	GENERATED_BODY()
 

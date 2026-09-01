@@ -46,6 +46,10 @@ UHeroArenaStrikerInputConfig::UHeroArenaStrikerInputConfig(const FObjectInitiali
 		FLyraInputAction& Binding = AbilityInputActions.AddDefaulted_GetRef();
 		Binding.InputAction = WeaponOverloadAction.Object;
 		Binding.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.WeaponOverload"));
+
+		FLyraInputAction& RelayBinding = AbilityInputActions.AddDefaulted_GetRef();
+		RelayBinding.InputAction = WeaponOverloadAction.Object;
+		RelayBinding.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.RelayTeamAmplifier"));
 	}
 
 	ConstructorHelpers::FObjectFinder<UInputAction> PurificationNeedleAction(
@@ -55,6 +59,10 @@ UHeroArenaStrikerInputConfig::UHeroArenaStrikerInputConfig(const FObjectInitiali
 		FLyraInputAction& Binding = AbilityInputActions.AddDefaulted_GetRef();
 		Binding.InputAction = PurificationNeedleAction.Object;
 		Binding.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.PurificationNeedle"));
+
+		FLyraInputAction& RelayBinding = AbilityInputActions.AddDefaulted_GetRef();
+		RelayBinding.InputAction = PurificationNeedleAction.Object;
+		RelayBinding.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.RelayQuickMaintenance"));
 	}
 
 	ConstructorHelpers::FObjectFinder<UInputAction> OverclockInjectionAction(
@@ -100,5 +108,13 @@ UHeroArenaStrikerInputConfig::UHeroArenaStrikerInputConfig(const FObjectInitiali
 		FLyraInputAction& Binding = AbilityInputActions.AddDefaulted_GetRef();
 		Binding.InputAction = RelayBeaconAction.Object;
 		Binding.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.RelayBeacon"));
+	}
+
+	// Relay reuses the established recovery-field action/key as its second ability slot.
+	if (RecoveryFieldAction.Succeeded())
+	{
+		FLyraInputAction& Binding = AbilityInputActions.AddDefaulted_GetRef();
+		Binding.InputAction = RecoveryFieldAction.Object;
+		Binding.InputTag = FGameplayTag::RequestGameplayTag(TEXT("InputTag.Ability.RelayJumpPad"));
 	}
 }

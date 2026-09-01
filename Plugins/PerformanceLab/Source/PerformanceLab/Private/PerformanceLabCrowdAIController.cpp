@@ -21,6 +21,7 @@ void APerformanceLabCrowdAIController::BeginPlay()
     Super::BeginPlay();
     bNavigationLoad = FParse::Param(FCommandLine::Get(), TEXT("PerfLabNavigationLoad"));
     bNavigationBudget = FParse::Param(FCommandLine::Get(), TEXT("PerfLabNavigationBudget"));
+	bNavigationPolicy = bNavigationBudget || FParse::Param(FCommandLine::Get(), TEXT("PerfLabNavigationPolicy"));
     DecisionAccumulator = (static_cast<double>(GetUniqueID() % 20) / 20.0) * DecisionIntervalSeconds;
     if (UPerformanceLabCrowdAISubsystem* Subsystem = GetWorld()->GetSubsystem<UPerformanceLabCrowdAISubsystem>())
     {
@@ -195,7 +196,7 @@ void APerformanceLabCrowdAIController::RunNavigationDecision()
     const double RouteAngle = AgentIndex * 2.399963229728653;
     const FVector RouteRight(-FMath::Sin(RouteAngle), FMath::Cos(RouteAngle), 0.0);
     const FVector DesiredGoal = Endpoint + RouteRight * (FMath::Sin(Now * 0.8 + Phase) * 60.0);
-    if (!bNavigationBudget)
+    if (!bNavigationPolicy)
     {
         ExecuteNavigationMove(DesiredGoal);
     }
@@ -207,7 +208,14 @@ void APerformanceLabCrowdAIController::RunNavigationDecision()
         const bool bNeedsStuckRecovery = bNavigationStuck && bCooldownElapsed;
         if (bForceRequest || (bCooldownElapsed && bGoalChangedEnough) || bNeedsRecovery || bNeedsStuckRecovery)
         {
-            Subsystem->QueueNavigationMove(this, DesiredGoal);
+			if (bNavigationBudget)
+			{
+				Subsystem->QueueNavigationMove(this, DesiredGoal);
+			}
+			else
+			{
+				ExecuteNavigationMove(DesiredGoal);
+			}
         }
     }
 

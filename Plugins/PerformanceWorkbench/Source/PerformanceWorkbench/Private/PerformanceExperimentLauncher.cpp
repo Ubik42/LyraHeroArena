@@ -28,7 +28,7 @@ FPerformanceExperimentLaunchResult FPerformanceExperimentLauncher::Launch(FPerfo
     Result.RunId = Request.RunId;
     Result.Arguments = BuildArguments(Request);
     const FString Executable = FPlatformProcess::ExecutablePath();
-    const FProcHandle Handle = FPlatformProcess::CreateProc(*Executable, *Result.Arguments, true, false, false, &Result.ProcessId, 0, *FPaths::ProjectDir(), nullptr);
+	const FProcHandle Handle = FPlatformProcess::CreateProc(*Executable, *Result.Arguments, true, true, true, &Result.ProcessId, 0, *FPaths::ProjectDir(), nullptr);
     Result.bStarted = Handle.IsValid();
     if (!Result.bStarted)
     {
@@ -51,7 +51,7 @@ FString FPerformanceExperimentLauncher::BuildArguments(const FPerformanceExperim
     }
 
     FString Arguments = FString::Printf(
-        TEXT("%s %s %s -nosplash -PerfLab -PerfLabAgents=%d -PerfLabSeed=%d -PerfLabWarmup=%.3f -PerfLabDuration=%.3f -PerfLabReadyTimeout=%.3f -PerfLabRunId=%s -PerfLabSessionId=%s -PerfLabProcessRole=%s -PerfLabConnections=%d -PerfLabPresetId=%s -PerfLabDimension=%s -PerfLabVariant=%s -PerfLabSourceRevision=%s"),
+        TEXT("%s %s %s -unattended -nosplash -nocrashreports -NoCrashDialog -NoPause -nop4 -PerfLab -PerfLabAgents=%d -PerfLabSeed=%d -PerfLabWarmup=%.3f -PerfLabDuration=%.3f -PerfLabReadyTimeout=%.3f -PerfLabRunId=%s -PerfLabSessionId=%s -PerfLabProcessRole=%s -PerfLabConnections=%d -PerfLabPresetId=%s -PerfLabDimension=%s -PerfLabVariant=%s -PerfLabSourceRevision=%s"),
         *Quote(FPaths::ConvertRelativePathToFull(FPaths::GetProjectFilePath())),
         *MapTarget,
         Request.bDedicatedServer ? TEXT("-server") : TEXT("-game"),
@@ -83,8 +83,12 @@ FString FPerformanceExperimentLauncher::BuildArguments(const FPerformanceExperim
     }
     if (Request.bNullRHI)
     {
-        Arguments += TEXT(" -nullrhi -unattended -NoSound");
+        Arguments += TEXT(" -nullrhi -NoSound");
     }
+	else if (Request.bCaptureGpuPasses)
+	{
+		Arguments += TEXT(" -csvGpuStats -RenderOffscreen -NoSound");
+	}
     if (Request.ServerPort > 0)
     {
         Arguments += FString::Printf(TEXT(" -port=%d"), Request.ServerPort);

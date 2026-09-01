@@ -2,6 +2,8 @@
 
 #include "GameFramework/PlayerState.h"
 #include "Hero/HeroArenaHeroSelectionComponent.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 #include "TimerManager.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaGameplayAbility_SelectHero)
@@ -14,6 +16,14 @@ UHeroArenaGameplayAbility_SelectHero::UHeroArenaGameplayAbility_SelectHero(const
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::LocalPredicted;
 	ActivationPolicy = ELyraAbilityActivationPolicy::OnInputTriggered;
+}
+
+bool UHeroArenaGameplayAbility_SelectHero::CanActivateAbility(const FGameplayAbilitySpecHandle Handle,
+	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags,
+	const FGameplayTagContainer* TargetTags, FGameplayTagContainer* OptionalRelevantTags) const
+{
+	return FParse::Param(FCommandLine::Get(), TEXT("HeroArenaEnableDebugHeroHotkeys"))
+		&& Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags);
 }
 
 void UHeroArenaGameplayAbility_SelectHero::ActivateAbility(const FGameplayAbilitySpecHandle Handle,

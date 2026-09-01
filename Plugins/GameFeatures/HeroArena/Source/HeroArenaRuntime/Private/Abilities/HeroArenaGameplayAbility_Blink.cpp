@@ -1,6 +1,7 @@
 #include "Abilities/HeroArenaGameplayAbility_Blink.h"
 
 #include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
+#include "AbilitySystem/Abilities/LyraAbilitySimpleFailureMessage.h"
 #include "AbilitySystemComponent.h"
 #include "Animation/AnimMontage.h"
 #include "Character/LyraCharacter.h"
@@ -8,6 +9,8 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameFramework/PlayerController.h"
 #include "UObject/ConstructorHelpers.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaGameplayAbility_Blink)
@@ -72,9 +75,17 @@ void UHeroArenaGameplayAbility_Blink::ActivateAbility(
 	const float TravelDistance = FVector::Dist2D(Start, End);
 
 	UHeroArenaBlinkChargeComponent* Charges = GetChargeComponent(ActorInfo);
-	if (Direction.IsNearlyZero() || TravelDistance < MinimumTravelDistance ||
-		!CommitAbility(Handle, ActorInfo, ActivationInfo) || !Charges || !Charges->TryConsumeCharge())
+	if (Direction.IsNearlyZero() || TravelDistance < MinimumTravelDistance)
 	{
+		if (ActorInfo && ActorInfo->IsLocallyControlled())
+		{
+			FLyraAbilitySimpleFailureMessage Message;
+			Message.PlayerController = Cast<APlayerController>(Character->GetController());
+			Message.UserFacingReason = NSLOCTEXT(
+				"HeroArenaAbilityFeedback", "BlinkNoRoom", "前方空间不足，无法闪现");
+			UGameplayMessageSubsystem::Get(this).BroadcastMessage(
+				FGameplayTag::RequestGameplayTag(TEXT("Ability.UserFacingSimpleActivateFail.Message")), Message);
+		}
 		if (Character->HasAuthority())
 		{
 			UE_LOG(LogHeroArenaBlink, Log,
@@ -82,6 +93,11 @@ void UHeroArenaGameplayAbility_Blink::ActivateAbility(
 				*GetNameSafe(Character), bBlocked ? TEXT("true") : TEXT("false"), TravelDistance,
 				*Start.ToCompactString(), *DesiredEnd.ToCompactString());
 		}
+		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
+		return;
+	}
+	if (!CommitAbility(Handle, ActorInfo, ActivationInfo) || !Charges || !Charges->TryConsumeCharge())
+	{
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
 		return;
 	}

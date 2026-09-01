@@ -20,6 +20,7 @@ struct FPerformanceExperimentLaunchRequest
     bool bDedicatedServer = false;
     bool bNullRHI = false;
     bool bIncludeExperience = true;
+    bool bCaptureGpuPasses = true;
 };
 
 struct FPerformanceExperimentLaunchResult

@@ -83,28 +83,42 @@ void UPerformanceLabCrowdAISubsystem::QueueNavigationMove(APerformanceLabCrowdAI
     }))
     {
         Existing->Goal = Goal;
+		Existing->bStuckRecovery |= Controller->IsNavigationStuck();
         return;
     }
     FPendingNavigationMove& Request = PendingNavigationMoves.AddDefaulted_GetRef();
     Request.Controller = Controller;
     Request.Goal = Goal;
+	Request.QueuedAtSeconds = GetWorld()->GetTimeSeconds();
+	Request.bStuckRecovery = Controller->IsNavigationStuck();
 }
 
 void UPerformanceLabCrowdAISubsystem::ProcessNavigationRequestBudget()
 {
     const double StartSeconds = FPlatformTime::Seconds();
     constexpr int32 MaxRequestsPerFrame = 12;
-    int32 Processed = 0;
-    while (!PendingNavigationMoves.IsEmpty() && Processed < MaxRequestsPerFrame)
+	PendingNavigationMoves.RemoveAllSwap([](const FPendingNavigationMove& Request)
+	{
+		return !Request.Controller.IsValid();
+	});
+	PendingNavigationMoves.StableSort([](const FPendingNavigationMove& A, const FPendingNavigationMove& B)
+	{
+		if (A.bStuckRecovery != B.bStuckRecovery)
+		{
+			return A.bStuckRecovery;
+		}
+		return A.QueuedAtSeconds < B.QueuedAtSeconds;
+	});
+	const int32 Processed = FMath::Min(MaxRequestsPerFrame, PendingNavigationMoves.Num());
+	for (int32 Index = 0; Index < Processed; ++Index)
     {
-        const FPendingNavigationMove Request = PendingNavigationMoves[0];
-        PendingNavigationMoves.RemoveAt(0, 1, EAllowShrinking::No);
+		const FPendingNavigationMove& Request = PendingNavigationMoves[Index];
         if (APerformanceLabCrowdAIController* Controller = Request.Controller.Get())
         {
             Controller->ExecuteNavigationMove(Request.Goal);
         }
-        ++Processed;
     }
+	PendingNavigationMoves.RemoveAt(0, Processed, EAllowShrinking::No);
     NavigationBudgetWorkTimeTotalMs += (FPlatformTime::Seconds() - StartSeconds) * 1000.0;
 }
 
@@ -240,6 +254,11 @@ FPerformanceLabCrowdAISnapshot UPerformanceLabCrowdAISubsystem::GetSnapshot() co
     Snapshot.SharedFactsUpdateTimeTotalMs = SharedFactsUpdateTimeTotalMs;
     Snapshot.SharedFactsUpdateCount = SharedFactsUpdateCount;
     Snapshot.NavigationPendingRequestCount = PendingNavigationMoves.Num();
+	const double Now = GetWorld() ? GetWorld()->GetTimeSeconds() : 0.0;
+	for (const FPendingNavigationMove& Request : PendingNavigationMoves)
+	{
+		Snapshot.NavigationMaxPendingWaitMs = FMath::Max(Snapshot.NavigationMaxPendingWaitMs, (Now - Request.QueuedAtSeconds) * 1000.0);
+	}
     Snapshot.NavigationBudgetWorkTimeTotalMs = NavigationBudgetWorkTimeTotalMs;
     double TotalDistance = 0.0;
     for (const TWeakObjectPtr<APerformanceLabCrowdAIController>& AgentPtr : Agents)

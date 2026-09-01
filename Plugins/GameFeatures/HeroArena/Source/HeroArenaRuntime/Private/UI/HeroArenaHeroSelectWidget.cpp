@@ -81,6 +81,26 @@ TSharedRef<SWidget> UHeroArenaHeroSelectWidget::RebuildWidget()
 						.ColorAndOpacity(FLinearColor(0.58f, 0.72f, 0.88f, 1.0f))
 						.Font(FCoreStyle::GetDefaultFontStyle("Regular", 17))
 					]
+					+ SVerticalBox::Slot().AutoHeight().Padding(0.0f, 0.0f, 0.0f, 7.0f)
+					[
+						SAssignNew(ContextText, STextBlock)
+						.Text(NSLOCTEXT("HeroArenaHeroSelect", "OpeningContext", "开局阵容 · 选择后即可进入战场"))
+						.ColorAndOpacity(FLinearColor(0.92f, 0.62f, 0.28f, 1.0f))
+						.Font(FCoreStyle::GetDefaultFontStyle("Bold", 14))
+					]
+					+ SVerticalBox::Slot().AutoHeight().Padding(0.0f, 0.0f, 0.0f, 3.0f)
+					[
+						SAssignNew(TeamCompositionText, STextBlock)
+						.Text(NSLOCTEXT("HeroArenaHeroSelect", "TeamCompositionLoading", "我方阵容正在同步"))
+						.ColorAndOpacity(HeroArenaHeroSelectUI::AccentColor)
+						.Font(FCoreStyle::GetDefaultFontStyle("Bold", 16))
+					]
+					+ SVerticalBox::Slot().AutoHeight().Padding(0.0f, 0.0f, 0.0f, 18.0f)
+					[
+						SAssignNew(TeamHeroListText, STextBlock)
+						.ColorAndOpacity(FLinearColor(0.66f, 0.74f, 0.82f, 1.0f))
+						.Font(FCoreStyle::GetDefaultFontStyle("Regular", 13))
+					]
 					+ SVerticalBox::Slot()
 					.AutoHeight()
 					[
@@ -130,6 +150,7 @@ TSharedRef<SWidget> UHeroArenaHeroSelectWidget::RebuildWidget()
 
 	RebuildHeroCards();
 	RefreshSelectionText();
+	RefreshTeamComposition();
 	return Root;
 }
 
@@ -139,8 +160,43 @@ void UHeroArenaHeroSelectWidget::ReleaseSlateResources(const bool bReleaseChildr
 	HeroCardsBox.Reset();
 	CurrentHeroText.Reset();
 	StatusText.Reset();
+	ContextText.Reset();
+	TeamCompositionText.Reset();
+	TeamHeroListText.Reset();
 	HeroButtons.Reset();
 	HeroIds.Reset();
+}
+
+void UHeroArenaHeroSelectWidget::OpenForRespawn(const float RespawnDuration)
+{
+	bRespawnContext = true;
+	if (ContextText.IsValid())
+	{
+		ContextText->SetText(FText::FromString(FString::Printf(
+			TEXT("重生窗口 %.0f 秒 · 现在可调整英雄"), FMath::Max(0.0f, RespawnDuration))));
+	}
+	if (StatusText.IsValid())
+	{
+		StatusText->SetText(NSLOCTEXT("HeroArenaHeroSelect", "RespawnSelection", "选择会由服务器确认，并应用到下一名 Pawn"));
+		StatusText->SetColorAndOpacity(HeroArenaHeroSelectUI::AccentColor);
+	}
+	RefreshSelectionText();
+	ActivateWidget();
+	SetFocus();
+}
+
+void UHeroArenaHeroSelectWidget::CloseRespawnSelection()
+{
+	if (!bRespawnContext)
+	{
+		return;
+	}
+	bRespawnContext = false;
+	if (ContextText.IsValid())
+	{
+		ContextText->SetText(NSLOCTEXT("HeroArenaHeroSelect", "OpeningContext2", "开局阵容 · 选择后即可进入战场"));
+	}
+	DeactivateWidget();
 }
 
 void UHeroArenaHeroSelectWidget::NativeConstruct()
@@ -149,6 +205,18 @@ void UHeroArenaHeroSelectWidget::NativeConstruct()
 	BindSelectionComponent();
 	RebuildHeroCards();
 	RefreshSelectionText();
+	RefreshTeamComposition();
+}
+
+void UHeroArenaHeroSelectWidget::NativeTick(const FGeometry& MyGeometry, const float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+	const double Now = FPlatformTime::Seconds();
+	if (Now >= NextTeamRefreshTime)
+	{
+		NextTeamRefreshTime = Now + 0.25;
+		RefreshTeamComposition();
+	}
 }
 
 void UHeroArenaHeroSelectWidget::NativeDestruct()
@@ -329,8 +397,33 @@ void UHeroArenaHeroSelectWidget::RefreshSelectionText()
 		? SelectionComponent->GetSelectedHero()
 		: nullptr;
 	CurrentHeroText->SetText(SelectedHero
-		? FText::Format(NSLOCTEXT("HeroArenaHeroSelect", "CurrentHero", "当前英雄：{0}"), SelectedHero->DisplayName)
+		? FText::Format(bRespawnContext
+			? NSLOCTEXT("HeroArenaHeroSelect", "RespawnHero", "将以 {0} 返回战场")
+			: NSLOCTEXT("HeroArenaHeroSelect", "CurrentHero", "当前英雄：{0}"), SelectedHero->DisplayName)
 		: NSLOCTEXT("HeroArenaHeroSelect", "NoCurrentHero", "当前英雄：等待服务器同步"));
+}
+
+void UHeroArenaHeroSelectWidget::RefreshTeamComposition()
+{
+	const UHeroArenaHeroSelectionComponent* Selection = SelectionComponent.Get();
+	const FText Summary = Selection
+		? Selection->GetTeamCompositionSummary()
+		: NSLOCTEXT("HeroArenaHeroSelect", "TeamCompositionLoading2", "我方阵容正在同步");
+	if (TeamCompositionText.IsValid())
+	{
+		TeamCompositionText->SetText(Summary);
+	}
+	if (TeamHeroListText.IsValid())
+	{
+		TeamHeroListText->SetText(Selection ? Selection->GetTeamHeroList() : FText::GetEmpty());
+	}
+	const FString SummaryString = Summary.ToString();
+	if (Selection && !SummaryString.IsEmpty() && SummaryString != LastTeamCompositionLog)
+	{
+		LastTeamCompositionLog = SummaryString;
+		UE_LOG(LogHeroArenaHeroSelectUI, Log, TEXT("Team composition updated: %s | %s"),
+			*SummaryString, *Selection->GetTeamHeroList().ToString());
+	}
 }
 
 FReply UHeroArenaHeroSelectWidget::HandleHeroPressed(const FName HeroId)
@@ -376,6 +469,7 @@ void UHeroArenaHeroSelectWidget::HandleHeroChanged(
 	const UHeroArenaHeroDefinition* OldHero, const UHeroArenaHeroDefinition* NewHero)
 {
 	RefreshSelectionText();
+	RefreshTeamComposition();
 }
 
 void UHeroArenaHeroSelectWidget::HandleSelectionLockChanged(const bool bIsLocked)

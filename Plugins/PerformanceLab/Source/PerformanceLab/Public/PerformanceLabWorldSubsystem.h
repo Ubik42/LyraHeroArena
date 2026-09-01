@@ -7,6 +7,10 @@
 
 class AActor;
 class UBrainComponent;
+class UNiagaraComponent;
+class UNiagaraSystem;
+class UStaticMesh;
+class UStaticMeshComponent;
 
 /**
  * Runtime contract for reproducible performance runs.
@@ -36,6 +40,11 @@ private:
     void RecordNavigationMetrics();
     void ImportCsvMetrics();
     void TrySpawnReplicatedFixture();
+    void TryCreatePhysicsLoad();
+    void UpdatePhysicsLoad(float DeltaTime);
+    void TryCreateNiagaraCombatLoad();
+    void UpdateNiagaraCombatLoad(float DeltaTime);
+    void CaptureWorldNiagaraSnapshot(bool bMeasurementStart);
     void RecordNetworkMetrics();
     void LockInitialPlayerView();
     void BeginMeasurement();
@@ -64,19 +73,56 @@ private:
     bool bSharedBattleFactsRequested = false;
     bool bNavigationLoadRequested = false;
     bool bNavigationBudgetRequested = false;
-    bool bAnimationBudgetRequested = false;
+    bool bAnimationLODRequested = false;
     bool bCharacterRenderSignificanceRequested = false;
+    bool bCharacterRayTracingLODRequested = false;
+    bool bCharacterCustomDepthLODRequested = false;
+    bool bPhysicsLoadRequested = false;
+    bool bPhysicsLODRequested = false;
+    bool bPhysicsLoadCreated = false;
+    bool bNiagaraCombatLoadRequested = false;
+    bool bWeaponVFXLoadRequested = false;
+    bool bNiagaraBudgetRequested = false;
+    bool bNiagaraPersistentStatusReuseRequested = false;
+    bool bNiagaraCombatLoadCreated = false;
+    bool bDetailedFXStatsRequested = false;
+    bool bDetailedFXStatsApplied = false;
+    int32 PreviousDetailedFXStats = 0;
+    int32 PreviousDetailedFXMemoryMode = 1;
     int32 PawnCount = 0;
     int32 AIControllerCount = 0;
     int32 PossessedAIPawnCount = 0;
     int32 LyraCharacterCount = 0;
     int32 ShadowCastingCharacterCount = 0;
+    int32 ReducedAttachedShadowPrimitiveCount = 0;
+    int32 RayTracingExcludedCharacterCount = 0;
+    int32 RayTracingExcludedAttachedPrimitiveCount = 0;
+    int32 DistanceCulledEquipmentPrimitiveCount = 0;
+    int32 CustomDepthCharacterCount = 0;
     int32 ManagedSignificanceObjectCount = 0;
-    int32 AnimationBudgetedMeshCount = 0;
     int32 AnimationSignificanceAppliedCount = 0;
     int32 AnimationFullRateProtectedCount = 0;
     int32 AnimationLocalPlayerProtectedCount = 0;
-    int32 AnimationBudgetEligibleCount = 0;
+    int32 AnimationUROEnabledCount = 0;
+    int32 AnimationFarFieldCount = 0;
+    int32 AnimationPostProcessDisabledCount = 0;
+    int32 TargetPhysicsBodyCount = 300;
+    int32 PhysicsBodyCount = 0;
+    int32 PhysicsAwakeBodyCount = 0;
+    int32 PhysicsSimulatedBodyCount = 0;
+    int32 PhysicsLODDisabledBodyCount = 0;
+    int32 TargetNiagaraStatusSlotCount = 24;
+    int32 NiagaraStatusActivationCount = 0;
+    int32 NiagaraActiveComponentCount = 0;
+    int32 NiagaraRequestedBurstCount = 0;
+    int32 NiagaraBurstSpawnCount = 0;
+    int32 NiagaraCulledBurstCount = 0;
+    int32 NiagaraCriticalRequestedCount = 0;
+    int32 NiagaraCriticalSpawnedCount = 0;
+    int32 WorldNiagaraRegisteredAtStart = 0;
+    int32 WorldNiagaraActiveAtStart = 0;
+    int32 WorldNiagaraRegisteredAtEnd = 0;
+    int32 WorldNiagaraActiveAtEnd = 0;
     int32 NetConnectionCount = 0;
     int32 TargetConnectionCount = 0;
     int32 ReplicatedFixtureCount = 0;
@@ -134,6 +180,15 @@ private:
     double AIPolicyUpdateAccumulator = 0.0;
     double AIMaxDecisionBudgetMs = 0.0;
     double AIPolicyUpdateTimeMs = 0.0;
+    double PhysicsImpulseAccumulator = 0.0;
+    double PhysicsStateSampleAccumulator = 0.0;
+    double PhysicsFullSimulationDistance = 2400.0;
+    double NiagaraBurstsPerSecond = 12.0;
+    double NiagaraBurstAccumulator = 0.0;
+    double NiagaraStatusRefreshAccumulator = 0.0;
+    double NiagaraStateSampleAccumulator = 0.0;
+    double NiagaraFullEffectDistance = 2400.0;
+    double NiagaraCriticalPreservationRatio = 1.0;
     double FrameTimeSumMs = 0.0;
     double MinFrameTimeMs = TNumericLimits<double>::Max();
     double MaxFrameTimeMs = 0.0;
@@ -143,8 +198,19 @@ private:
     FString ReplicatedFixtureClassPath;
     TSubclassOf<AActor> ReplicatedFixtureClass;
     TMap<FString, TArray<double>> MetricSamples;
+    TMap<FString, int32> WorldNiagaraActiveSystemsAtEnd;
+    TMap<FString, int32> WorldNiagaraActiveOwnerClassesAtEnd;
     TMap<TWeakObjectPtr<UBrainComponent>, double> AIBrainAccumulators;
     TMap<TWeakObjectPtr<UBrainComponent>, float> AIBrainDecisionIntervals;
+    TArray<TWeakObjectPtr<UStaticMeshComponent>> PhysicsBodyComponents;
+    TArray<TWeakObjectPtr<UNiagaraComponent>> NiagaraStatusComponents;
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<UNiagaraSystem>> NiagaraCombatSystems;
+    UPROPERTY(Transient)
+    TObjectPtr<UStaticMesh> WeaponVFXShellMesh;
+    FVector NiagaraViewOrigin = FVector::ZeroVector;
+    FVector NiagaraNearCenter = FVector::ZeroVector;
+    FVector NiagaraFarCenter = FVector::ZeroVector;
     TWeakObjectPtr<AActor> LockedViewActor;
     FPerformanceExperimentPresetData Preset;
     FPerformanceExperimentSession Session;

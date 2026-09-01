@@ -21,11 +21,16 @@ public:
 
 	virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
 
+	/** Reopens the roster while Lyra's existing auto-respawn countdown is active. */
+	void OpenForRespawn(float RespawnDuration);
+	void CloseRespawnSelection();
+
 protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 	virtual void NativeConstruct() override;
 	virtual void NativeDestruct() override;
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 	virtual void NativeOnActivated() override;
 	virtual bool NativeOnHandleBackAction() override;
 	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
@@ -34,6 +39,7 @@ private:
 	void BindSelectionComponent();
 	void RebuildHeroCards();
 	void RefreshSelectionText();
+	void RefreshTeamComposition();
 	FReply HandleHeroPressed(FName HeroId);
 	FReply HandleContinuePressed();
 	FText GetRoleText(const UHeroArenaHeroDefinition* Hero) const;
@@ -51,7 +57,13 @@ private:
 	TSharedPtr<SVerticalBox> HeroCardsBox;
 	TSharedPtr<STextBlock> CurrentHeroText;
 	TSharedPtr<STextBlock> StatusText;
+	TSharedPtr<STextBlock> ContextText;
+	TSharedPtr<STextBlock> TeamCompositionText;
+	TSharedPtr<STextBlock> TeamHeroListText;
 	TArray<TSharedPtr<SButton>> HeroButtons;
 	TArray<FName> HeroIds;
 	int32 FocusedHeroIndex = 0;
+	double NextTeamRefreshTime = 0.0;
+	FString LastTeamCompositionLog;
+	bool bRespawnContext = false;
 };

@@ -1,5 +1,7 @@
 #include "Actors/HeroArenaGroundSlamSlow.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/Character.h"
@@ -85,10 +87,20 @@ void AHeroArenaGroundSlamSlow::ApplySlowLocally()
 	AppliedMaxWalkSpeed = OriginalMaxWalkSpeed * SpeedMultiplier;
 	Movement->MaxWalkSpeed = AppliedMaxWalkSpeed;
 	bAppliedLocally = true;
+	int32 StatusTagCount = -1;
+	if (UAbilitySystemComponent* AbilitySystem =
+		UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor))
+	{
+		const FGameplayTag StatusTag =
+			FGameplayTag::RequestGameplayTag(TEXT("Status.HeroArena.GroundSlamSlowed"));
+		AbilitySystem->AddLooseGameplayTag(StatusTag);
+		StatusTagCount = AbilitySystem->GetTagCount(StatusTag);
+	}
 	AttachToActor(TargetActor, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	UE_LOG(LogHeroArenaGroundSlamSlow, Log,
-		TEXT("Ground slam slow applied: target=%s speed=%.0f->%.0f authority=%s"),
+		TEXT("Ground slam slow applied: target=%s speed=%.0f->%.0f status_count=%d authority=%s"),
 		*GetNameSafe(TargetActor), OriginalMaxWalkSpeed, AppliedMaxWalkSpeed,
+		StatusTagCount,
 		HasAuthority() ? TEXT("true") : TEXT("false"));
 }
 
@@ -96,8 +108,22 @@ void AHeroArenaGroundSlamSlow::RestoreSpeedLocally()
 {
 	ACharacter* Character = Cast<ACharacter>(TargetActor);
 	UCharacterMovementComponent* Movement = Character ? Character->GetCharacterMovement() : nullptr;
-	if (!bAppliedLocally || !IsValid(Movement))
+	if (!bAppliedLocally)
 	{
+		return;
+	}
+	int32 StatusTagCount = -1;
+	if (UAbilitySystemComponent* AbilitySystem =
+		UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor))
+	{
+		const FGameplayTag StatusTag =
+			FGameplayTag::RequestGameplayTag(TEXT("Status.HeroArena.GroundSlamSlowed"));
+		AbilitySystem->RemoveLooseGameplayTag(StatusTag);
+		StatusTagCount = AbilitySystem->GetTagCount(StatusTag);
+	}
+	if (!IsValid(Movement))
+	{
+		bAppliedLocally = false;
 		return;
 	}
 
@@ -107,8 +133,9 @@ void AHeroArenaGroundSlamSlow::RestoreSpeedLocally()
 		Movement->MaxWalkSpeed = OriginalMaxWalkSpeed;
 	}
 	UE_LOG(LogHeroArenaGroundSlamSlow, Log,
-		TEXT("Ground slam slow ended: target=%s speed=%.0f authority=%s"),
-		*GetNameSafe(TargetActor), Movement->MaxWalkSpeed, HasAuthority() ? TEXT("true") : TEXT("false"));
+		TEXT("Ground slam slow ended: target=%s speed=%.0f status_count=%d authority=%s"),
+		*GetNameSafe(TargetActor), Movement->MaxWalkSpeed, StatusTagCount,
+		HasAuthority() ? TEXT("true") : TEXT("false"));
 	bAppliedLocally = false;
 }
 

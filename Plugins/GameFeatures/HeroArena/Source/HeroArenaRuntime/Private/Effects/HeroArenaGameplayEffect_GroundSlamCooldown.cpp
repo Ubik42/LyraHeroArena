@@ -9,7 +9,7 @@ UHeroArenaGameplayEffect_GroundSlamCooldown::UHeroArenaGameplayEffect_GroundSlam
 	: Super(ObjectInitializer)
 {
 	DurationPolicy = EGameplayEffectDurationType::HasDuration;
-	DurationMagnitude = FScalableFloat(22.0f);
+	DurationMagnitude = FScalableFloat(1.0f);
 
 	FInheritedTagContainer CooldownTags;
 	CooldownTags.Added.AddTag(FGameplayTag::RequestGameplayTag(TEXT("Cooldown.Ability.GroundSlam")));

@@ -21,6 +21,7 @@ struct FPerformanceLabCrowdAISnapshot
     int32 NavigationMovingAgentCount = 0;
     int32 NavigationStuckAgentCount = 0;
     int32 NavigationPendingRequestCount = 0;
+	double NavigationMaxPendingWaitMs = 0.0;
     int64 NavigationRequestCount = 0;
     int64 NavigationReplanCount = 0;
     int64 NavigationFailureCount = 0;
@@ -67,6 +68,8 @@ private:
     {
         TWeakObjectPtr<APerformanceLabCrowdAIController> Controller;
         FVector Goal = FVector::ZeroVector;
+		double QueuedAtSeconds = 0.0;
+		bool bStuckRecovery = false;
     };
     TArray<FPendingNavigationMove> PendingNavigationMoves;
     bool bUseNavigationBudget = false;

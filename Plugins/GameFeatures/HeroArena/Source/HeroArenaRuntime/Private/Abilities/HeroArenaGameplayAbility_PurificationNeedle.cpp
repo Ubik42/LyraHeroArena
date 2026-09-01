@@ -2,11 +2,13 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/LyraAbilitySimpleFailureMessage.h"
 #include "Character/LyraCharacter.h"
 #include "Character/LyraHealthComponent.h"
 #include "Effects/HeroArenaGameplayEffect_PurificationNeedleCooldown.h"
 #include "Effects/HeroArenaPurificationRules.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Teams/LyraTeamSubsystem.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaGameplayAbility_PurificationNeedle)
@@ -60,6 +62,27 @@ void UHeroArenaGameplayAbility_PurificationNeedle::ActivateAbility(
 
 	auto Reject = [&](const TCHAR* Reason)
 	{
+		if (ActorInfo && ActorInfo->IsLocallyControlled())
+		{
+			FText UserFacingReason = NSLOCTEXT(
+				"HeroArenaAbilityFeedback", "AimPurificationNeedle", "净化针需要瞄准一名队友");
+			if (FCString::Strcmp(Reason, TEXT("nothing_purifiable")) == 0)
+			{
+				UserFacingReason = NSLOCTEXT(
+					"HeroArenaAbilityFeedback", "NothingToPurify", "目标当前没有可净化状态");
+			}
+			else if (FCString::Strcmp(Reason, TEXT("not_living_ally")) == 0 ||
+				FCString::Strcmp(Reason, TEXT("target_dead")) == 0)
+			{
+				UserFacingReason = NSLOCTEXT(
+					"HeroArenaAbilityFeedback", "PurifyLivingAlly", "净化针只能作用于存活队友");
+			}
+			FLyraAbilitySimpleFailureMessage Message;
+			Message.PlayerController = Cast<APlayerController>(Controller);
+			Message.UserFacingReason = UserFacingReason;
+			UGameplayMessageSubsystem::Get(this).BroadcastMessage(
+				FGameplayTag::RequestGameplayTag(TEXT("Ability.UserFacingSimpleActivateFail.Message")), Message);
+		}
 		if (Character->HasAuthority())
 		{
 			UE_LOG(LogHeroArenaPurificationNeedle, Log,

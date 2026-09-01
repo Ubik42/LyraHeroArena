@@ -1,96 +1,87 @@
 # Lyra Hero Arena
 
-基于 **Unreal Engine 5.7.4 / Lyra Starter Game 5.7** 开发的多人英雄射击游戏与性能工程作品集。
+基于 **Unreal Engine 5.7.4 / Lyra Starter Game 5.7** 开发的多人英雄射击与性能工程项目。工程在一套可运行的 5v5 对局中完成玩法扩展，并将多角色优化与性能采集整理为两个可独立介绍的方向。
 
-这个仓库围绕同一套真实游戏工程建设三项可以独立讲述的作品：**五英雄多人对战游戏**、**多角色高负载场景性能优化**、**UE Performance Workbench 性能实验工作台**。三项共享角色、战斗、地图和采集数据，但职责保持分离：游戏不依赖性能工具，运行时实验模块不依赖 Editor，工作台只读取实验合同与结果。
-
-> 公开仓库只保留自研 C++、技术说明和实际运行截图，不重新分发 Lyra、Fab 或 Unreal Engine 资产。
+> 公开仓库只包含自研 C++、技术说明和实机截图，不分发 Lyra、Fab 或 Unreal Engine 资产。
 
 <table>
   <tr>
     <td width="50%"><img src="assets/readme/hero-select.jpg" alt="五英雄选择界面"></td>
-    <td width="50%"><img src="assets/readme/gameplay.jpg" alt="游戏内实际交战场景"></td>
+    <td width="50%"><img src="assets/readme/gameplay.jpg" alt="5v5 对局画面"></td>
   </tr>
 </table>
 
-## 作品一：Lyra Hero Arena｜五英雄多人对战游戏
+## 项目内容
 
-在 Lyra 已有的武器、队伍、GAS、PawnData、CommonUI 和网络框架上继续开发一套完整可玩的英雄射击游戏。重点不是堆积孤立技能，而是让角色差异、比赛规则、网络权威与反馈系统能够稳定组合和扩展。
+### Lyra Hero Arena｜五英雄多人对战游戏
 
-计划完成的游戏内容：
+在 Lyra 的武器、队伍、GAS、PawnData、CommonUI 和联网框架上扩展五名英雄与 5v5 比赛流程。
 
-- **五名英雄**：Striker、Bulwark、Pulse、Phase、Relay；每名英雄拥有主武器、明确职责和完整能力组，覆盖机动、前排、支援、侧翼与战术控制。
-- **服务器权威的英雄流程**：选择、校验、装配、换人、死亡和重生沿用同一条状态路径；客户端只提交意图，不持有比赛权威。
-- **数据化能力组合**：英雄差异由 Ability Set、装备和数据定义组成，避免为每名英雄复制整套 Pawn 与规则代码。
-- **完整比赛闭环**：选人、出生、交战、技能、目标推进、死亡、重生、结算均可在一局内完成。
-- **两种正式模式**：轮换控制点与团队死斗共享同一英雄体系；娱乐模式只有在不阻塞主流程时加入。
-- **可参与比赛的机器人**：机器人能够按英雄职责移动、争夺目标、使用武器，并触发至少一项代表性技能。
-- **必要的战斗反馈**：命中、受击、治疗、护盾、控制、冷却、目标状态与结算结果保持一致且可读。
+- Striker、Bulwark、Pulse、Phase、Relay 分别覆盖输出、前排、支援、侧翼和战术控制；英雄由 Ability Set、装备和数据定义组合。
+- 服务器负责选人校验、能力装配、终极能量、死亡、重生、换人和结算，客户端提交操作意图并接收复制结果。
+- 已完成轮换控制点、战场脉冲和团队淘汰三种规则；一名玩家与九名职责机器人可组成完整 5v5 对局。
+- 机器人沿用 Lyra 的控制点行为树，并根据英雄职责选择治疗、位移、屏障、部署物和终极技能的使用时机。
+- 选人界面、队友职责与生命标记、战术 HUD、计分板和赛后流程已接入实际对局。
 
-自有玩法集中在 `HeroArena` Game Feature 中。C++ 负责权威规则、生命周期和网络边界，Blueprint 与 Data Asset 负责装配和表现；伤害、治疗、队伍、库存与武器 TargetData 尽量复用 Lyra 的成熟路径。
+自有玩法集中在 `HeroArena` Game Feature。C++ 处理权威规则、生命周期和网络边界，Blueprint 与 Data Asset 负责装配与表现。
 
-## 作品二：多角色高负载场景性能优化
+### 多角色高负载场景性能优化
 
-这项作品关注的不是“场景里能摆多少人”，而是在大量角色同时拥有 AI、寻路、动画、渲染、物理与网络行为时，如何定位真实瓶颈、提出单变量改进，并证明优化没有破坏行为或画质。
+性能实验以 200 个 Lyra Pawn、固定 Chaos/Niagara 负载以及真实服务器与多客户端会话构造压力场景。AI、寻路、动画/IK、渲染、物理、特效和网络分别保留 Baseline / Optimized，并同时记录角色行为、画质和连接状态。
 
-工程使用固定地图、随机种子、镜头、画质、RHI 与角色负载构造可复现压力；200 个真实 Lyra Pawn 是其中一组标准负载，而不是作品名称。每个方向都保留独立的 Baseline / Optimized：
+当前具有稳定对比的代表结果：
 
-- **AI 决策**：比较逐角色查询与共享战场事实，减少重复目标扫描和状态机工作量，同时守住目标获取率和行为分布。
-- **Navigation**：分析路径请求、重规划、拥堵和长期未服务；优化方案必须兼顾全局预算与请求公平性，不能用让角色停止移动换取收益。
-- **Animation / IK LOD**：基于 Animation Budget Allocator、距离与战斗重要性分配更新频率；本地与近景角色保持完整动画和 IK 响应。
-- **Rendering**：分别评估角色阴影、附件、材质和可见距离；使用正常 RHI 与固定镜头，区分 Game、Render、RHI 和 GPU 收益。
-- **Networking**：在真实服务器与多客户端拓扑下检查相关性、复制频率、出站带宽和服务器复制开销。
-- **Physics / VFX**：对角色物理、碰撞和 Niagara 开销先做 Profile，再选择有明确热点的单项建立前后对比，避免为了凑案例制造无效优化。
+| 方向 | 调整 | 当前 3+3 结果 |
+| --- | --- | --- |
+| AI 目标发现 | 逐角色扫描改为共享战场事实 | 决策平均中位数 `0.1392 → 0.0240 ms/帧`；Frame P95 约下降 `9.1%` |
+| Animation / IK | 远景更新降频，并在 2400 uu 外省略 FootPlant Post Process | Animation 平均中位数 `15.18 → 10.99 ms`；Frame P95 约下降 `10.3%` |
+| Navigation | 合并相同目标并限制重复重规划 | 路径请求约下降 `82%`；Frame 均值与 P95 约下降 `1.7%` |
+| 角色光追 | 1500 uu 外角色退出 Ray Tracing Scene | 动态光追几何平均中位数 `4.02 → 2.50 ms`；GPU 总平均基本持平 |
+| 网络相关性 | Relay 部署物按连接相关性复制 | 服务器出站带宽约 `20.7 → 17.7 KB/s`；复制阶段约 `1.94 → 1.60 ms` |
 
-每次运行同时记录性能指标和场景状态，包括角色存活、移动、到达率、请求失败、最长等待、近景动画质量、阴影数量和网络连接数。工作台根据这些字段判断两组样本是否处于相同负载和表现条件。
+物理距离 LOD、角色阴影和部分动态 Niagara 方案保留了测试记录，但没有作为默认游戏改动：它们在现有场景中没有形成稳定的整帧收益，或会改变画面与负载条件。
 
-## 作品三：UE Performance Workbench｜性能实验工作台
+### UE Performance Workbench｜性能实验工作台
 
-工作台是运行在 Unreal Editor 内的中文性能实验工具，用来把一次性的 Profile 操作整理为可复跑、可比较的工程流程。它既服务上述高负载实验，也用于验证 Lyra Hero Arena 开发过程中对渲染、网络和 Gameplay 架构的改进。
+`PerformanceWorkbench` 是运行在 Unreal Editor 内的中文实验工具；`PerformanceLab` 是不依赖 Editor 的运行时采集模块。两者通过版本化 Preset 和 JSON/CSV 结果连接。
 
-计划形成的完整链路：
-
-- 用版本化 Preset 保存地图、Experience、人数、随机种子、画质、RHI、采样时长和进程拓扑。
-- 从 Editor 启动单机、服务器和多个客户端，并统一管理运行编号与输出目录。
-- 汇集 CSV Profiler、AI、Navigation、Animation、Rendering、Network 等指标及原始文件。
-- 为每类实验配置 Required Guard，检查角色负载、运行条件、RHI、画质和网络拓扑；未满足条件的样本标记为不可比较。
-- 聚合同一合同下的 Baseline 3 次与 Optimized 3 次，展示中位数、P95、变化率以及对应的行为和画质指标。
-- 显示缺失样本、不可比较结果、失败 Guard 和回归提示，保留原始 CSV 与运行配置供进一步分析。
-- 提供 AI、Navigation、Animation、Rendering、Networking 等统一入口，让实验室和真实游戏中的优化使用同一套比较方法。
+- 14 条实验轨道覆盖真实 5v5、受控子系统负载和 200 角色压力场。
+- 可启动单机、Dedicated Server 与多个 Client，统一运行编号、预热、采样和输出目录。
+- 连续执行 Baseline / Optimized 各三次，展示中位数、P95、变化率和样本范围。
+- 时间轨道列出 CPU、工作线程、Render Thread 与 GPU Pass 的主要开销；Niagara 可继续下钻到具体 System 与 Owner。
+- 每条轨道同时显示人数、行为、画质、RHI 或网络拓扑，避免比较不同负载下的两组数据。
+- 原始 CSV、运行参数和未采用的结果均保留，便于复查归因。
 
 <table>
   <tr>
-    <td width="50%"><img src="assets/readme/workbench-render.png" alt="性能工作台渲染实验对比"></td>
-    <td width="50%"><img src="assets/readme/workbench-network.png" alt="性能工作台网络实验对比"></td>
+    <td width="50%"><img src="assets/readme/workbench-render.png" alt="性能工作台渲染实验"></td>
+    <td width="50%"><img src="assets/readme/workbench-network.png" alt="性能工作台网络实验"></td>
   </tr>
 </table>
-
-## 实验方法
-
-正式 A/B 固定引擎版本、源码提交、地图、Experience、负载、随机种子、分辨率、RHI、画质、镜头、预热时间、采样时间和网络拓扑。Baseline 必须是合理可运行的实现，Optimized 一次只改变一个可说明的变量。
-
-每个正式结论至少使用三次 Baseline 与三次 Optimized，并保留原始 CSV 和运行元数据。局部热点的下降只描述为局部指标收益，不等同于整帧收益，也不外推为所有项目都能获得同样结果。
 
 ## 工程结构
 
 ```text
 Plugins/
 ├── GameFeatures/HeroArena/   # 英雄、能力、模式与比赛流程
-├── PerformanceLab/           # 运行时压力、指标与质量条件
+├── PerformanceLab/           # 运行时压力场、采集与场景状态
 └── PerformanceWorkbench/     # Editor 内实验编排与结果比较
 docs/
 └── 技术报告.md
 ```
 
-## 环境与源码边界
+## 当前状态
 
-- 开发基线：Windows 11、Unreal Engine 5.7.4（CL 51494982）、Lyra Starter Game 5.7。
-- 工程保留 Epic 原始的 `LyraStarterGame.uproject`、`LyraGame` 和 `LyraEditor` 标识，避免无收益的模块与资产路径迁移。
-- 本仓库是作品集源码快照，不是可独立运行的 Lyra 分发包；地图、角色、动画、武器、音频和 UI 需通过 Epic/Fab 按许可获取。
-- `HeroArena`、`PerformanceLab` 与 `PerformanceWorkbench` 是项目自研模块；对 Lyra 源文件的必要接入会在技术报告中单独说明，不把 Epic 原有能力归为自研。
+- 五英雄 5v5 对局、三种比赛规则、机器人职责行为和完整比赛生命周期已经连通。
+- 性能实验覆盖七个方向，工作台可读取并比较 14 条轨道；本仓库中的数字来自固定条件下的阶段采样，不作为其他项目的通用性能承诺。
+- 下一阶段以实际对局的可读性、机器人技能决策和发布演示收口为主，不继续横向增加英雄、模式或无明确热点的性能案例。
 
-更完整的架构与 Benchmark 合同见 [技术报告](docs/技术报告.md)。
+开发环境为 Windows 11、Unreal Engine 5.7.4（CL 51494982）和 Lyra Starter Game 5.7。公开源码快照不能独立运行；地图、角色、动画、武器、音频和 UI 需由具备许可的 Epic/Fab 账户取得并完成工程装配。
 
-## 许可说明
+架构、实验条件与结果边界见 [技术报告](docs/技术报告.md)。
 
-Unreal Engine、Lyra Starter Game 及相关 Epic 内容遵循 Epic Games 的许可条款。本仓库不授予这些第三方内容的再分发权。自研源码当前用于作品展示与技术评审；如需复用，请先联系作者。
+## 来源与许可
+
+Lyra 原有的射击、队伍、GAS、装备、基础机器人、地图和资产不计入自研内容。`HeroArena`、`PerformanceLab` 与 `PerformanceWorkbench` 为本项目新增模块；对 Lyra 源码的少量接入在技术报告中说明。
+
+Unreal Engine、Lyra Starter Game 及 Epic 内容遵循 Epic Games 的许可条款。本仓库不授予第三方内容的再分发权。

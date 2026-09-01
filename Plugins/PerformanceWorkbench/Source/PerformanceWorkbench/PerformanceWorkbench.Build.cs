@@ -12,6 +12,7 @@ public class PerformanceWorkbench : ModuleRules
             "CoreUObject",
             "Engine",
             "ImageWrapper",
+            "InputCore",
             "Json",
             "PerformanceLab",
             "Projects",

@@ -27,6 +27,8 @@ public class HeroArenaRuntime : ModuleRules
 				"EnhancedInput",
 				"InputCore",
 				"Niagara",
+				"SignificanceManager",
+				"ShooterCoreRuntime",
 				"CommonGame",
 				"CommonUI",
 				"Slate",

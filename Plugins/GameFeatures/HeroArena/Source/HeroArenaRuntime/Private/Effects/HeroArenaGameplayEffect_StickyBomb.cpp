@@ -31,7 +31,7 @@ UHeroArenaGameplayEffect_StickyBombCooldown::UHeroArenaGameplayEffect_StickyBomb
 	: Super(ObjectInitializer)
 {
 	DurationPolicy = EGameplayEffectDurationType::HasDuration;
-	DurationMagnitude = FScalableFloat(18.0f);
+	DurationMagnitude = FScalableFloat(1.0f);
 
 	FInheritedTagContainer Tags;
 	Tags.Added.AddTag(FGameplayTag::RequestGameplayTag(TEXT("Cooldown.Ability.StickyBomb")));

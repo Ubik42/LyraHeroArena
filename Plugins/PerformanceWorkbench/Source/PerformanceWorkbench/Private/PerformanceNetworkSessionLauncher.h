@@ -3,6 +3,7 @@
 #include "Async/Future.h"
 #include "CoreMinimal.h"
 #include "PerformanceExperimentTypes.h"
+#include "Templates/Atomic.h"
 
 struct FPerformanceNetworkSessionLaunchRequest
 {
@@ -15,6 +16,7 @@ struct FPerformanceNetworkSessionLaunchRequest
     int32 ServerPort = 7777;
     double ServerReadyTimeoutSeconds = 45.0;
     double ClientJoinGraceSeconds = 15.0;
+    TSharedPtr<TAtomic<bool>, ESPMode::ThreadSafe> CancelRequested;
 };
 
 struct FPerformanceNetworkProcessLaunch
@@ -28,15 +30,20 @@ struct FPerformanceNetworkProcessLaunch
 struct FPerformanceNetworkSessionLaunchResult
 {
     bool bStarted = false;
+    bool bCompleted = false;
+    bool bCancelled = false;
+    bool bAllSummariesValid = false;
     FString SessionId;
     FString Error;
+    TArray<FString> InvalidProcessRoles;
     TArray<FPerformanceNetworkProcessLaunch> Processes;
 };
 
 /**
  * Starts a dedicated server first, waits for its actual listening marker, then
- * starts the requested clients. Only processes created by this operation are
- * terminated when launch fails.
+ * starts the requested clients. The server stays alive until every process has
+ * written its final summary. Only processes created by this operation are
+ * terminated on completion, cancellation or failure.
  */
 class FPerformanceNetworkSessionLauncher
 {

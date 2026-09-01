@@ -15,7 +15,7 @@ public:
 	UFUNCTION(BlueprintPure, Category="Hero Arena|Healing")
 	static float GetIncomingHealingMultiplier(const UAbilitySystemComponent* TargetASC);
 
-	/** Applies Lyra's canonical SetByCaller heal and returns the actual clamped health gain. */
+	/** Applies Lyra's canonical SetByCaller heal to Pawns or ASC-backed deployables. */
 	static float ApplyStandardHealing(UAbilitySystemComponent* SourceASC, AActor* TargetActor,
 		UObject* SourceObject, float BaseHeal);
 };

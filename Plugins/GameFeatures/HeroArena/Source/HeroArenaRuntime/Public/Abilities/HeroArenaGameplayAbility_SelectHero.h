@@ -4,7 +4,7 @@
 
 #include "HeroArenaGameplayAbility_SelectHero.generated.h"
 
-/** Shared, input-driven hero selection ability. The server always revalidates the requested ID against the roster. */
+/** Legacy development hotkey for hero selection. Disabled unless -HeroArenaEnableDebugHeroHotkeys is present. */
 UCLASS(Abstract)
 class HEROARENARUNTIME_API UHeroArenaGameplayAbility_SelectHero : public ULyraGameplayAbility
 {
@@ -14,6 +14,10 @@ public:
 	UHeroArenaGameplayAbility_SelectHero(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
+	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+		const FGameplayTagContainer* SourceTags = nullptr, const FGameplayTagContainer* TargetTags = nullptr,
+		FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
+
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 

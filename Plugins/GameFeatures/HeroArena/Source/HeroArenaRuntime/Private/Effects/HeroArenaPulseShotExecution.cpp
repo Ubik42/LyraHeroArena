@@ -5,7 +5,15 @@
 #include "AbilitySystem/LyraAbilitySourceInterface.h"
 #include "AbilitySystem/LyraGameplayEffectContext.h"
 #include "Effects/HeroArenaHealingRules.h"
+#include "Actors/HeroArenaBarrier.h"
+#include "Actors/HeroArenaRelayBeacon.h"
+#include "Actors/HeroArenaTeamAmplifier.h"
 #include "Engine/World.h"
+#include "GameFramework/Controller.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerState.h"
+#include "Hero/HeroArenaHeroDefinition.h"
+#include "Hero/HeroArenaHeroSelectionComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "Teams/LyraTeamSubsystem.h"
 
@@ -29,6 +37,40 @@ namespace HeroArenaPulseShot
 	{
 		static const FCaptures Value;
 		return Value;
+	}
+
+	const UHeroArenaHeroDefinition* FindSourceHero(const AActor* SourceActor)
+	{
+		const APlayerState* PlayerState = nullptr;
+		if (const APawn* Pawn = Cast<APawn>(SourceActor))
+		{
+			PlayerState = Pawn->GetPlayerState();
+		}
+		else if (const AController* Controller = Cast<AController>(SourceActor))
+		{
+			PlayerState = Controller->PlayerState;
+		}
+		else if (SourceActor)
+		{
+			if (const APawn* Instigator = SourceActor->GetInstigator())
+			{
+				PlayerState = Instigator->GetPlayerState();
+			}
+			if (!PlayerState)
+			{
+				if (const APawn* OwnerPawn = Cast<APawn>(SourceActor->GetOwner()))
+				{
+					PlayerState = OwnerPawn->GetPlayerState();
+				}
+			}
+		}
+
+		if (const UHeroArenaHeroSelectionComponent* Selection = PlayerState
+			? PlayerState->FindComponentByClass<UHeroArenaHeroSelectionComponent>() : nullptr)
+		{
+			return Selection->GetSelectedHero();
+		}
+		return nullptr;
 	}
 }
 
@@ -112,25 +154,37 @@ void UHeroArenaPulseShotExecution::Execute_Implementation(
 	}
 
 	const float AttenuatedBase = FMath::Max(BaseDamage * FMath::Max(DistanceAttenuation, 0.0f), 0.0f);
+	const UHeroArenaHeroDefinition* SourceHero = HeroArenaPulseShot::FindSourceHero(EffectCauser);
+	const bool bRelaySource = SourceHero && SourceHero->HeroId == TEXT("Relay");
+	const bool bDeployableTarget = TargetActor->IsA<AHeroArenaBarrier>()
+		|| TargetActor->IsA<AHeroArenaRelayBeacon>() || TargetActor->IsA<AHeroArenaTeamAmplifier>();
 	if (Relationship == ELyraTeamComparison::OnSameTeam)
 	{
-		const float Heal = AttenuatedBase * AllyHealMultiplier * UHeroArenaHealingRules::GetIncomingHealingMultiplier(TargetASC);
+		const float SupportMultiplier = bRelaySource
+			? (bDeployableTarget ? RelayDeployableRepairMultiplier : RelayAllyRepairMultiplier)
+			: AllyHealMultiplier;
+		const float Heal = AttenuatedBase * SupportMultiplier
+			* UHeroArenaHealingRules::GetIncomingHealingMultiplier(TargetASC);
 		if (Heal > 0.0f)
 		{
 			OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(
 				ULyraHealthSet::GetHealingAttribute(), EGameplayModOp::Additive, Heal));
-			UE_LOG(LogHeroArenaPulseShot, Log, TEXT("Pulse shot healed %s for %.2f from %s"),
-				*GetNameSafe(TargetActor), Heal, *GetNameSafe(EffectCauser));
+			UE_LOG(LogHeroArenaPulseShot, Log, TEXT("%s shot %s %s for %.2f from %s"),
+				bRelaySource ? TEXT("Relay maintenance") : TEXT("Pulse"),
+				bDeployableTarget ? TEXT("repaired") : TEXT("healed"), *GetNameSafe(TargetActor),
+				Heal, *GetNameSafe(EffectCauser));
 		}
 	}
 	else
 	{
-		const float Damage = AttenuatedBase * PhysicalMaterialAttenuation;
+		const float Damage = AttenuatedBase * PhysicalMaterialAttenuation
+			* (bRelaySource ? RelayEnemyDamageMultiplier : 1.0f);
 		if (Damage > 0.0f)
 		{
 			OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(
 				ULyraHealthSet::GetDamageAttribute(), EGameplayModOp::Additive, Damage));
-			UE_LOG(LogHeroArenaPulseShot, Log, TEXT("Pulse shot damaged %s for %.2f from %s"),
+			UE_LOG(LogHeroArenaPulseShot, Log, TEXT("%s shot damaged %s for %.2f from %s"),
+				bRelaySource ? TEXT("Relay maintenance") : TEXT("Pulse"),
 				*GetNameSafe(TargetActor), Damage, *GetNameSafe(EffectCauser));
 		}
 	}

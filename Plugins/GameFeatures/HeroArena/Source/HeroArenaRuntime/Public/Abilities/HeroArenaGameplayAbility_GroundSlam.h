@@ -1,12 +1,12 @@
 #pragma once
 
-#include "AbilitySystem/Abilities/LyraGameplayAbility.h"
+#include "Abilities/HeroArenaGameplayAbility_Ultimate.h"
 
 #include "HeroArenaGameplayAbility_GroundSlam.generated.h"
 
 /** Bulwark ultimate: server-authoritative front cone damage, knockback and short movement slow. */
 UCLASS()
-class HEROARENARUNTIME_API UHeroArenaGameplayAbility_GroundSlam : public ULyraGameplayAbility
+class HEROARENARUNTIME_API UHeroArenaGameplayAbility_GroundSlam : public UHeroArenaGameplayAbility_Ultimate
 {
 	GENERATED_BODY()
 

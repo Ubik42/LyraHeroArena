@@ -155,9 +155,15 @@ void UHeroArenaOverclockDamageComponent::HandleDamageMessage(
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(
 		Cast<AActor>(Payload.Target.Get()));
 	const FGameplayTag OverclockTag = FGameplayTag::RequestGameplayTag(TEXT("Status.HeroArena.Overclocked"));
+	const FGameplayTag TeamAmplifiedTag = FGameplayTag::RequestGameplayTag(TEXT("Status.HeroArena.TeamAmplified"));
+	const FGameplayTag BattlePulseTag = FGameplayTag::RequestGameplayTag(TEXT("Status.HeroArena.Event.PowerSurge"));
 	const float PrimaryDamage = FMath::Abs(Payload.Magnitude);
-	const float BonusDamage = PrimaryDamage * BonusDamageRatio;
-	if (!SourceASC || !TargetASC || !SourceASC->HasMatchingGameplayTag(OverclockTag) || BonusDamage <= 0.0f)
+	const float ActiveBonusRatio = SourceASC && SourceASC->HasMatchingGameplayTag(OverclockTag)
+		? BonusDamageRatio
+		: (SourceASC && SourceASC->HasMatchingGameplayTag(TeamAmplifiedTag) ? TeamAmplifiedBonusDamageRatio
+		: (SourceASC && SourceASC->HasMatchingGameplayTag(BattlePulseTag) ? BattlePulseBonusDamageRatio : 0.0f));
+	const float BonusDamage = PrimaryDamage * ActiveBonusRatio;
+	if (!SourceASC || !TargetASC || BonusDamage <= 0.0f)
 	{
 		return;
 	}
@@ -175,6 +181,7 @@ void UHeroArenaOverclockDamageComponent::HandleDamageMessage(
 	TargetASC->ApplyGameplayEffectSpecToSelf(*Spec.Data.Get());
 
 	UE_LOG(LogHeroArenaOverclockDamage, Log,
-		TEXT("Overclock bonus damage resolved: source=%s target=%s primary=%.2f bonus=%.2f"),
-		*GetNameSafe(SourcePlayerState->GetPawn()), *GetNameSafe(Payload.Target.Get()), PrimaryDamage, BonusDamage);
+		TEXT("Hero damage amplifier resolved: source=%s target=%s primary=%.2f bonus=%.2f ratio=%.2f"),
+		*GetNameSafe(SourcePlayerState->GetPawn()), *GetNameSafe(Payload.Target.Get()),
+		PrimaryDamage, BonusDamage, ActiveBonusRatio);
 }

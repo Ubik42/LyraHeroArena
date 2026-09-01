@@ -203,7 +203,7 @@ float AHeroArenaRecoveryField::GetRemainingTime() const
 
 void AHeroArenaRecoveryField::RefreshPresentation()
 {
-	const bool bBlueTeam = FieldTeamId == 0;
+	const bool bBlueTeam = FieldTeamId == 1;
 	const FLinearColor TeamColor = bBlueTeam ? FLinearColor(0.05f, 0.45f, 1.0f) : FLinearColor(1.0f, 0.12f, 0.08f);
 	StatusText->SetTextRenderColor(TeamColor.ToFColor(true));
 }

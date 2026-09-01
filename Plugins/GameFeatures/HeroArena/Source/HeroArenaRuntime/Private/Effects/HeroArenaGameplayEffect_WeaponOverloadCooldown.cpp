@@ -11,7 +11,7 @@ UHeroArenaGameplayEffect_WeaponOverloadCooldown::UHeroArenaGameplayEffect_Weapon
 	: Super(ObjectInitializer)
 {
 	DurationPolicy = EGameplayEffectDurationType::HasDuration;
-	DurationMagnitude = FScalableFloat(30.0f);
+	DurationMagnitude = FScalableFloat(1.0f);
 
 	FInheritedTagContainer CooldownTags;
 	CooldownTags.Added.AddTag(FGameplayTag::RequestGameplayTag(TEXT("Cooldown.Ability.WeaponOverload")));

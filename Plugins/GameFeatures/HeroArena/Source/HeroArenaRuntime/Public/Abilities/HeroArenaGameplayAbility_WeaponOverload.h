@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "AbilitySystem/Abilities/LyraGameplayAbility.h"
+#include "Abilities/HeroArenaGameplayAbility_Ultimate.h"
 
 #include "HeroArenaGameplayAbility_WeaponOverload.generated.h"
 
@@ -11,7 +11,7 @@ class ULyraRangedWeaponInstance;
 
 /** Local-predicted timed Rifle modifier. Server remains authoritative for activation and target data. */
 UCLASS()
-class HEROARENARUNTIME_API UHeroArenaGameplayAbility_WeaponOverload : public ULyraGameplayAbility
+class HEROARENARUNTIME_API UHeroArenaGameplayAbility_WeaponOverload : public UHeroArenaGameplayAbility_Ultimate
 {
 	GENERATED_BODY()
 
@@ -19,6 +19,13 @@ public:
 	UHeroArenaGameplayAbility_WeaponOverload(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
+	virtual bool CanActivateAbility(
+		FGameplayAbilitySpecHandle Handle,
+		const FGameplayAbilityActorInfo* ActorInfo,
+		const FGameplayTagContainer* SourceTags = nullptr,
+		const FGameplayTagContainer* TargetTags = nullptr,
+		FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
+
 	virtual void ActivateAbility(
 		FGameplayAbilitySpecHandle Handle,
 		const FGameplayAbilityActorInfo* ActorInfo,

@@ -55,6 +55,7 @@ private:
     double DecisionAccumulator = 0.0;
     double DecisionIntervalSeconds = 0.2;
     bool bNavigationLoad = false;
+	bool bNavigationPolicy = false;
     bool bNavigationBudget = false;
     bool bNavigationRouteInitialized = false;
     bool bNavigationRouteValid = false;

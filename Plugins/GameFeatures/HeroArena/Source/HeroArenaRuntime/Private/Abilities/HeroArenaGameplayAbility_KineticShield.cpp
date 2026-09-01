@@ -5,6 +5,7 @@
 #include "Actors/HeroArenaKineticShieldIndicator.h"
 #include "Effects/HeroArenaGameplayEffect_KineticShieldCooldown.h"
 #include "GameFramework/Pawn.h"
+#include "Scoring/HeroArenaContribution.h"
 #include "TimerManager.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaGameplayAbility_KineticShield)
@@ -130,6 +131,7 @@ void UHeroArenaGameplayAbility_KineticShield::HandleHealthChanged(AActor* Damage
 
 	const float Absorbed = FMath::Min(RemainingShield, HealthLoss);
 	RemainingShield = FMath::Max(0.0f, RemainingShield - Absorbed);
+	HeroArenaContribution::Add(GetOwningActorFromActorInfo(), Absorbed);
 	if (AHeroArenaKineticShieldIndicator* ActiveIndicator = Indicator.Get())
 	{
 		ActiveIndicator->SetShieldAmount(RemainingShield);

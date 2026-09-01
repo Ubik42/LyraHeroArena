@@ -9,7 +9,7 @@ class UCharacterMovementComponent;
 class APlayerState;
 class APawn;
 
-/** Adds one guarded bonus-damage application from Lyra's final server damage message while this player is overclocked. */
+/** Applies the highest active Hero Arena damage amplifier to Lyra's final authoritative damage message. */
 UCLASS(Blueprintable, Meta=(BlueprintSpawnableComponent))
 class HEROARENARUNTIME_API UHeroArenaOverclockDamageComponent : public UPlayerStateComponent
 {
@@ -36,6 +36,12 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category="HeroArena|Overclock")
 	float BonusDamageRatio = 0.25f;
+
+	UPROPERTY(EditDefaultsOnly, Category="HeroArena|Relay")
+	float TeamAmplifiedBonusDamageRatio = 0.15f;
+
+	UPROPERTY(EditDefaultsOnly, Category="HeroArena|BattlePulse")
+	float BattlePulseBonusDamageRatio = 0.12f;
 
 	UPROPERTY(EditDefaultsOnly, Category="HeroArena|Overclock")
 	float MovementSpeedMultiplier = 1.2f;

@@ -3,21 +3,11 @@
   "Version": 1,
   "VersionName": "0.1.0",
   "FriendlyName": "性能实验室",
-  "Description": "为 Lyra 提供固定条件的 200 NPC 性能实验契约、运行时校验和结果记录。",
+  "Description": "为 Lyra 多角色高负载场景提供实验预设、运行状态检查与结果记录。",
   "Category": "Performance",
   "CreatedBy": "Ubik",
   "CanContainContent": true,
   "IsBetaVersion": true,
-  "Plugins": [
-    {
-      "Name": "SignificanceManager",
-      "Enabled": true
-    },
-    {
-      "Name": "ModularGameplayActors",
-      "Enabled": true
-    }
-  ],
   "Modules": [
     {
       "Name": "PerformanceLab",
@@ -27,15 +17,15 @@
   ],
   "Plugins": [
     {
-      "Name": "AnimationBudgetAllocator",
-      "Enabled": true
-    },
-    {
       "Name": "ModularGameplayActors",
       "Enabled": true
     },
     {
       "Name": "SignificanceManager",
+      "Enabled": true
+    },
+    {
+      "Name": "Niagara",
       "Enabled": true
     }
   ]

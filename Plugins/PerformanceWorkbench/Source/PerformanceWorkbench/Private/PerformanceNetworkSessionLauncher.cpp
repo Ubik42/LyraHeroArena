@@ -1,15 +1,23 @@
 #include "PerformanceNetworkSessionLauncher.h"
 
 #include "Async/Async.h"
+#include "Dom/JsonObject.h"
 #include "HAL/FileManager.h"
 #include "HAL/PlatformProcess.h"
 #include "Misc/DateTime.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "PerformanceExperimentLauncher.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
 
 namespace
 {
+    bool IsCancelled(const FPerformanceNetworkSessionLaunchRequest& Request)
+    {
+        return Request.CancelRequested.IsValid() && Request.CancelRequested->Load();
+    }
+
     void TerminateOwnedProcesses(const TArray<FPerformanceNetworkProcessLaunch>& Processes)
     {
         for (const FPerformanceNetworkProcessLaunch& Process : Processes)
@@ -42,7 +50,8 @@ namespace
         return bRunning;
     }
 
-    bool WaitForServerListening(const FPerformanceNetworkProcessLaunch& Server, int32 Port, double TimeoutSeconds)
+    bool WaitForServerListening(const FPerformanceNetworkProcessLaunch& Server, int32 Port, double TimeoutSeconds,
+        const FPerformanceNetworkSessionLaunchRequest& Request)
     {
         const FString Marker = FString::Printf(TEXT("listening on port %d"), Port);
         const FString ReadyPath = FPaths::Combine(
@@ -50,6 +59,10 @@ namespace
         const double Deadline = FPlatformTime::Seconds() + FMath::Max(1.0, TimeoutSeconds);
         while (FPlatformTime::Seconds() < Deadline)
         {
+            if (IsCancelled(Request))
+            {
+                return false;
+            }
             if (IFileManager::Get().FileSize(*ReadyPath) > 0)
             {
                 return true;
@@ -69,6 +82,88 @@ namespace
             FPlatformProcess::Sleep(0.25f);
         }
         return false;
+    }
+
+    bool ReadFinalSummary(const FString& RunId, bool& bOutValid)
+    {
+        bOutValid = false;
+        FString Json;
+        TSharedPtr<FJsonObject> Root;
+        const FString SummaryPath = FPaths::Combine(
+            FPaths::ProjectSavedDir(), TEXT("PerformanceLab"), TEXT("Runs"), RunId, TEXT("summary.json"));
+        if (!FFileHelper::LoadFileToString(Json, *SummaryPath)
+            || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root)
+            || !Root.IsValid())
+        {
+            return false;
+        }
+        bool bFinal = false;
+        bool bArtifactsFinalized = false;
+        Root->TryGetBoolField(TEXT("final"), bFinal);
+        Root->TryGetBoolField(TEXT("artifactsFinalized"), bArtifactsFinalized);
+        Root->TryGetBoolField(TEXT("valid"), bOutValid);
+        return bFinal && bArtifactsFinalized;
+    }
+
+    void WaitForSessionCompletion(const FPerformanceNetworkSessionLaunchRequest& Request,
+        FPerformanceNetworkSessionLaunchResult& Result)
+    {
+        const double CompletionTimeoutSeconds = Request.ServerReadyTimeoutSeconds
+            + Request.Preset.Capture.WarmupSeconds + Request.Preset.Capture.DurationSeconds
+            + Request.ClientJoinGraceSeconds + 45.0;
+        const double Deadline = FPlatformTime::Seconds() + CompletionTimeoutSeconds;
+        TMap<uint32, double> StoppedWithoutSummarySince;
+
+        while (FPlatformTime::Seconds() < Deadline)
+        {
+            if (IsCancelled(Request))
+            {
+                Result.bCancelled = true;
+                Result.Error = TEXT("网络采集已停止");
+                return;
+            }
+
+            bool bAllFinal = true;
+            bool bAnyStoppedWithoutSummary = false;
+            Result.InvalidProcessRoles.Reset();
+            for (const FPerformanceNetworkProcessLaunch& Process : Result.Processes)
+            {
+                bool bValid = false;
+                if (ReadFinalSummary(Process.RunId, bValid))
+                {
+                    if (!bValid)
+                    {
+                        Result.InvalidProcessRoles.Add(Process.Role);
+                    }
+                    continue;
+                }
+
+                bAllFinal = false;
+                if (!IsProcessRunning(Process.ProcessId))
+                {
+                    double& StoppedAt = StoppedWithoutSummarySince.FindOrAdd(Process.ProcessId);
+                    if (StoppedAt <= 0.0)
+                    {
+                        StoppedAt = FPlatformTime::Seconds();
+                    }
+                    bAnyStoppedWithoutSummary |= FPlatformTime::Seconds() - StoppedAt >= 3.0;
+                }
+            }
+
+            if (bAllFinal)
+            {
+                Result.bCompleted = true;
+                Result.bAllSummariesValid = Result.InvalidProcessRoles.IsEmpty();
+                return;
+            }
+            if (bAnyStoppedWithoutSummary)
+            {
+                Result.Error = TEXT("网络进程在写出 summary.json 前退出");
+                return;
+            }
+            FPlatformProcess::Sleep(0.25f);
+        }
+        Result.Error = TEXT("网络采集在时限内未完成");
     }
 
     FPerformanceNetworkSessionLaunchResult LaunchBlocking(FPerformanceNetworkSessionLaunchRequest Request)
@@ -105,6 +200,7 @@ namespace
         ServerRequest.ServerPort = Request.ServerPort;
         ServerRequest.bDedicatedServer = true;
         ServerRequest.bNullRHI = true;
+        ServerRequest.bAutoExit = false;
         ServerRequest.AbsoluteLogPath = FPaths::Combine(LogDirectory, ServerRequest.RunId + TEXT(".log"));
 
         const FPerformanceExperimentLaunchResult ServerLaunch = FPerformanceExperimentLauncher::Launch(ServerRequest);
@@ -115,15 +211,23 @@ namespace
         }
         Result.Processes.Add({ TEXT("Server"), ServerLaunch.RunId, ServerRequest.AbsoluteLogPath, ServerLaunch.ProcessId });
 
-        if (!WaitForServerListening(Result.Processes[0], Request.ServerPort, Request.ServerReadyTimeoutSeconds))
+        if (!WaitForServerListening(Result.Processes[0], Request.ServerPort, Request.ServerReadyTimeoutSeconds, Request))
         {
-            Result.Error = TEXT("服务器未在时限内进入监听状态，已停止本次创建的进程");
+            Result.bCancelled = IsCancelled(Request);
+            Result.Error = Result.bCancelled ? TEXT("网络采集已停止") : TEXT("服务器未在时限内进入监听状态");
             TerminateOwnedProcesses(Result.Processes);
             return Result;
         }
 
         for (int32 ClientIndex = 1; ClientIndex <= Request.ClientCount; ++ClientIndex)
         {
+            if (IsCancelled(Request))
+            {
+                Result.bCancelled = true;
+                Result.Error = TEXT("网络采集已停止");
+                TerminateOwnedProcesses(Result.Processes);
+                return Result;
+            }
             FPerformanceExperimentLaunchRequest ClientRequest;
             ClientRequest.Preset = Request.Preset;
             ClientRequest.Dimension = Request.Dimension;
@@ -149,6 +253,8 @@ namespace
         }
 
         Result.bStarted = true;
+        WaitForSessionCompletion(Request, Result);
+        TerminateOwnedProcesses(Result.Processes);
         return Result;
     }
 }

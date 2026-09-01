@@ -2,12 +2,17 @@
 
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "Character/LyraPawnExtensionComponent.h"
+#include "Components/HeroArenaBotTacticsComponent.h"
 #include "Equipment/LyraEquipmentManagerComponent.h"
 #include "Equipment/LyraQuickBarComponent.h"
+#include "GameFramework/GameStateBase.h"
 #include "Hero/HeroArenaHeroDefinition.h"
 #include "Hero/HeroArenaHeroRoster.h"
 #include "Inventory/LyraInventoryItemDefinition.h"
 #include "Inventory/LyraInventoryManagerComponent.h"
+#include "Messages/LyraVerbMessage.h"
+#include "Messages/LyraVerbMessageHelpers.h"
+#include "NativeGameplayTags.h"
 #include "Net/UnrealNetwork.h"
 #include "Player/LyraPlayerState.h"
 #include "Weapons/LyraRangedWeaponInstance.h"
@@ -15,6 +20,13 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaHeroSelectionComponent)
 
 DEFINE_LOG_CATEGORY_STATIC(LogHeroArenaSelection, Log, All);
+
+namespace HeroArenaUltimateCharge
+{
+	UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_DamageMessage, "Lyra.Damage.Message");
+	UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_EliminationMessage, "Lyra.Elimination.Message");
+	UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_AssistMessage, "Lyra.Assist.Message");
+}
 
 UHeroArenaHeroSelectionComponent::UHeroArenaHeroSelectionComponent(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -29,16 +41,47 @@ void UHeroArenaHeroSelectionComponent::BeginPlay()
 	if (APlayerState* PlayerState = Cast<APlayerState>(GetOwner()))
 	{
 		PlayerState->OnPawnSet.AddUniqueDynamic(this, &ThisClass::HandlePawnSet);
+		if (PlayerState->HasAuthority() && PlayerState->IsABot() &&
+			!PlayerState->FindComponentByClass<UHeroArenaBotTacticsComponent>())
+		{
+			UHeroArenaBotTacticsComponent* BotTactics = NewObject<UHeroArenaBotTacticsComponent>(
+				PlayerState, UHeroArenaBotTacticsComponent::StaticClass(), TEXT("HeroArenaBotTactics"));
+			PlayerState->AddInstanceComponent(BotTactics);
+			BotTactics->RegisterComponent();
+		}
 	}
 
 	if (GetOwner()->HasAuthority() && !SelectedHero && Roster && Roster->DefaultHero)
 	{
 		ApplySelectedHero(Roster->DefaultHero);
 	}
+
+	if (GetOwner()->HasAuthority())
+	{
+		UGameplayMessageSubsystem& Messages = UGameplayMessageSubsystem::Get(this);
+		DamageListenerHandle = Messages.RegisterListener(
+			HeroArenaUltimateCharge::TAG_DamageMessage, this, &ThisClass::HandleDamageMessage);
+		EliminationListenerHandle = Messages.RegisterListener(
+			HeroArenaUltimateCharge::TAG_EliminationMessage, this, &ThisClass::HandleEliminationMessage);
+		AssistListenerHandle = Messages.RegisterListener(
+			HeroArenaUltimateCharge::TAG_AssistMessage, this, &ThisClass::HandleAssistMessage);
+	}
 }
 
 void UHeroArenaHeroSelectionComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	if (DamageListenerHandle.IsValid())
+	{
+		UGameplayMessageSubsystem::Get(this).UnregisterListener(DamageListenerHandle);
+	}
+	if (EliminationListenerHandle.IsValid())
+	{
+		UGameplayMessageSubsystem::Get(this).UnregisterListener(EliminationListenerHandle);
+	}
+	if (AssistListenerHandle.IsValid())
+	{
+		UGameplayMessageSubsystem::Get(this).UnregisterListener(AssistListenerHandle);
+	}
 	if (APlayerState* PlayerState = Cast<APlayerState>(GetOwner()))
 	{
 		PlayerState->OnPawnSet.RemoveDynamic(this, &ThisClass::HandlePawnSet);
@@ -58,6 +101,157 @@ void UHeroArenaHeroSelectionComponent::GetLifetimeReplicatedProps(TArray<FLifeti
 
 	DOREPLIFETIME(ThisClass, SelectedHero);
 	DOREPLIFETIME(ThisClass, bSelectionLocked);
+	DOREPLIFETIME_CONDITION(ThisClass, UltimateCharge, COND_OwnerOnly);
+}
+
+void UHeroArenaHeroSelectionComponent::HandleDamageMessage(
+	FGameplayTag Channel, const FLyraVerbMessage& Payload)
+{
+	APlayerState* PlayerState = Cast<APlayerState>(GetOwner());
+	const APlayerState* Instigator = ULyraVerbMessageHelpers::GetPlayerStateFromObject(Payload.Instigator);
+	const APlayerState* Target = ULyraVerbMessageHelpers::GetPlayerStateFromObject(Payload.Target);
+	if (PlayerState && PlayerState->HasAuthority() && Instigator == PlayerState &&
+		Target != PlayerState && Payload.Magnitude > 0.0)
+	{
+		AddUltimateCharge(static_cast<float>(Payload.Magnitude) * DamageChargeScale, TEXT("damage"));
+	}
+}
+
+void UHeroArenaHeroSelectionComponent::HandleEliminationMessage(
+	FGameplayTag Channel, const FLyraVerbMessage& Payload)
+{
+	APlayerState* PlayerState = Cast<APlayerState>(GetOwner());
+	if (PlayerState && PlayerState->HasAuthority() &&
+		ULyraVerbMessageHelpers::GetPlayerStateFromObject(Payload.Instigator) == PlayerState &&
+		ULyraVerbMessageHelpers::GetPlayerStateFromObject(Payload.Target) != PlayerState)
+	{
+		AddUltimateCharge(EliminationCharge, TEXT("elimination"));
+	}
+}
+
+void UHeroArenaHeroSelectionComponent::HandleAssistMessage(
+	FGameplayTag Channel, const FLyraVerbMessage& Payload)
+{
+	APlayerState* PlayerState = Cast<APlayerState>(GetOwner());
+	if (PlayerState && PlayerState->HasAuthority() &&
+		ULyraVerbMessageHelpers::GetPlayerStateFromObject(Payload.Instigator) == PlayerState)
+	{
+		AddUltimateCharge(AssistCharge, TEXT("assist"));
+	}
+}
+
+void UHeroArenaHeroSelectionComponent::AddUltimateCharge(const float Amount, const TCHAR* Reason)
+{
+	if (GetOwner()->HasAuthority() && Amount > 0.0f && SelectedHero && !IsUltimateReady())
+	{
+		SetUltimateCharge(UltimateCharge + Amount, Reason);
+	}
+}
+
+bool UHeroArenaHeroSelectionComponent::TryConsumeUltimateCharge()
+{
+	if (!GetOwner()->HasAuthority() || !IsUltimateReady())
+	{
+		return false;
+	}
+	SetUltimateCharge(0.0f, TEXT("ultimate_used"));
+	return true;
+}
+
+void UHeroArenaHeroSelectionComponent::SetUltimateCharge(const float NewCharge, const TCHAR* Reason)
+{
+	const float ClampedCharge = FMath::Clamp(NewCharge, 0.0f, MaxUltimateCharge);
+	if (FMath::IsNearlyEqual(UltimateCharge, ClampedCharge))
+	{
+		return;
+	}
+	const float PreviousCharge = UltimateCharge;
+	UltimateCharge = ClampedCharge;
+	if (APlayerState* PlayerState = Cast<APlayerState>(GetOwner()))
+	{
+		PlayerState->ForceNetUpdate();
+	}
+	OnUltimateChargeChanged.Broadcast(UltimateCharge);
+	UE_LOG(LogHeroArenaSelection, Log,
+		TEXT("Ultimate charge changed: player=%s reason=%s charge=%.1f->%.1f"),
+		*GetNameSafe(GetOwner()), Reason, PreviousCharge, UltimateCharge);
+}
+
+FText UHeroArenaHeroSelectionComponent::GetTeamCompositionSummary() const
+{
+	const ALyraPlayerState* LocalPlayerState = Cast<ALyraPlayerState>(GetOwner());
+	const AGameStateBase* GameState = GetWorld() ? GetWorld()->GetGameState() : nullptr;
+	if (!LocalPlayerState || !GameState || LocalPlayerState->GetTeamId() == INDEX_NONE)
+	{
+		return NSLOCTEXT("HeroArenaSelection", "TeamCompositionWaiting", "我方阵容正在同步");
+	}
+
+	int32 VanguardCount = 0;
+	int32 DamageCount = 0;
+	int32 SupportCount = 0;
+	int32 PendingCount = 0;
+	for (const APlayerState* PlayerState : GameState->PlayerArray)
+	{
+		const ALyraPlayerState* LyraPlayerState = Cast<ALyraPlayerState>(PlayerState);
+		if (!LyraPlayerState || LyraPlayerState->GetTeamId() != LocalPlayerState->GetTeamId())
+		{
+			continue;
+		}
+
+		const UHeroArenaHeroSelectionComponent* Selection =
+			LyraPlayerState->FindComponentByClass<UHeroArenaHeroSelectionComponent>();
+		const UHeroArenaHeroDefinition* Hero = Selection ? Selection->GetSelectedHero() : nullptr;
+		if (!Hero)
+		{
+			++PendingCount;
+			continue;
+		}
+
+		switch (Hero->Role)
+		{
+		case EHeroArenaRole::Vanguard: ++VanguardCount; break;
+		case EHeroArenaRole::Support: ++SupportCount; break;
+		case EHeroArenaRole::Damage:
+		default: ++DamageCount; break;
+		}
+	}
+
+	FString Summary = FString::Printf(TEXT("我方阵容  前排 %d  /  输出 %d  /  支援 %d"),
+		VanguardCount, DamageCount, SupportCount);
+	if (PendingCount > 0)
+	{
+		Summary += FString::Printf(TEXT("  /  待选 %d"), PendingCount);
+	}
+	return FText::FromString(Summary);
+}
+
+FText UHeroArenaHeroSelectionComponent::GetTeamHeroList() const
+{
+	const ALyraPlayerState* LocalPlayerState = Cast<ALyraPlayerState>(GetOwner());
+	const AGameStateBase* GameState = GetWorld() ? GetWorld()->GetGameState() : nullptr;
+	if (!LocalPlayerState || !GameState || LocalPlayerState->GetTeamId() == INDEX_NONE)
+	{
+		return FText::GetEmpty();
+	}
+
+	TArray<FString> HeroNames;
+	for (const APlayerState* PlayerState : GameState->PlayerArray)
+	{
+		const ALyraPlayerState* LyraPlayerState = Cast<ALyraPlayerState>(PlayerState);
+		if (!LyraPlayerState || LyraPlayerState->GetTeamId() != LocalPlayerState->GetTeamId())
+		{
+			continue;
+		}
+		const UHeroArenaHeroSelectionComponent* Selection =
+			LyraPlayerState->FindComponentByClass<UHeroArenaHeroSelectionComponent>();
+		if (const UHeroArenaHeroDefinition* Hero = Selection ? Selection->GetSelectedHero() : nullptr)
+		{
+			HeroNames.Add(Hero->DisplayName.ToString());
+		}
+	}
+	return HeroNames.IsEmpty()
+		? NSLOCTEXT("HeroArenaSelection", "TeamHeroesWaiting", "英雄名单正在同步")
+		: FText::FromString(FString::Printf(TEXT("已选  %s"), *FString::Join(HeroNames, TEXT("  ·  "))));
 }
 
 void UHeroArenaHeroSelectionComponent::RequestHeroSelection(const FName HeroId)
@@ -203,6 +397,7 @@ bool UHeroArenaHeroSelectionComponent::ApplySelectedHero(const UHeroArenaHeroDef
 	const UHeroArenaHeroDefinition* OldHero = SelectedHero;
 	RemoveGrantedAbilitySets();
 	SelectedHero = NewHero;
+	SetUltimateCharge(0.0f, TEXT("hero_changed"));
 
 	if (!NewHero)
 	{
@@ -314,8 +509,15 @@ void UHeroArenaHeroSelectionComponent::OnRep_SelectionLocked()
 	OnSelectionLockChanged.Broadcast(bSelectionLocked);
 }
 
+void UHeroArenaHeroSelectionComponent::OnRep_UltimateCharge()
+{
+	OnUltimateChargeChanged.Broadcast(UltimateCharge);
+}
+
 void UHeroArenaHeroSelectionComponent::HandlePawnSet(APlayerState* PlayerState, APawn* NewPawn, APawn* OldPawn)
 {
+	OnPawnChanged.Broadcast(PlayerState, NewPawn, OldPawn);
+
 	if (!SelectedHero || !NewPawn)
 	{
 		return;

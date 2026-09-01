@@ -34,7 +34,7 @@ AHeroArenaRelayBeacon::AHeroArenaRelayBeacon(const FObjectInitializer& ObjectIni
 	: Super(ObjectInitializer)
 {
 	bReplicates = true;
-	const bool bUseSpatialReplication = FParse::Param(FCommandLine::Get(), TEXT("HeroArenaRelaySpatialReplication"));
+	const bool bUseSpatialReplication = !FParse::Param(FCommandLine::Get(), TEXT("HeroArenaRelayAlwaysRelevant"));
 	bAlwaysRelevant = !bUseSpatialReplication;
 	if (bUseSpatialReplication)
 	{

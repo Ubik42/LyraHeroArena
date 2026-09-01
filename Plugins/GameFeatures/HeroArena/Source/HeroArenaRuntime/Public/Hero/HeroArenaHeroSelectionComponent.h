@@ -2,6 +2,7 @@
 
 #include "AbilitySystem/LyraAbilitySet.h"
 #include "Components/PlayerStateComponent.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 
 #include "HeroArenaHeroSelectionComponent.generated.h"
 
@@ -9,6 +10,7 @@ class UHeroArenaHeroDefinition;
 class UHeroArenaHeroRoster;
 class APlayerState;
 class APawn;
+struct FLyraVerbMessage;
 
 UENUM(BlueprintType)
 enum class EHeroArenaHeroSelectionResult : uint8
@@ -24,6 +26,8 @@ enum class EHeroArenaHeroSelectionResult : uint8
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHeroArenaHeroChanged, const UHeroArenaHeroDefinition*, OldHero, const UHeroArenaHeroDefinition*, NewHero);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeroArenaSelectionLockChanged, bool, bIsLocked);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHeroArenaSelectionRequestResolved, FName, HeroId, EHeroArenaHeroSelectionResult, Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeroArenaUltimateChargeChanged, float, ChargePercent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FHeroArenaPawnChanged, APlayerState*, PlayerState, APawn*, NewPawn, APawn*, OldPawn);
 
 /**
  * Server-authoritative hero selection that lives on PlayerState, so the selected
@@ -45,6 +49,24 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Hero Arena|Selection")
 	bool IsSelectionLocked() const { return bSelectionLocked; }
+
+	UFUNCTION(BlueprintPure, Category = "Hero Arena|Ultimate")
+	float GetUltimateCharge() const { return UltimateCharge; }
+
+	UFUNCTION(BlueprintPure, Category = "Hero Arena|Ultimate")
+	bool IsUltimateReady() const { return UltimateCharge >= MaxUltimateCharge - KINDA_SMALL_NUMBER; }
+
+	/** Server-authoritative combat reward. Damage and healing pass their effective magnitude. */
+	void AddUltimateCharge(float Amount, const TCHAR* Reason);
+	bool TryConsumeUltimateCharge();
+
+	/** Compact local-team summary built from replicated PlayerStates and their selected heroes. */
+	UFUNCTION(BlueprintPure, Category = "Hero Arena|Selection")
+	FText GetTeamCompositionSummary() const;
+
+	/** Ordered list of the heroes currently selected by the local player's team. */
+	UFUNCTION(BlueprintPure, Category = "Hero Arena|Selection")
+	FText GetTeamHeroList() const;
 
 	UFUNCTION(BlueprintPure, Category = "Hero Arena|Selection")
 	static FText GetSelectionResultText(EHeroArenaHeroSelectionResult Result);
@@ -72,6 +94,13 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Hero Arena|Selection")
 	FHeroArenaSelectionRequestResolved OnSelectionRequestResolved;
 
+	UPROPERTY(BlueprintAssignable, Category = "Hero Arena|Ultimate")
+	FHeroArenaUltimateChargeChanged OnUltimateChargeChanged;
+
+	/** Replicated pawn transition used by event-driven teammate HUD elements. */
+	UPROPERTY(BlueprintAssignable, Category = "Hero Arena|Selection")
+	FHeroArenaPawnChanged OnPawnChanged;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
@@ -90,6 +119,9 @@ protected:
 	void OnRep_SelectionLocked();
 
 	UFUNCTION()
+	void OnRep_UltimateCharge();
+
+	UFUNCTION()
 	void HandlePawnSet(APlayerState* PlayerState, APawn* NewPawn, APawn* OldPawn);
 
 private:
@@ -99,6 +131,10 @@ private:
 	bool ApplySelectedHeroLoadout(APawn* Pawn);
 	void HandlePawnAbilitySystemInitialized();
 	void RemoveGrantedAbilitySets();
+	void HandleDamageMessage(FGameplayTag Channel, const FLyraVerbMessage& Payload);
+	void HandleEliminationMessage(FGameplayTag Channel, const FLyraVerbMessage& Payload);
+	void HandleAssistMessage(FGameplayTag Channel, const FLyraVerbMessage& Payload);
+	void SetUltimateCharge(float NewCharge, const TCHAR* Reason);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Hero Arena|Selection")
 	TObjectPtr<const UHeroArenaHeroRoster> Roster;
@@ -109,8 +145,26 @@ private:
 	UPROPERTY(ReplicatedUsing = OnRep_SelectionLocked)
 	bool bSelectionLocked = false;
 
+	UPROPERTY(ReplicatedUsing = OnRep_UltimateCharge)
+	float UltimateCharge = 0.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Hero Arena|Ultimate", meta = (ClampMin = "1.0"))
+	float MaxUltimateCharge = 100.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Hero Arena|Ultimate", meta = (ClampMin = "0.0"))
+	float DamageChargeScale = 0.35f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Hero Arena|Ultimate", meta = (ClampMin = "0.0"))
+	float EliminationCharge = 8.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Hero Arena|Ultimate", meta = (ClampMin = "0.0"))
+	float AssistCharge = 4.0f;
+
 	UPROPERTY(Transient)
 	TArray<FLyraAbilitySet_GrantedHandles> GrantedAbilitySetHandles;
 
 	TWeakObjectPtr<APawn> PendingLoadoutPawn;
+	FGameplayMessageListenerHandle DamageListenerHandle;
+	FGameplayMessageListenerHandle EliminationListenerHandle;
+	FGameplayMessageListenerHandle AssistListenerHandle;
 };

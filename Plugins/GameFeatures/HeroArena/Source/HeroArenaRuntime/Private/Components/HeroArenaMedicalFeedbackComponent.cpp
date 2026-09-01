@@ -88,8 +88,12 @@ void UHeroArenaMedicalFeedbackComponent::HandleHealthChanged(AActor* Instigator,
 		return;
 	}
 
-	const UHeroArenaHeroSelectionComponent* Selection =
+	UHeroArenaHeroSelectionComponent* Selection =
 		SourcePlayerState->FindComponentByClass<UHeroArenaHeroSelectionComponent>();
+	if (Selection)
+	{
+		Selection->AddUltimateCharge((NewValue - OldValue) * 0.5f, TEXT("healing"));
+	}
 	const UHeroArenaHeroDefinition* Hero = Selection ? Selection->GetSelectedHero() : nullptr;
 	if (!Hero || Hero->HeroId != TEXT("Pulse"))
 	{

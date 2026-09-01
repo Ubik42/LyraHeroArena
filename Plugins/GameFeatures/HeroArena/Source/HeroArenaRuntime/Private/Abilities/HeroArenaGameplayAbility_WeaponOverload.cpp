@@ -29,13 +29,32 @@ UHeroArenaGameplayAbility_WeaponOverload::UHeroArenaGameplayAbility_WeaponOverlo
 	ActivationOwnedTags.AddTag(FGameplayTag::RequestGameplayTag(TEXT("Status.HeroArena.WeaponOverload")));
 }
 
+bool UHeroArenaGameplayAbility_WeaponOverload::CanActivateAbility(
+	const FGameplayAbilitySpecHandle Handle,
+	const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayTagContainer* SourceTags,
+	const FGameplayTagContainer* TargetTags,
+	FGameplayTagContainer* OptionalRelevantTags) const
+{
+	if (!Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags))
+	{
+		return false;
+	}
+
+	AActor* AvatarActor = ActorInfo ? ActorInfo->AvatarActor.Get() : nullptr;
+	ULyraEquipmentManagerComponent* EquipmentManager = IsValid(AvatarActor)
+		? AvatarActor->FindComponentByClass<ULyraEquipmentManagerComponent>() : nullptr;
+	return IsValid(EquipmentManager) && IsValid(EquipmentManager->GetFirstInstanceOfType(
+		ULyraRangedWeaponInstance::StaticClass()));
+}
+
 void UHeroArenaGameplayAbility_WeaponOverload::ActivateAbility(
 	const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo,
 	const FGameplayAbilityActivationInfo ActivationInfo,
 	const FGameplayEventData* TriggerEventData)
 {
-	if (!CommitAbility(Handle, ActorInfo, ActivationInfo))
+	if (!CommitUltimateAbility(Handle, ActorInfo, ActivationInfo))
 	{
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
 		return;

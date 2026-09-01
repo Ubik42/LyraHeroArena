@@ -20,4 +20,13 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Pulse")
 	float AllyHealMultiplier = 0.8f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Relay")
+	float RelayAllyRepairMultiplier = 1.1f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Relay")
+	float RelayDeployableRepairMultiplier = 1.65f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Relay")
+	float RelayEnemyDamageMultiplier = 0.55f;
 };

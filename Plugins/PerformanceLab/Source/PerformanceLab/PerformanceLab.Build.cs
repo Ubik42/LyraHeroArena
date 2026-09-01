@@ -16,15 +16,15 @@ public class PerformanceLab : ModuleRules
             "ModularGameplayActors",
             "NavigationSystem",
             "RenderCore",
-            "RHI",
-            "SignificanceManager"
-            ,"AnimationBudgetAllocator"
+			"RHI",
+			"SignificanceManager"
         });
 
         PrivateDependencyModuleNames.AddRange(new[]
         {
             "Json",
-            "JsonUtilities"
+            "JsonUtilities",
+            "Niagara"
         });
     }
 }

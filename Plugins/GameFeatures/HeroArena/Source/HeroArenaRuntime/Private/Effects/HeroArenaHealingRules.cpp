@@ -1,9 +1,12 @@
 #include "Effects/HeroArenaHealingRules.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/Attributes/LyraHealthSet.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Character/LyraHealthComponent.h"
 #include "LyraGameplayTags.h"
+#include "Messages/LyraVerbMessageHelpers.h"
+#include "Scoring/HeroArenaContribution.h"
 #include "System/LyraAssetManager.h"
 #include "System/LyraGameData.h"
 
@@ -23,13 +26,16 @@ float UHeroArenaHealingRules::ApplyStandardHealing(UAbilitySystemComponent* Sour
 {
 	ULyraHealthComponent* Health = ULyraHealthComponent::FindHealthComponent(TargetActor);
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
-	if (!SourceASC || !Health || Health->IsDeadOrDying() || !TargetASC || BaseHeal <= 0.0f)
+	if (!SourceASC || !TargetASC || BaseHeal <= 0.0f || (Health && Health->IsDeadOrDying()))
 	{
 		return 0.0f;
 	}
 
-	const float OldHealth = Health->GetHealth();
-	if (OldHealth >= Health->GetMaxHealth())
+	const float OldHealth = Health ? Health->GetHealth()
+		: TargetASC->GetNumericAttribute(ULyraHealthSet::GetHealthAttribute());
+	const float MaxHealth = Health ? Health->GetMaxHealth()
+		: TargetASC->GetNumericAttribute(ULyraHealthSet::GetMaxHealthAttribute());
+	if (MaxHealth <= 0.0f || OldHealth >= MaxHealth)
 	{
 		return 0.0f;
 	}
@@ -47,5 +53,13 @@ float UHeroArenaHealingRules::ApplyStandardHealing(UAbilitySystemComponent* Sour
 	Spec.Data->SetSetByCallerMagnitude(
 		LyraGameplayTags::SetByCaller_Heal, BaseHeal * GetIncomingHealingMultiplier(TargetASC));
 	TargetASC->ApplyGameplayEffectSpecToSelf(*Spec.Data.Get());
-	return FMath::Max(0.0f, Health->GetHealth() - OldHealth);
+	const float NewHealth = Health ? Health->GetHealth()
+		: TargetASC->GetNumericAttribute(ULyraHealthSet::GetHealthAttribute());
+	const float ActualHealing = FMath::Max(0.0f, NewHealth - OldHealth);
+	if (ULyraVerbMessageHelpers::GetPlayerStateFromObject(SourceASC->GetOwnerActor()) !=
+		ULyraVerbMessageHelpers::GetPlayerStateFromObject(TargetActor))
+	{
+		HeroArenaContribution::Add(SourceASC->GetOwnerActor(), ActualHealing);
+	}
+	return ActualHealing;
 }

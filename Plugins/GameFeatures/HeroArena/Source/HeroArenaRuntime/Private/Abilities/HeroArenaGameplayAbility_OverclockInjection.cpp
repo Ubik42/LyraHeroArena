@@ -2,11 +2,13 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/LyraAbilitySimpleFailureMessage.h"
 #include "Actors/HeroArenaWeaponOverloadIndicator.h"
 #include "Character/LyraCharacter.h"
 #include "Character/LyraHealthComponent.h"
 #include "Effects/HeroArenaGameplayEffect_OverclockInjection.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Teams/LyraTeamSubsystem.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaGameplayAbility_OverclockInjection)
@@ -58,6 +60,27 @@ void UHeroArenaGameplayAbility_OverclockInjection::ActivateAbility(
 
 	auto Reject = [&](const TCHAR* Reason)
 	{
+		if (ActorInfo && ActorInfo->IsLocallyControlled())
+		{
+			FText UserFacingReason = NSLOCTEXT(
+				"HeroArenaAbilityFeedback", "AimOverclockInjection", "超频注射需要瞄准一名队友");
+			if (FCString::Strcmp(Reason, TEXT("not_living_ally")) == 0)
+			{
+				UserFacingReason = NSLOCTEXT(
+					"HeroArenaAbilityFeedback", "OverclockLivingAlly", "超频注射只能作用于存活队友");
+			}
+			else if (FCString::Strcmp(Reason, TEXT("commit_failed")) == 0)
+			{
+				UserFacingReason = NSLOCTEXT(
+					"HeroArenaAbilityFeedback", "OverclockUnavailable", "超频注射尚未就绪");
+			}
+
+			FLyraAbilitySimpleFailureMessage Message;
+			Message.PlayerController = Cast<APlayerController>(Controller);
+			Message.UserFacingReason = UserFacingReason;
+			UGameplayMessageSubsystem::Get(this).BroadcastMessage(
+				FGameplayTag::RequestGameplayTag(TEXT("Ability.UserFacingSimpleActivateFail.Message")), Message);
+		}
 		if (Source->HasAuthority())
 		{
 			UE_LOG(LogHeroArenaOverclockInjection, Log,
@@ -82,7 +105,7 @@ void UHeroArenaGameplayAbility_OverclockInjection::ActivateAbility(
 		Reject(TEXT("not_living_ally"));
 		return;
 	}
-	if (!CommitAbility(Handle, ActorInfo, ActivationInfo))
+	if (!CommitUltimateAbility(Handle, ActorInfo, ActivationInfo))
 	{
 		Reject(TEXT("commit_failed"));
 		return;

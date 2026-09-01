@@ -11,11 +11,37 @@ void FPerformanceExperimentPresetData::Normalize()
     Capture.ResolutionY = FMath::Max(1, Capture.ResolutionY);
 }
 
+FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeAdHoc()
+{
+    FPerformanceExperimentPresetData Preset;
+    Preset.PresetId = TEXT("ad-hoc");
+    Preset.DisplayName = NSLOCTEXT("PerformanceLab", "AdHocPreset", "临时诊断");
+    Preset.Domains = { EPerformanceExperimentDomain::FrameCPU };
+    Preset.Load.AgentCount = 0;
+    Preset.Load.Seed = 1337;
+    Preset.Capture.WarmupSeconds = 2.0;
+    Preset.Capture.DurationSeconds = 10.0;
+    Preset.Capture.ReadyTimeoutSeconds = 60.0;
+
+    FPerformanceQualityGuard Samples;
+    Samples.Id = TEXT("captured-frame-samples");
+    Samples.MetricOrPath = TEXT("sampleCount");
+    Samples.ExpectedValue = 1.0;
+    Preset.Guards.Add(Samples);
+
+    FPerformanceQualityGuard Csv;
+    Csv.Id = TEXT("csv-artifact");
+    Csv.MetricOrPath = TEXT("capture.csv");
+    Csv.Operator = EPerformanceGuardOperator::FileNotEmpty;
+    Preset.Guards.Add(Csv);
+    return Preset;
+}
+
 FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeCrowd200()
 {
     FPerformanceExperimentPresetData Preset;
     Preset.PresetId = TEXT("crowd-200");
-    Preset.DisplayName = NSLOCTEXT("PerformanceLab", "Crowd200Preset", "200 NPC 性能实验");
+    Preset.DisplayName = NSLOCTEXT("PerformanceLab", "Crowd200Preset", "多角色高负载实验");
     Preset.Domains = {
         EPerformanceExperimentDomain::FrameCPU,
         EPerformanceExperimentDomain::AI,
@@ -83,7 +109,8 @@ FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeHeroArena
     Preset.Domains = { EPerformanceExperimentDomain::FrameCPU, EPerformanceExperimentDomain::Rendering };
     Preset.Target.MapPath = TEXT("/ShooterMaps/Maps/L_Convolution_Blockout");
     Preset.Target.ExperienceId = TEXT("B_HeroArena_ControlPoints");
-    Preset.Load.AgentCount = 15;
+    // Hero Arena is currently a fixed 5v5 match: one local player and nine bots.
+    Preset.Load.AgentCount = 9;
     Preset.Load.Seed = 1337;
     Preset.Capture.WarmupSeconds = 15.0;
     Preset.Capture.DurationSeconds = 30.0;
@@ -124,6 +151,26 @@ FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeHeroArena
     return Preset;
 }
 
+FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeControlledPhysicsLoad()
+{
+    FPerformanceExperimentPresetData Preset = MakeHeroArenaRendering();
+    // Preserve the preset id so previously captured A/B sessions remain discoverable.
+    Preset.PresetId = TEXT("hero-arena-physics");
+    Preset.DisplayName = NSLOCTEXT("PerformanceLab", "ControlledPhysicsPreset", "受控 Chaos 物理负载");
+    Preset.Domains = { EPerformanceExperimentDomain::FrameCPU, EPerformanceExperimentDomain::Physics };
+    return Preset;
+}
+
+FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeControlledNiagaraLoad()
+{
+    FPerformanceExperimentPresetData Preset = MakeHeroArenaRendering();
+    // Preserve the preset id so previously captured A/B sessions remain discoverable.
+    Preset.PresetId = TEXT("hero-arena-niagara");
+    Preset.DisplayName = NSLOCTEXT("PerformanceLab", "ControlledNiagaraPreset", "受控 Niagara/VFX 负载");
+    Preset.Domains = { EPerformanceExperimentDomain::FrameCPU, EPerformanceExperimentDomain::Niagara };
+    return Preset;
+}
+
 FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeHeroArenaNetwork()
 {
     FPerformanceExperimentPresetData Preset;
@@ -133,7 +180,8 @@ FPerformanceExperimentPresetData FPerformanceExperimentPresetData::MakeHeroArena
     Preset.Target.MapPath = TEXT("/ShooterMaps/Maps/L_Convolution_Blockout");
     Preset.Target.ExperienceId = TEXT("B_HeroArena_ControlPoints");
     Preset.Target.Topology = EPerformanceProcessTopology::DedicatedServer;
-    Preset.Load.AgentCount = 15;
+    // Keep the network workload aligned with the same fixed 5v5 match contract.
+    Preset.Load.AgentCount = 9;
     Preset.Load.Seed = 1337;
     Preset.Capture.WarmupSeconds = 10.0;
     Preset.Capture.DurationSeconds = 15.0;

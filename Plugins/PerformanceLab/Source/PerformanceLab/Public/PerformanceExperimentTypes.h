@@ -80,7 +80,7 @@ struct PERFORMANCELAB_API FPerformanceCaptureContract
     bool bLockInitialPlayerView = false;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Capture")
-    FString CsvCategories = TEXT("PerformanceLab,LyraPerformance");
+    FString CsvCategories = TEXT("PerformanceLab,LyraPerformance,LyraWeaponVFX,GPU");
 };
 
 USTRUCT(BlueprintType)
@@ -182,8 +182,11 @@ struct PERFORMANCELAB_API FPerformanceExperimentPresetData
     FString ExtraCommandLine;
 
     void Normalize();
+    static FPerformanceExperimentPresetData MakeAdHoc();
     static FPerformanceExperimentPresetData MakeCrowd200();
     static FPerformanceExperimentPresetData MakeHeroArenaRendering();
+    static FPerformanceExperimentPresetData MakeControlledPhysicsLoad();
+    static FPerformanceExperimentPresetData MakeControlledNiagaraLoad();
     static FPerformanceExperimentPresetData MakeHeroArenaNetwork();
 };
 

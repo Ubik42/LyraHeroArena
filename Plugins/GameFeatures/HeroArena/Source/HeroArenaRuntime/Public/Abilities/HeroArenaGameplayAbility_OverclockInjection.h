@@ -1,10 +1,10 @@
 #pragma once
 
-#include "AbilitySystem/Abilities/LyraGameplayAbility.h"
+#include "Abilities/HeroArenaGameplayAbility_Ultimate.h"
 #include "HeroArenaGameplayAbility_OverclockInjection.generated.h"
 
 UCLASS()
-class HEROARENARUNTIME_API UHeroArenaGameplayAbility_OverclockInjection : public ULyraGameplayAbility
+class HEROARENARUNTIME_API UHeroArenaGameplayAbility_OverclockInjection : public UHeroArenaGameplayAbility_Ultimate
 {
 	GENERATED_BODY()
 

@@ -38,6 +38,8 @@ class HEROARENARUNTIME_API UHeroArenaRecallHistoryComponent : public UPlayerStat
 public:
 	UHeroArenaRecallHistoryComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+	/** True when Recall is ready and its first legal historical state restores meaningful health. */
+	bool HasUsefulRecallSample(float MinimumHealthGain) const;
 	bool TryRecallPosition(FHeroArenaRecallResult& OutResult);
 	int32 GetSampleCount() const { return Samples.Num(); }
 
