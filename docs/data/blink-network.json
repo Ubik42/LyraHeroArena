@@ -1,0 +1,1051 @@
+{
+  "date": "2026-10-17",
+  "engine": "UE 5.7.4",
+  "mode": "same-process listen server + owning client",
+  "fault": "development-only server-side Blink block, not replicated to owner",
+  "weak_network": {
+    "outgoing_lag_ms_per_world": 150,
+    "outgoing_packet_loss_percent_per_world": 2,
+    "measured_rtt": null
+  },
+  "owner_player_ids": {
+    "before": "257",
+    "after": "257",
+    "weak": "259"
+  },
+  "excluded_run": "First weak-network run had overlapping setup pawns and did not exercise consumption.",
+  "cases": {
+    "before": {
+      "before": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_6",
+            "local": false,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "early": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_6",
+            "local": false,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "settled": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_6",
+            "local": false,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "later": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_6",
+            "local": false,
+            "position": [
+              1128.96,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      }
+    },
+    "after": {
+      "before": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "early": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "settled": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "later": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "accepted": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 3.3,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 3.33,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "burst": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 0,
+            "remaining": 1.87,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 0,
+            "remaining": 1.9,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      },
+      "recharge": {
+        "2": {
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          },
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 1,
+            "remaining": 1.28,
+            "pending": null
+          }
+        },
+        "3": {
+          "257": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 1,
+            "remaining": 1.31,
+            "pending": null
+          },
+          "256": {
+            "pawn": "B_Hero_ShooterMannequin_C_9",
+            "local": false,
+            "position": [
+              -2091.04,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": null
+          }
+        }
+      }
+    },
+    "weak": {
+      "before": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_7",
+            "local": false,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "early": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 0.0,
+            "pending": 1
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_7",
+            "local": false,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "settled": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_7",
+            "local": false,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "later": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2008.96,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_7",
+            "local": false,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "accepted": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 3.37,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 2,
+            "remaining": 3.46,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_7",
+            "local": false,
+            "position": [
+              1474.6,
+              -214.66,
+              -110.64
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "burst": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_11",
+            "local": true,
+            "position": [
+              -1161.04,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 0,
+            "remaining": 1.96,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 0,
+            "remaining": 2.06,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_11",
+            "local": false,
+            "position": [
+              -1161.04,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "recharge": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_11",
+            "local": true,
+            "position": [
+              -1161.04,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 1,
+            "remaining": 1.4,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 1,
+            "remaining": 1.51,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_11",
+            "local": false,
+            "position": [
+              -1161.04,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      },
+      "hero-reset": {
+        "2": {
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_11",
+            "local": true,
+            "position": [
+              -1161.04,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_10",
+            "local": false,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        },
+        "3": {
+          "259": {
+            "pawn": "B_Hero_ShooterMannequin_C_0",
+            "local": true,
+            "position": [
+              2214.08,
+              136.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          },
+          "258": {
+            "pawn": "B_Hero_ShooterMannequin_C_11",
+            "local": false,
+            "position": [
+              -1161.04,
+              1686.24,
+              140.17
+            ],
+            "charges": 3,
+            "remaining": 0.0,
+            "pending": 0
+          }
+        }
+      }
+    }
+  }
+}

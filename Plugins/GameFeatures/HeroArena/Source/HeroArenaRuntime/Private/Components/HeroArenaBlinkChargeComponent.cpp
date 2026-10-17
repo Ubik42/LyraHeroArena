@@ -59,6 +59,7 @@ void UHeroArenaBlinkChargeComponent::BeginPlay()
 
 void UHeroArenaBlinkChargeComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	PendingPredictionKeys.Reset();
 	if (UWorld* World = GetWorld())
 	{
 		World->GetTimerManager().ClearTimer(RechargeTimerHandle);
@@ -175,10 +176,10 @@ void UHeroArenaBlinkChargeComponent::GetLifetimeReplicatedProps(TArray<FLifetime
 
 bool UHeroArenaBlinkChargeComponent::HasAvailableCharge() const
 {
-	return IsPhaseSelected() && ChargeState.CurrentCharges > 0;
+	return IsPhaseSelected() && GetCurrentCharges() > 0;
 }
 
-bool UHeroArenaBlinkChargeComponent::TryConsumeCharge()
+bool UHeroArenaBlinkChargeComponent::TryConsumeCharge(FPredictionKey PredictionKey)
 {
 	APlayerState* PlayerState = Cast<APlayerState>(GetOwner());
 	if (!PlayerState || !HasAvailableCharge())
@@ -190,6 +191,7 @@ bool UHeroArenaBlinkChargeComponent::TryConsumeCharge()
 	{
 		const bool bWasFull = ChargeState.CurrentCharges == MaxCharges;
 		--ChargeState.CurrentCharges;
+		ResolvePrediction(PredictionKey);
 		if (bWasFull)
 		{
 			ScheduleNextRecharge();
@@ -203,16 +205,39 @@ bool UHeroArenaBlinkChargeComponent::TryConsumeCharge()
 	}
 
 	APawn* Pawn = PlayerState->GetPawn();
-	if (!Pawn || !Pawn->IsLocallyControlled())
+	if (!Pawn || !Pawn->IsLocallyControlled() || !PredictionKey.IsValidKey() ||
+		PendingPredictionKeys.Contains(PredictionKey.Current))
 	{
 		return false;
 	}
-	--ChargeState.CurrentCharges;
+	const int16 Key = PredictionKey.Current;
+	const uint32 Epoch = ChargeState.ResetEpoch;
+	PendingPredictionKeys.Add(Key);
+	PredictionKey.NewRejectedDelegate().BindWeakLambda(this, [this, Key, Epoch]()
+	{
+		if (ChargeState.ResetEpoch == Epoch && PendingPredictionKeys.RemoveSingle(Key) > 0)
+		{
+			BroadcastState();
+			UE_LOG(LogHeroArenaBlinkCharges, Log,
+				TEXT("Blink prediction rejected: key=%d visible=%d authoritative=%d pending=%d"),
+				Key, GetCurrentCharges(), ChargeState.CurrentCharges, PendingPredictionKeys.Num());
+		}
+	});
 	BroadcastState();
 	UE_LOG(LogHeroArenaBlinkCharges, Log,
 		TEXT("Blink charge predicted: player=%s charges=%d/%d next=%.2f authority=false"),
-		*GetNameSafe(PlayerState), ChargeState.CurrentCharges, MaxCharges, GetNextChargeRemaining());
+		*GetNameSafe(PlayerState), GetCurrentCharges(), MaxCharges, GetNextChargeRemaining());
 	return true;
+}
+
+void UHeroArenaBlinkChargeComponent::ResolvePrediction(const FPredictionKey& PredictionKey)
+{
+	APlayerState* PlayerState = Cast<APlayerState>(GetOwner());
+	if (PlayerState && PlayerState->HasAuthority() && PredictionKey.IsValidKey() && !PredictionKey.IsServerInitiatedKey())
+	{
+		ChargeState.LastResolvedPredictionKey = PredictionKey.Current;
+		PlayerState->ForceNetUpdate();
+	}
 }
 
 float UHeroArenaBlinkChargeComponent::GetNextChargeRemaining() const
@@ -279,6 +304,8 @@ void UHeroArenaBlinkChargeComponent::ResetCharges(const TCHAR* Reason)
 		World->GetTimerManager().ClearTimer(RechargeTimerHandle);
 	}
 	ChargeState.CurrentCharges = MaxCharges;
+	ChargeState.LastResolvedPredictionKey = 0;
+	++ChargeState.ResetEpoch;
 	ChargeState.NextChargeReadyServerTime = 0.0f;
 	LastDamageRewardServerTime = -BIG_NUMBER;
 	PlayerState->ForceNetUpdate();
@@ -299,6 +326,7 @@ bool UHeroArenaBlinkChargeComponent::IsPhaseSelected() const
 void UHeroArenaBlinkChargeComponent::HandleHeroChanged(
 	const UHeroArenaHeroDefinition* OldHero, const UHeroArenaHeroDefinition* NewHero)
 {
+	PendingPredictionKeys.Reset();
 	ResetCharges(TEXT("hero_changed"));
 }
 
@@ -307,12 +335,28 @@ void UHeroArenaBlinkChargeComponent::HandlePawnSet(
 {
 	if (OldPawn != NewPawn && IsPhaseSelected())
 	{
+		PendingPredictionKeys.Reset();
 		ResetCharges(NewPawn ? TEXT("pawn_spawned") : TEXT("pawn_removed"));
 	}
 }
 
 void UHeroArenaBlinkChargeComponent::OnRep_ChargeState()
 {
+	if (ObservedResetEpoch != ChargeState.ResetEpoch)
+	{
+		PendingPredictionKeys.Reset();
+		ObservedResetEpoch = ChargeState.ResetEpoch;
+	}
+	else if (ChargeState.LastResolvedPredictionKey > 0)
+	{
+		const int16 Resolved = ChargeState.LastResolvedPredictionKey;
+		// GAS client keys are positive int16 values. Compare within half their wrap range.
+		// Reliable activation RPCs preserve request order; one replicated update may cover several keys.
+		PendingPredictionKeys.RemoveAll([Resolved](int16 Key)
+		{
+			return ((uint16(Resolved - Key) & 0x7fff) < 0x4000);
+		});
+	}
 	BroadcastState();
 	UE_LOG(LogHeroArenaBlinkCharges, Log,
 		TEXT("Blink charge state replicated: player=%s charges=%d/%d next=%.2f"),
@@ -321,5 +365,5 @@ void UHeroArenaBlinkChargeComponent::OnRep_ChargeState()
 
 void UHeroArenaBlinkChargeComponent::BroadcastState()
 {
-	OnChargeStateChanged.Broadcast(ChargeState.CurrentCharges, GetNextChargeRemaining());
+	OnChargeStateChanged.Broadcast(GetCurrentCharges(), GetNextChargeRemaining());
 }

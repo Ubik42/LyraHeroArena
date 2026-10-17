@@ -97,6 +97,7 @@ void UHeroArenaGameplayAbility_Blink::ActivateAbility(
 	UHeroArenaBlinkChargeComponent* Charges = GetChargeComponent(ActorInfo);
 	if (Direction.IsNearlyZero() || TravelDistance < MinimumTravelDistance)
 	{
+		if (Charges) Charges->ResolvePrediction(ActivationInfo.GetActivationPredictionKey());
 		if (ActorInfo && ActorInfo->IsLocallyControlled())
 		{
 			FLyraAbilitySimpleFailureMessage Message;
@@ -116,8 +117,9 @@ void UHeroArenaGameplayAbility_Blink::ActivateAbility(
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
 		return;
 	}
-	if (!CommitAbility(Handle, ActorInfo, ActivationInfo) || !Charges || !Charges->TryConsumeCharge())
+	if (!CommitAbility(Handle, ActorInfo, ActivationInfo) || !Charges || !Charges->TryConsumeCharge(ActivationInfo.GetActivationPredictionKey()))
 	{
+		if (Charges) Charges->ResolvePrediction(ActivationInfo.GetActivationPredictionKey());
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
 		return;
 	}

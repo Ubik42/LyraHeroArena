@@ -52,6 +52,21 @@ for net in ('2','3'):
             and before['pawn']!=respawn['pawn'] and respawn['pawn']==respawn['avatar']):
         errors.append('GAS lifecycle record mismatch: '+net)
 
+blink=json.loads((ROOT/'docs/data/blink-network.json').read_text(encoding='utf-8'))
+for case in ('after','weak'):
+    owner=blink['owner_player_ids'][case]
+    for stage,expected in (('later',3),('accepted',2),('burst',0),('recharge',1)):
+        pair=[blink['cases'][case][stage][net][owner] for net in ('2','3')]
+        if any(row['charges']!=expected for row in pair) or sum((a-b)**2 for a,b in zip(pair[0]['position'],pair[1]['position']))>=4:
+            errors.append('Blink reconciliation record mismatch: '+case+'/'+stage)
+        if pair[1]['pending'] not in (None,0):
+            errors.append('Blink unresolved prediction: '+case+'/'+stage)
+owner=blink['owner_player_ids']['weak']
+early=blink['cases']['weak']['early']['3'][owner]
+reset=blink['cases']['weak']['hero-reset']['3'][owner]
+if (early['charges'],early['pending'],reset['charges'],reset['pending'])!=(2,1,3,0):
+    errors.append('Blink prediction or reset path was not exercised')
+
 # Public material excludes project payloads, credentials and workstation-specific paths.
 for folder in ('Plugins','docs','assets'):
     for path in (ROOT/folder).rglob('*'):
@@ -66,5 +81,5 @@ for folder in ('Plugins','docs','assets'):
 
 if errors:
     raise SystemExit('\n'.join(errors))
-print(f'PASS: {len(manifest["files"])} source hashes; local Markdown/image links; 12-run aggregates; GAS records; payload/path scan.')
+print(f'PASS: {len(manifest["files"])} source hashes; local Markdown/image links; 12-run aggregates; GAS and Blink records; payload/path scan.')
 print('Scope: checks saved content only, not runtime, build compatibility or legal clearance.')

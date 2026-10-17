@@ -10,6 +10,7 @@
 #include "Abilities/GameplayAbility.h"
 
 #include "Engine/World.h"
+#include "Engine/NetDriver.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "HAL/IConsoleManager.h"
@@ -25,6 +26,64 @@
 #if !UE_BUILD_SHIPPING
 namespace HeroArenaSelectionDebug
 {
+	void LogBlinkNetwork(const TArray<FString>& Args, UWorld* World)
+	{
+		if (!World) return;
+#if DO_ENABLE_NET_TEST
+		if (const UNetDriver* Driver = World->GetNetDriver())
+		{
+			UE_LOG(LogTemp, Display, TEXT("HeroArena network simulation: net=%d outgoing_lag_ms=%d outgoing_loss_pct=%d"),
+				static_cast<int32>(World->GetNetMode()), Driver->PacketSimulationSettings.PktLag, Driver->PacketSimulationSettings.PktLoss);
+		}
+#endif
+		for (TActorIterator<ALyraPlayerState> It(World); It; ++It)
+		{
+			ALyraPlayerState* PS = *It;
+			if (PS->IsABot()) continue;
+			const APawn* Pawn = PS->GetPawn();
+			const UHeroArenaBlinkChargeComponent* Charges = PS->FindComponentByClass<UHeroArenaBlinkChargeComponent>();
+			UE_LOG(LogTemp, Display, TEXT("HeroArena Blink network: stage=%s net=%d player=%d pawn=%s local=%d location=%s charges=%d next=%.2f pending=%d"),
+				Args.Num() ? *Args[0] : TEXT("sample"), static_cast<int32>(World->GetNetMode()), PS->GetPlayerId(),
+				*GetNameSafe(Pawn), Pawn && Pawn->IsLocallyControlled(), Pawn ? *Pawn->GetActorLocation().ToCompactString() : TEXT("None"),
+				Charges ? Charges->GetCurrentCharges() : -1, Charges ? Charges->GetNextChargeRemaining() : -1.f,
+				Charges ? Charges->GetPendingPredictionCount() : -1);
+		}
+	}
+
+	void SetNetworkSimulation(const TArray<FString>& Args, UWorld* World)
+	{
+#if DO_ENABLE_NET_TEST
+		UNetDriver* Driver = World ? World->GetNetDriver() : nullptr;
+		if (!Driver || Args.Num() != 2) return;
+		FPacketSimulationSettings Settings;
+		Settings.PktLag = FMath::Clamp(FCString::Atoi(*Args[0]), 0, 500);
+		Settings.PktLoss = FMath::Clamp(FCString::Atoi(*Args[1]), 0, 10);
+		Driver->SetPacketSimulationSettings(Settings);
+		LogBlinkNetwork({TEXT("network-configured")}, World);
+#endif
+	}
+
+	// Deliberately server-only fault injection: reproduce a stale client activation decision.
+	void SetBlinkBlocked(const TArray<FString>& Args, UWorld* World)
+	{
+		if (!World || World->GetNetMode() == NM_Client || Args.Num() != 2) return;
+		const int32 Index = FCString::Atoi(*Args[0]);
+		const bool bBlock = FCString::Atoi(*Args[1]) != 0;
+		int32 Current = 0;
+		for (FConstPlayerControllerIterator It = World->GetPlayerControllerIterator(); It; ++It, ++Current)
+		{
+			if (Current != Index) continue;
+			ALyraPlayerState* PS = It->Get() ? It->Get()->GetPlayerState<ALyraPlayerState>() : nullptr;
+			ULyraAbilitySystemComponent* ASC = PS ? PS->GetLyraAbilitySystemComponent() : nullptr;
+			if (!ASC) return;
+			FGameplayTagContainer Tags(FGameplayTag::RequestGameplayTag(TEXT("Ability.Type.Action.Blink")));
+			if (bBlock && !ASC->AreAbilityTagsBlocked(Tags)) ASC->BlockAbilitiesWithTags(Tags);
+			else if (!bBlock && ASC->AreAbilityTagsBlocked(Tags)) ASC->UnBlockAbilitiesWithTags(Tags);
+			UE_LOG(LogTemp, Display, TEXT("HeroArena Blink server block: player=%d blocked=%d"), PS->GetPlayerId(), bBlock);
+			return;
+		}
+	}
+
 	// Read-only diagnostics. On clients, GAS specs are available for the owning player only.
 	void LogGAS(const TArray<FString>& Args, UWorld* World)
 	{
@@ -290,6 +349,15 @@ namespace HeroArenaSelectionDebug
 			SourceIndex, *GetNameSafe(Beacon), Damage, Beacon->GetBeaconHealth());
 	}
 
+	FAutoConsoleCommandWithWorldAndArgs LogBlinkNetworkCommand(
+		TEXT("HeroArena.Debug.LogBlinkNetwork"), TEXT("Read player positions and Blink counts in the current world. Non-owner charge values are not authoritative."),
+		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogBlinkNetwork));
+	FAutoConsoleCommandWithWorldAndArgs SetNetworkSimulationCommand(
+		TEXT("HeroArena.Debug.SetNetworkSimulation"), TEXT("Development only: set this world's outgoing packet lag (0-500 ms) and loss (0-10 percent). Use 0 0 to clear."),
+		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&SetNetworkSimulation));
+	FAutoConsoleCommandWithWorldAndArgs SetBlinkBlockedCommand(
+		TEXT("HeroArena.Debug.SetBlinkBlocked"), TEXT("Development only: block Blink on one server controller without changing the client. Args: controller-index 0-or-1."),
+		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&SetBlinkBlocked));
 	FAutoConsoleCommandWithWorldAndArgs RequestHeroCommand(
 		TEXT("HeroArena.Debug.RequestHero"), TEXT("Request one hero ID through the owning client's normal server RPC."),
 		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&RequestHero));

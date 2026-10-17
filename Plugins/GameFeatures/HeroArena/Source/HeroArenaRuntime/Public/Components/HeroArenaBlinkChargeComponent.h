@@ -2,6 +2,7 @@
 
 #include "Components/PlayerStateComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayPrediction.h"
 
 #include "HeroArenaBlinkChargeComponent.generated.h"
 
@@ -18,6 +19,13 @@ struct FHeroArenaBlinkChargeState
 
 	UPROPERTY(BlueprintReadOnly, Category="Hero Arena|Blink")
 	float NextChargeReadyServerTime = 0.0f;
+
+	// Echo the last processed client request with the authoritative count, including collision refusals.
+	UPROPERTY()
+	int16 LastResolvedPredictionKey = 0;
+
+	UPROPERTY()
+	uint32 ResetEpoch = 0;
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(
@@ -33,7 +41,7 @@ public:
 	UHeroArenaBlinkChargeComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 	UFUNCTION(BlueprintPure, Category="Hero Arena|Blink")
-	int32 GetCurrentCharges() const { return ChargeState.CurrentCharges; }
+	int32 GetCurrentCharges() const { return FMath::Max(0, int32(ChargeState.CurrentCharges) - PendingPredictionKeys.Num()); }
 
 	UFUNCTION(BlueprintPure, Category="Hero Arena|Blink")
 	int32 GetMaxCharges() const { return MaxCharges; }
@@ -42,7 +50,9 @@ public:
 	float GetNextChargeRemaining() const;
 
 	bool HasAvailableCharge() const;
-	bool TryConsumeCharge();
+	bool TryConsumeCharge(FPredictionKey PredictionKey);
+	void ResolvePrediction(const FPredictionKey& PredictionKey);
+	int32 GetPendingPredictionCount() const { return PendingPredictionKeys.Num(); }
 
 	UPROPERTY(BlueprintAssignable, Category="Hero Arena|Blink")
 	FHeroArenaBlinkChargeStateChanged OnChargeStateChanged;
@@ -98,4 +108,6 @@ private:
 	FGameplayMessageListenerHandle EliminationListenerHandle;
 	FGameplayMessageListenerHandle AssistListenerHandle;
 	float LastDamageRewardServerTime = -BIG_NUMBER;
+	TArray<int16> PendingPredictionKeys;
+	uint32 ObservedResetEpoch = 0;
 };
