@@ -31,6 +31,8 @@
 
 [完整占点对局与结算](docs/完整占点对局.md)：从开局零分到比赛结束，连续展示 A/B/C 轮换、交火、死亡重生与目标争夺。单机 1 玩家 + 9 Bot，Enhanced Input 自动输入；计分和终局复用 Lyra，自有组件管理轮换点及停用点的计分缓存。
 
+[比赛结算与下一局衔接](docs/比赛结算与下一局.md)：服务器识别 PostGame 后停止目标轮换，客户端清理战术提示；复用 Lyra 原生等待与 SeamlessTravel。独立服务器定向触发结算后，双端进入新世界，Phase 能力与闪现恢复正常。附当前截图和阶段记录。
+
 [连续实机片段与机制说明](https://ubik42.github.io/?work=lyra-hero-arena)：约 65 秒，单机 1 玩家 + 9 Bot，通过 Enhanced Input 自动输入。保留完整过程与等待，按游戏时间播放，无声；未开启无敌、传送、伤害注入或强制占点。
 
 **RecoveryField** 采用 LocalPredicted GameplayAbility，激活时先 CommitAbility，只有 Authority 生成恢复场 Actor。Actor 保存队伍与到期时间，服务器定时检索范围内友方，经标准 GameplayEffect 路径治疗；实际治疗成功后递增 HealingPulseSequence 并 ForceNetUpdate，客户端 OnRep 驱动 Niagara 脉冲。该段录像验证单机流程，多人治疗效果仍需单独验证。

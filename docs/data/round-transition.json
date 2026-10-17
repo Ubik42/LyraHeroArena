@@ -1,0 +1,1693 @@
+{
+  "run": "round-transition-weak-v3",
+  "scope": "Staged HandleVictory(1), not a naturally completed match. Independent dedicated server and one owning client on loopback. Host PostGame and automatic travel are unchanged.",
+  "network": {
+    "lag_per_process_ms": 150,
+    "outgoing_loss_pct": 2
+  },
+  "exit_codes": {
+    "server": 0,
+    "client": 0
+  },
+  "initial": {
+    "server": {
+      "time": 36.858,
+      "warmup": false,
+      "playing": true,
+      "postGame": false,
+      "team1": 0,
+      "team2": 0,
+      "targetScore": 125,
+      "winner": 0,
+      "worldId": 75308,
+      "objectiveEnded": false
+    },
+    "client": {
+      "time": 14.892,
+      "warmup": false,
+      "playing": false,
+      "postGame": false,
+      "team1": 0,
+      "team2": 0,
+      "targetScore": 125,
+      "winner": 0,
+      "worldId": 154505,
+      "objectiveEnded": false
+    }
+  },
+  "samples": [
+    {
+      "server": {
+        "time": 37.759,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 15.739,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 38.541,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 16.519,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 39.374,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 17.418,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 40.256,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 18.229,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 41.024,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 18.82,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 41.682,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 19.68,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 42.478,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 20.321,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 43.086,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 20.96,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 43.736,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 21.762,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 44.579,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 22.57,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 45.427,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 23.367,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 46.18,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 24.015,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 46.832,
+        "warmup": false,
+        "playing": false,
+        "postGame": true,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 75308,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 24.817,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 154505,
+        "objectiveEnded": true
+      }
+    },
+    {
+      "server": {
+        "time": 47.594,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 1,
+        "worldId": 107988,
+        "objectiveEnded": true
+      },
+      "client": {
+        "time": 25.51,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": -1,
+        "winner": -1,
+        "worldId": 178477,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 47.686,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": -1,
+        "winner": -1,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 27.432,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": -1,
+        "winner": -1,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 48.728,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 28.301,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 49.478,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 28.932,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 50.226,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 29.692,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 50.975,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 30.499,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 51.82,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 31.198,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 52.472,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 32.01,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 53.227,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 32.663,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 53.888,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 33.429,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 54.73,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 34.3,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 55.577,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 35.059,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 56.325,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 35.701,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 56.979,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 36.499,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 57.82,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 37.363,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 58.601,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 38.176,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 59.461,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 39.029,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 60.293,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 39.842,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 61.141,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 40.685,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 61.969,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 41.539,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 62.815,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 42.228,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 63.465,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 42.881,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 64.105,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 43.674,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 64.904,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 44.312,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 65.587,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 45.169,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 66.441,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 45.989,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 67.193,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 46.601,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 67.843,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 47.405,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 68.659,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 48.039,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 69.303,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 48.679,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 69.931,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 49.313,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 70.56,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 49.902,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 71.195,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 50.545,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 71.817,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 51.182,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 72.481,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 52.043,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 73.307,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 52.85,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 74.148,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 53.7,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 74.923,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 54.293,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 75.585,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 54.993,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 76.177,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 55.568,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 76.834,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 56.208,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 77.407,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 56.845,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 78.081,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 57.465,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 78.678,
+        "warmup": true,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 58.068,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 0,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    },
+    {
+      "server": {
+        "time": 79.33,
+        "warmup": false,
+        "playing": true,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 107950,
+        "objectiveEnded": false
+      },
+      "client": {
+        "time": 58.716,
+        "warmup": false,
+        "playing": false,
+        "postGame": false,
+        "team1": 0,
+        "team2": 0,
+        "targetScore": 125,
+        "winner": 0,
+        "worldId": 178028,
+        "objectiveEnded": false
+      }
+    }
+  ],
+  "roles": {
+    "server": {
+      "next-round-before": {
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "charges": 3,
+        "pending": 0,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "gas": {
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "next-round-blink": {
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "charges": 2,
+        "pending": 0,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "gas": {
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      }
+    },
+    "client": {
+      "next-round-before": {
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "charges": 3,
+        "pending": 0,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "gas": {
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "next-round-blink": {
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "charges": 2,
+        "pending": 0,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "gas": {
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      }
+    }
+  },
+  "log_sha256": {
+    "server": "b5e677bf5d30c31fec950dba573be004e08cea27e6b5056c7c0a5499165624ae",
+    "client": "4b25dfbac4a03e68dccfd2fdc5083bafcc35d03e7433d28ac3e63a833820cdb9"
+  },
+  "staged_victory_trigger_count": 1,
+  "observed_network": {
+    "server": [
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      },
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      },
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      },
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      }
+    ],
+    "client": [
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      },
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      },
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      },
+      {
+        "outgoing_lag_ms": 150,
+        "outgoing_loss_pct": 2
+      }
+    ]
+  },
+  "hud_terminal_messages": [
+    {
+      "world_time": 15.387,
+      "text": "比赛结束 · 等待下一局"
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

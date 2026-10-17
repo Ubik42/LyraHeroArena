@@ -277,6 +277,7 @@ void UHeroArenaCombatHUDWidget::NativeDestruct()
 void UHeroArenaCombatHUDWidget::HandleAbilityFailure(
 	FGameplayTag Channel, const FLyraAbilitySimpleFailureMessage& Message)
 {
+	if (RefreshMatchEndPresentation()) return;
 	// World message channels are shared; never show another player's failure on this HUD.
 	if (!GetOwningPlayer() || Message.PlayerController != GetOwningPlayer() ||
 		Message.UserFacingReason.IsEmpty() || !AbilityFailureToast.IsValid() || !AbilityFailureText.IsValid())
@@ -319,7 +320,11 @@ void UHeroArenaCombatHUDWidget::NativeTick(const FGeometry& MyGeometry, const fl
 		CSV_SCOPED_TIMING_STAT(HeroArenaHUD, Refresh);
 		CSV_CUSTOM_STAT(HeroArenaHUD, RefreshCount, 1, ECsvCustomStatOp::Accumulate);
 		RefreshRuntimeState();
-		if (ToastEndTime <= 0.0)
+		if (RefreshMatchEndPresentation())
+		{
+			// Terminal presentation overrides capture/respawn toasts from the same frame.
+		}
+		else if (ToastEndTime <= 0.0)
 		{
 			RefreshObjectiveState();
 		}
@@ -369,8 +374,37 @@ FLinearColor UHeroArenaCombatHUDWidget::GetObjectiveOwnerColor(const int32 Owner
 		: OwnerTeamId == 2 ? HeroArenaCombatHUD::RedObjective : HeroArenaCombatHUD::Ink;
 }
 
+bool UHeroArenaCombatHUDWidget::RefreshMatchEndPresentation()
+{
+	const AGameStateBase* State = GetWorld() ? GetWorld()->GetGameState() : nullptr;
+	const UHeroArenaControlPointRotationComponent* Rotation = State
+		? State->FindComponentByClass<UHeroArenaControlPointRotationComponent>() : nullptr;
+	if (!Rotation || !Rotation->HasMatchEnded())
+	{
+		bReportedMatchEnd = false;
+		return false;
+	}
+	if (!ObjectiveText.IsValid() || !ObjectiveToast.IsValid()) return false;
+	bReturnGuidanceActive = false;
+	ToastEndTime = 0.0;
+	AbilityFailureEndTime = 0.0;
+	if (AbilityFailureToast.IsValid()) AbilityFailureToast->SetVisibility(EVisibility::Collapsed);
+	ObjectiveToast->SetBorderBackgroundColor(HeroArenaCombatHUD::Ink);
+	HeroArenaCombatHUD::SetTextIfChanged(ObjectiveText, NSLOCTEXT("HeroArenaHUD", "MatchEnded", "比赛结束 · 等待下一局"));
+	HeroArenaCombatHUD::SetTextIfChanged(StatusText, NSLOCTEXT("HeroArenaHUD", "MatchEndedStatus", "对局已结束"));
+	ObjectiveToast->SetVisibility(EVisibility::Visible);
+	if (!bReportedMatchEnd)
+	{
+		bReportedMatchEnd = true;
+		UE_LOG(LogHeroArenaCombatHUD, Log, TEXT("HUD match-end presentation: net=%d world_time=%.3f objective=%s"),
+			int32(GetWorld()->GetNetMode()), GetWorld()->GetTimeSeconds(), *ObjectiveText->GetText().ToString());
+	}
+	return true;
+}
+
 void UHeroArenaCombatHUDWidget::RefreshObjectiveState()
 {
+	if (RefreshMatchEndPresentation()) return;
 	if (!ObjectiveToast.IsValid() || !ObjectiveText.IsValid()) return;
 	const AGameStateBase* GameState = GetWorld() ? GetWorld()->GetGameState() : nullptr;
 	const UHeroArenaControlPointRotationComponent* Rotation = GameState
@@ -576,6 +610,7 @@ void UHeroArenaCombatHUDWidget::RefreshRuntimeState()
 
 void UHeroArenaCombatHUDWidget::HandleControlPointCaptured(FGameplayTag Channel, const FLyraControlPointStatusMessage& Message)
 {
+	if (RefreshMatchEndPresentation()) return;
 	if (!ObjectiveToast.IsValid() || !ObjectiveText.IsValid()) return;
 	bReturnGuidanceActive = false;
 	const FString TeamText = GetObjectiveOwnerLabel(Message.OwnerTeamID);
@@ -587,6 +622,7 @@ void UHeroArenaCombatHUDWidget::HandleControlPointCaptured(FGameplayTag Channel,
 
 void UHeroArenaCombatHUDWidget::RefreshReturnGuidance()
 {
+	if (RefreshMatchEndPresentation()) return;
 	if (!ObjectiveText.IsValid())
 	{
 		return;
@@ -607,6 +643,7 @@ void UHeroArenaCombatHUDWidget::RefreshReturnGuidance()
 
 void UHeroArenaCombatHUDWidget::HandleRespawnCompleted(FGameplayTag Channel, const FLyraVerbMessage& Message)
 {
+	if (RefreshMatchEndPresentation()) return;
 	const APlayerController* PC = GetOwningPlayer();
 	if (!PC || Message.Instigator != PC->PlayerState || !ObjectiveToast.IsValid() || !ObjectiveText.IsValid())
 	{

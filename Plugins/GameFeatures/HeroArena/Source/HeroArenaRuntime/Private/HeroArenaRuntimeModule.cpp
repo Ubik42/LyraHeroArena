@@ -66,12 +66,15 @@ namespace HeroArenaSelectionDebug
 			}
 		}
 		const FGameplayTag ScoreTag = FGameplayTag::RequestGameplayTag(TEXT("ShooterGame.ControlPoint.TeamScore"), false);
-		UE_LOG(LogTemp, Display, TEXT("HeroArena match frame: {\"time\":%.3f,\"warmup\":%s,\"playing\":%s,\"postGame\":%s,\"team1\":%d,\"team2\":%d,\"targetScore\":%d,\"winner\":%d}"),
+		const UHeroArenaControlPointRotationComponent* Rotation = World->GetGameState()
+			? World->GetGameState()->FindComponentByClass<UHeroArenaControlPointRotationComponent>() : nullptr;
+		UE_LOG(LogTemp, Display, TEXT("HeroArena match frame: {\"time\":%.3f,\"warmup\":%s,\"playing\":%s,\"postGame\":%s,\"team1\":%d,\"team2\":%d,\"targetScore\":%d,\"winner\":%d,\"worldId\":%u,\"objectiveEnded\":%s}"),
 			World->GetTimeSeconds(), IsPhase(TEXT("ShooterGame.GamePhase.Warmup")) ? TEXT("true") : TEXT("false"),
 			IsPhase(TEXT("ShooterGame.GamePhase.Playing")) ? TEXT("true") : TEXT("false"),
 			IsPhase(TEXT("ShooterGame.GamePhase.PostGame")) ? TEXT("true") : TEXT("false"),
 			Teams && ScoreTag.IsValid() ? Teams->GetTeamTagStackCount(1, ScoreTag) : -1,
-			Teams && ScoreTag.IsValid() ? Teams->GetTeamTagStackCount(2, ScoreTag) : -1, TargetScore, WinningTeam);
+			Teams && ScoreTag.IsValid() ? Teams->GetTeamTagStackCount(2, ScoreTag) : -1, TargetScore, WinningTeam,
+			World->GetUniqueID(), Rotation && Rotation->HasMatchEnded() ? TEXT("true") : TEXT("false"));
 	}
 	// Read-only recording aid. The external driver still uses normal Enhanced Input.
 	void LogGameplayFrame(const TArray<FString>& Args, UWorld* World)

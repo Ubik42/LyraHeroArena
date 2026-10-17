@@ -9,6 +9,8 @@
 #include "Net/UnrealNetwork.h"
 #include "NiagaraComponent.h"
 #include "UObject/UnrealType.h"
+#include "AbilitySystem/LyraAbilitySystemComponent.h"
+#include "AbilitySystem/Phases/LyraGamePhaseAbility.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaControlPointRotationComponent)
 
@@ -54,6 +56,7 @@ void UHeroArenaControlPointRotationComponent::GetLifetimeReplicatedProps(TArray<
 	DOREPLIFETIME(ThisClass, CapturingTeam);
 	DOREPLIFETIME(ThisClass, CaptureProgress);
 	DOREPLIFETIME(ThisClass, bActivePointContested);
+	DOREPLIFETIME(ThisClass, bMatchEnded);
 }
 
 float UHeroArenaControlPointRotationComponent::GetServerTime() const
@@ -308,6 +311,28 @@ void UHeroArenaControlPointRotationComponent::ClearInactiveScoringOwners()
 void UHeroArenaControlPointRotationComponent::TickRotation()
 {
 	if (!GetOwner() || !GetOwner()->HasAuthority()) return;
+	// Lyra stores active phases as abilities on the authoritative GameState ASC.
+	// Its phase map is not replicated; publish only the presentation state needed here.
+	const ULyraAbilitySystemComponent* ASC = GetOwner()->FindComponentByClass<ULyraAbilitySystemComponent>();
+	const FGameplayTag PostGame = FGameplayTag::RequestGameplayTag(TEXT("ShooterGame.GamePhase.PostGame"));
+	if (ASC)
+	{
+		for (const FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+		{
+			const ULyraGamePhaseAbility* Phase = Cast<ULyraGamePhaseAbility>(Spec.Ability);
+			if (Spec.IsActive() && Phase && Phase->GetGamePhaseTag().MatchesTag(PostGame))
+			{
+				bMatchEnded = true;
+				ChangeAtServerTime = 0.0f;
+				GetWorld()->GetTimerManager().ClearTimer(RotationTimer);
+				GetOwner()->ForceNetUpdate();
+				UE_LOG(LogHeroArenaControlPointRotation, Log,
+					TEXT("Objective rotation stopped for PostGame: point=%s world_time=%.3f"),
+					*GetCurrentPointLabel().ToString(), GetWorld()->GetTimeSeconds());
+				return;
+			}
+		}
+	}
 	ClearInactiveScoringOwners();
 	RefreshActiveCaptureState();
 	if (bTransitioning && GetServerTime() >= ChangeAtServerTime)
@@ -323,7 +348,7 @@ void UHeroArenaControlPointRotationComponent::TickRotation()
 void UHeroArenaControlPointRotationComponent::HandlePointCaptured(
 	FGameplayTag Channel, const FLyraControlPointStatusMessage& Message)
 {
-	if (bTransitioning || !ControlPoints.IsValidIndex(ActivePointIndex) || Message.ControlPoint != ControlPoints[ActivePointIndex])
+	if (bMatchEnded || bTransitioning || !ControlPoints.IsValidIndex(ActivePointIndex) || Message.ControlPoint != ControlPoints[ActivePointIndex])
 	{
 		return;
 	}

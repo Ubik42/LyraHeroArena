@@ -43,6 +43,8 @@ public:
 	UFUNCTION(BlueprintPure, Category="Hero Arena|Objective")
 	bool IsActivePointContested() const { return bActivePointContested; }
 
+	bool HasMatchEnded() const { return bMatchEnded; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
@@ -86,6 +88,10 @@ private:
 
 	UPROPERTY(Replicated)
 	bool bActivePointContested = false;
+
+	// Local HUDs cannot query the server-only Lyra phase map.
+	UPROPERTY(Replicated)
+	bool bMatchEnded = false;
 
 	UPROPERTY(Transient)
 	TArray<TObjectPtr<AActor>> ControlPoints;

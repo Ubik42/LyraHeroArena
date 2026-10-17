@@ -41,6 +41,7 @@ private:
 	void HandleRespawnCompleted(FGameplayTag Channel, const FLyraVerbMessage& Message);
 	void HandleAbilityFailure(FGameplayTag Channel, const FLyraAbilitySimpleFailureMessage& Message);
 	void RefreshObjectiveState();
+	bool RefreshMatchEndPresentation();
 	void RefreshReturnGuidance();
 	FString GetObjectiveDistanceText(const class UHeroArenaControlPointRotationComponent* Rotation) const;
 	FString GetObjectiveOwnerLabel(int32 OwnerTeamId) const;
@@ -77,4 +78,5 @@ private:
 	double NextRuntimeRefreshTime = 0.0;
 	double NextTeamRefreshTime = 0.0;
 	bool bReturnGuidanceActive = false;
+	bool bReportedMatchEnd = false;
 };

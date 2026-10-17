@@ -121,6 +121,31 @@ for run in countdown['runs']:
     if run['injected_clock_bias_seconds'] and not any(s['legacy_formula_seconds'] > 4 and s['display_seconds'] <= 4.02 for s in run['snapshots']):
         errors.append('Missing paired legacy/new clock comparison')
 
+# Check recorded travel and new-round ability state, independently of its pass flag.
+transition=json.loads((ROOT/'docs/data/round-transition.json').read_text(encoding='utf-8'))
+if transition['staged_victory_trigger_count']!=1 or any(transition['exit_codes'].values()):
+    errors.append('Round transition trigger or process exit')
+for role in ('server','client'):
+    initial=transition['initial'][role]
+    rows=[pair[role] for pair in transition['samples']]
+    terminal=[row for row in rows if row['worldId']==initial['worldId'] and row['objectiveEnded']]
+    final=rows[-1]
+    if not terminal or final['worldId']==initial['worldId'] or final['objectiveEnded'] or (final['team1'],final['team2'],final['targetScore'])!=(0,0,125):
+        errors.append('Round transition world/state: '+role)
+    if role=='server' and (not final['playing'] or not any(row['postGame'] and row['winner']==1 for row in terminal)):
+        errors.append('Round transition server phase')
+    stages=transition['roles'][role]
+    for stage,charges in [('next-round-before',3),('next-round-blink',2)]:
+        row=stages[stage];gas=row['gas']
+        if row['charges']!=charges or row['pending'] or gas['avatar']!=row['pawn'] or gas['hero']!='Phase' or gas['count']!=4 or len(set(gas['specs']))!=4:
+            errors.append('Next-round ability state: '+role+'/'+stage)
+    if stages['next-round-before']['pawn']!=stages['next-round-blink']['pawn'] or math.dist(stages['next-round-before']['position'],stages['next-round-blink']['position'])<100:
+        errors.append('Next-round movement: '+role)
+for stage in ('next-round-before','next-round-blink'):
+    a,b=[transition['roles'][role][stage] for role in ('server','client')]
+    if a['player']!=b['player'] or math.dist(a['position'],b['position'])>2:
+        errors.append('Next-round replication: '+stage)
+
 # Public material excludes project payloads, credentials and workstation-specific paths.
 for folder in ('Plugins','docs','assets'):
     for path in (ROOT/folder).rglob('*'):

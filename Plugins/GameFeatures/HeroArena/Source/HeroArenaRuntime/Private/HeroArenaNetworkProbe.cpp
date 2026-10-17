@@ -10,6 +10,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/GameStateBase.h"
 #include "UObject/UnrealType.h"
+#include "UObject/StructOnScope.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedPlayerInput.h"
 #include "InputAction.h"
@@ -73,6 +74,7 @@ namespace HeroArenaNetworkProbe
             const TArray<FString> Allowed = { TEXT("HeroArena.Debug.RequestHero"), TEXT("HeroArena.Debug.SetSelectionLocked"),
                 TEXT("HeroArena.Debug.SetNetworkSimulation"), TEXT("HeroArena.Debug.SetBlinkBlocked"),
                 TEXT("HeroArena.Debug.LogBlinkNetwork"), TEXT("HeroArena.Debug.LogGAS"),
+                TEXT("HeroArena.Debug.LogMatchFrame"),
                 TEXT("HeroArena.Debug.DamagePlayer"), TEXT("HeroArena.Debug.LogPlayerState") };
             if (Allowed.Contains(Name) && !Args.Contains(TEXT("\n")) && !Args.Contains(TEXT("|")))
                 bAccepted = GEngine->Exec(World, *Args);
@@ -85,6 +87,37 @@ namespace HeroArenaNetworkProbe
             {
                 Input->GetPlayerInput()->InjectInputForAction(Action, FInputActionValue(true));
                 bAccepted = true;
+            }
+        }
+        else if (Operation == TEXT("FinishRound") && World->GetNetMode() == NM_DedicatedServer)
+        {
+            // Staged terminal-state test. Invoke the host's real victory flow without editing assets.
+            const int32 Team = FCString::Atoi(*Args);
+            if ((Team == 1 || Team == 2) && World->GetGameState())
+            {
+                for (UActorComponent* Component : World->GetGameState()->GetComponents())
+                {
+                    if (!Component || !Component->GetClass()->GetName().Contains(TEXT("ControlPointScoring"))) continue;
+                    UFunction* Victory = Component->FindFunction(TEXT("HandleVictory"));
+                    FIntProperty* TeamParam = nullptr;
+                    int32 Inputs = 0;
+                    for (TFieldIterator<FProperty> It(Victory); Victory && It; ++It)
+                    {
+                        if (It->HasAnyPropertyFlags(CPF_Parm) && !It->HasAnyPropertyFlags(CPF_ReturnParm))
+                        {
+                            ++Inputs;
+                            TeamParam = CastField<FIntProperty>(*It);
+                        }
+                    }
+                    if (Victory && Inputs == 1 && TeamParam)
+                    {
+                        FStructOnScope Parameters(Victory);
+                        TeamParam->SetPropertyValue_InContainer(Parameters.GetStructMemory(), Team);
+                        Component->ProcessEvent(Victory, Parameters.GetStructMemory());
+                        bAccepted = true;
+                    }
+                    break;
+                }
             }
         }
         else if (Operation == TEXT("ClockBias") && World->GetNetMode() == NM_Client)
