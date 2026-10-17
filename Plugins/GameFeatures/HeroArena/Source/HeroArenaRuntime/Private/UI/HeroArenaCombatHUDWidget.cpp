@@ -552,6 +552,22 @@ void UHeroArenaCombatHUDWidget::RefreshRuntimeState()
 		}
 	}
 	HeroArenaCombatHUD::SetTextIfChanged(StatusText, GetStatusText());
+#if !UE_BUILD_SHIPPING
+	// Opt-in presentation trace only; keep it disabled during timing benchmarks.
+	static const bool bTraceHUD = FParse::Param(FCommandLine::Get(), TEXT("HeroArenaHUDTrace"));
+	if (bTraceHUD && GetWorld())
+	{
+		TArray<FString> SkillStates;
+		for (const TSharedPtr<STextBlock>& Text : SkillStateTexts)
+		{
+			SkillStates.Add(Text.IsValid() ? Text->GetText().ToString() : TEXT("missing"));
+		}
+		UE_LOG(LogHeroArenaCombatHUD, Log,
+			TEXT("HUDRefreshSample game=%.6f wall=%.6f frame=%llu fullRate=%d skills=[%s]"),
+			GetWorld()->GetTimeSeconds(), FPlatformTime::Seconds(), GFrameCounter,
+			HeroArenaCombatHUD::IsFullRateBaseline() ? 1 : 0, *FString::Join(SkillStates, TEXT(";")));
+	}
+#endif
 }
 
 void UHeroArenaCombatHUDWidget::HandleControlPointCaptured(FGameplayTag Channel, const FLyraControlPointStatusMessage& Message)

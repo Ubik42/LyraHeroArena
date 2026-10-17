@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-17",
-  "sourceRevision": "5cf516eeb7453739e92b8ef78e81d0248564ab7f",
+  "sourceRevision": "3d129c4ea13f8e48b55723b3057a3d2ffef25444",
   "engine": "UE 5.7.4 / CL 51494982",
   "normalization": "UTF-8 without BOM; LF newlines",
   "scope": "Three authored plugin source trees only; does not include host Lyra modifications or asset assembly.",
@@ -170,7 +170,7 @@
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Input/HeroArenaStrikerInputConfig.cpp": "5c7dd9dc5b2ba7950329742774332f00a17ea8f1c198cabce60b8ad99eb6f6ea",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Projectiles/HeroArenaSpiralProjectileComponent.cpp": "d2de23c31a20cdb38b5f7a37838f4df5aa5ad624df5509589f505c22fe215f9d",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Scoring/HeroArenaContribution.cpp": "7455e292dcc28f72cdfe88d671b78e08684a4d9ba3f91911d1ee9d666f927197",
-    "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaCombatHUDWidget.cpp": "ae04dfd6415d0af493a38d0a744a03465644dad1d0894c4883dc31829de616d1",
+    "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaCombatHUDWidget.cpp": "051acbac86b7ccd308093e340332076c901ded3795f538e803ef6372d89f7474",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaHeroSelectUIComponent.cpp": "1b850188547a68f344d4057c5856a925f4f5a67d44f1637c5d95dfe2ba017aef",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaHeroSelectWidget.cpp": "6659b16775bee2019f5c65577e041f92bedc58ae90d9b1a5ad2cee2a205f8c2b",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaScoreboardWidget.cpp": "3f5c671afc934c0175080c32e5f802527514bd0f3f913b6157cd3cfdb56875f4",

@@ -104,6 +104,8 @@ Striker 的 7 项包含选人控制与 Bot 辅助 AbilitySpec。测试于 2026-1
 
 ### UE 性能实验工作台
 
+[战术 HUD 每帧与分频更新实机对照](https://ubik42.github.io/?work=ue-performance-workbench)：12.5 秒并排展示，附原生技能栏放大。同长度窗口的状态刷新为 370 次与 103 次，双方均显示冷却、充能恢复及碰撞失败原因。计数与历史耗时分开，机制、取舍和录制条件见 [HUD 更新质量对照](docs/HUD更新质量对照.md)。
+
 `PerformanceWorkbench` 是运行在 Unreal Editor 内的中文实验工具；`PerformanceLab` 是不依赖 Editor 的运行时采集模块。两者通过版本化 Preset 和 JSON/CSV 结果连接。
 
 - 14 条实验轨道覆盖真实 5v5、受控子系统负载和 200 角色压力场。
