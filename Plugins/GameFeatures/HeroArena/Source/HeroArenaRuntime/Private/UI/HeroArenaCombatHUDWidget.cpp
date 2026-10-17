@@ -493,6 +493,10 @@ FText UHeroArenaCombatHUDWidget::GetSkillState(const int32 SkillIndex) const
 		if (const UHeroArenaBlinkChargeComponent* Blink = PS ? PS->FindComponentByClass<UHeroArenaBlinkChargeComponent>() : nullptr)
 		{
 			const float Remaining = Blink->GetNextChargeRemaining();
+			if (Remaining <= 0.05f && Blink->GetCurrentCharges() == 0)
+			{
+				return NSLOCTEXT("HeroArenaHUD", "BlinkAwaitingCharge", "0 格 · 等待充能");
+			}
 			return Remaining > 0.05f
 				? FText::FromString(FString::Printf(TEXT("%d/%d · %.1fs"), Blink->GetCurrentCharges(), Blink->GetMaxCharges(), Remaining))
 				: FText::FromString(FString::Printf(TEXT("%d/%d · 就绪"), Blink->GetCurrentCharges(), Blink->GetMaxCharges()));

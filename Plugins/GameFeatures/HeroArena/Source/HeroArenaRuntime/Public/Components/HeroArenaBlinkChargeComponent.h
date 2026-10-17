@@ -20,6 +20,13 @@ struct FHeroArenaBlinkChargeState
 	UPROPERTY(BlueprintReadOnly, Category="Hero Arena|Blink")
 	float NextChargeReadyServerTime = 0.0f;
 
+	// Paired server-clock sample; client presentation does not subtract its smoothed GameState clock.
+	UPROPERTY()
+	float SnapshotServerTime = 0.0f;
+
+	UPROPERTY()
+	uint32 RechargeSequence = 0;
+
 	// Echo the last processed client request with the authoritative count, including collision refusals.
 	UPROPERTY()
 	int16 LastResolvedPredictionKey = 0;
@@ -81,6 +88,7 @@ private:
 	bool AdvanceCurrentRecharge(float Seconds, const TCHAR* Reason);
 	bool IsPhaseSelected() const;
 	void BroadcastState();
+	void PublishState();
 
 	UPROPERTY(ReplicatedUsing=OnRep_ChargeState)
 	FHeroArenaBlinkChargeState ChargeState;
@@ -110,4 +118,6 @@ private:
 	float LastDamageRewardServerTime = -BIG_NUMBER;
 	TArray<int16> PendingPredictionKeys;
 	uint32 ObservedResetEpoch = 0;
+	uint32 ObservedRechargeSequence = 0;
+	double ClientRechargeDeadline = 0.0;
 };

@@ -8,6 +8,8 @@
 #include "Engine/GameViewportClient.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/GameStateBase.h"
+#include "UObject/UnrealType.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedPlayerInput.h"
 #include "InputAction.h"
@@ -82,6 +84,20 @@ namespace HeroArenaNetworkProbe
             if (Input && Action && Input->GetPlayerInput())
             {
                 Input->GetPlayerInput()->InjectInputForAction(Action, FInputActionValue(true));
+                bAccepted = true;
+            }
+        }
+        else if (Operation == TEXT("ClockBias") && World->GetNetMode() == NM_Client)
+        {
+            // One-shot fault injection only; normal GameState synchronization continues afterward.
+            // The command exists solely behind the explicit non-Shipping process-probe opt-in.
+            const float Bias = FCString::Atof(*Args);
+            AGameStateBase* State = World->GetGameState();
+            FFloatProperty* Offset = State ? FindFProperty<FFloatProperty>(State->GetClass(), TEXT("ServerWorldTimeSecondsDelta")) : nullptr;
+            if (Offset && FMath::IsFinite(Bias) && FMath::Abs(Bias) <= 10.0f)
+            {
+                Offset->SetPropertyValue_InContainer(State, Offset->GetPropertyValue_InContainer(State) + Bias);
+                UE_LOG(LogTemp, Display, TEXT("Blink clock fault injection: bias_seconds=%.3f"), Bias);
                 bAccepted = true;
             }
         }

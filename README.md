@@ -57,6 +57,8 @@ Recall 使用 **ServerOnly GameplayAbility**，服务器采样 Pawn 的位置、
 
 另完成 **独立 Dedicated Server + 拥有客户端**的普通网络与弱网运行：预测拒绝后恢复 3 格，正常释放后双端 2 格并在同一 Pawn 上补充；Striker 7 项来源能力切至 Phase 4 项，重生后新 Pawn 与 ASC Avatar 对应。范围为非打包、同机 Loopback 单客户端，联网完整比赛及公网仍待补充。开发驱动、截图、阶段数据、冷启动倒计时问题与复现步骤见 [跨进程网络案例](docs/跨进程网络案例.md)。
 
+[闪现充能倒计时修正](docs/闪现充能倒计时.md)：通过服务器同源时间快照与本地显示计时，隔离客户端时钟估计变化；同一次故障注入记录中，旧公式为 4.818 秒，新显示为 4.000 秒。可用次数仍由服务器决定，保留复制延迟的限制。
+
 | 实现入口 | 对应内容 |
 | --- | --- |
 | [Blink](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Abilities/HeroArenaGameplayAbility_Blink.cpp) | 激活条件、碰撞缩距、失败 Tag 与表现 |

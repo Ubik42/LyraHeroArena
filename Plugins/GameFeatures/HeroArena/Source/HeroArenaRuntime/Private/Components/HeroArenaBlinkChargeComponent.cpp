@@ -158,8 +158,7 @@ bool UHeroArenaBlinkChargeComponent::AdvanceCurrentRecharge(float Seconds, const
 		ChargeState.NextChargeReadyServerTime = ServerTime + NewRemaining;
 		World->GetTimerManager().SetTimer(
 			RechargeTimerHandle, this, &ThisClass::RestoreNextCharge, NewRemaining, false);
-		PlayerState->ForceNetUpdate();
-		BroadcastState();
+		PublishState();
 	}
 	UE_LOG(LogHeroArenaBlinkCharges, Log,
 		TEXT("Blink recharge advanced: player=%s reason=%s reduction=%.2f remaining=%.2f->%.2f charges=%d/%d"),
@@ -196,8 +195,7 @@ bool UHeroArenaBlinkChargeComponent::TryConsumeCharge(FPredictionKey PredictionK
 		{
 			ScheduleNextRecharge();
 		}
-		PlayerState->ForceNetUpdate();
-		BroadcastState();
+		PublishState();
 		UE_LOG(LogHeroArenaBlinkCharges, Log,
 			TEXT("Blink charge consumed: player=%s charges=%d/%d next=%.2f authority=true"),
 			*GetNameSafe(PlayerState), ChargeState.CurrentCharges, MaxCharges, GetNextChargeRemaining());
@@ -236,6 +234,7 @@ void UHeroArenaBlinkChargeComponent::ResolvePrediction(const FPredictionKey& Pre
 	if (PlayerState && PlayerState->HasAuthority() && PredictionKey.IsValidKey() && !PredictionKey.IsServerInitiatedKey())
 	{
 		ChargeState.LastResolvedPredictionKey = PredictionKey.Current;
+		ChargeState.SnapshotServerTime = GetWorld()->GetTimeSeconds();
 		PlayerState->ForceNetUpdate();
 	}
 }
@@ -247,6 +246,11 @@ float UHeroArenaBlinkChargeComponent::GetNextChargeRemaining() const
 		return 0.0f;
 	}
 	const UWorld* World = GetWorld();
+	if (GetOwner() && !GetOwner()->HasAuthority())
+	{
+		// Only the display advances locally. The count and ability permission remain authoritative.
+		return World ? float(FMath::Max(0.0, ClientRechargeDeadline - World->GetTimeSeconds())) : 0.0f;
+	}
 	const AGameStateBase* GameState = World ? World->GetGameState() : nullptr;
 	const float ServerTime = GameState ? GameState->GetServerWorldTimeSeconds() : (World ? World->GetTimeSeconds() : 0.0f);
 	return FMath::Max(0.0f, ChargeState.NextChargeReadyServerTime - ServerTime);
@@ -263,6 +267,7 @@ void UHeroArenaBlinkChargeComponent::ScheduleNextRecharge()
 	const AGameStateBase* GameState = World->GetGameState();
 	const float ServerTime = GameState ? GameState->GetServerWorldTimeSeconds() : World->GetTimeSeconds();
 	ChargeState.NextChargeReadyServerTime = ServerTime + RechargeDuration;
+	++ChargeState.RechargeSequence;
 	World->GetTimerManager().SetTimer(
 		RechargeTimerHandle, this, &ThisClass::RestoreNextCharge, RechargeDuration, false);
 }
@@ -285,8 +290,7 @@ void UHeroArenaBlinkChargeComponent::RestoreNextCharge()
 	{
 		ChargeState.NextChargeReadyServerTime = 0.0f;
 	}
-	PlayerState->ForceNetUpdate();
-	BroadcastState();
+	PublishState();
 	UE_LOG(LogHeroArenaBlinkCharges, Log,
 		TEXT("Blink charge restored: player=%s charges=%d/%d next=%.2f"),
 		*GetNameSafe(PlayerState), ChargeState.CurrentCharges, MaxCharges, GetNextChargeRemaining());
@@ -308,8 +312,7 @@ void UHeroArenaBlinkChargeComponent::ResetCharges(const TCHAR* Reason)
 	++ChargeState.ResetEpoch;
 	ChargeState.NextChargeReadyServerTime = 0.0f;
 	LastDamageRewardServerTime = -BIG_NUMBER;
-	PlayerState->ForceNetUpdate();
-	BroadcastState();
+	PublishState();
 	UE_LOG(LogHeroArenaBlinkCharges, Log,
 		TEXT("Blink charges reset: player=%s charges=%d/%d reason=%s"),
 		*GetNameSafe(PlayerState), ChargeState.CurrentCharges, MaxCharges, Reason);
@@ -342,6 +345,30 @@ void UHeroArenaBlinkChargeComponent::HandlePawnSet(
 
 void UHeroArenaBlinkChargeComponent::OnRep_ChargeState()
 {
+	const UWorld* World = GetWorld();
+	const float SnapshotRemaining = FMath::Max(0.0f,
+		ChargeState.NextChargeReadyServerTime - ChargeState.SnapshotServerTime);
+	if (World && ChargeState.NextChargeReadyServerTime > 0.0f && ChargeState.CurrentCharges < MaxCharges)
+	{
+		const double Candidate = World->GetTimeSeconds() + SnapshotRemaining;
+		const bool bSameCycle = ObservedResetEpoch == ChargeState.ResetEpoch &&
+			ObservedRechargeSequence == ChargeState.RechargeSequence && ClientRechargeDeadline > 0.0;
+		// Coalesced acknowledgements cannot restart an existing recharge display.
+		ClientRechargeDeadline = bSameCycle ? FMath::Min(ClientRechargeDeadline, Candidate) : Candidate;
+	}
+	else
+	{
+		ClientRechargeDeadline = 0.0;
+	}
+	ObservedRechargeSequence = ChargeState.RechargeSequence;
+	const AGameStateBase* GameState = World ? World->GetGameState() : nullptr;
+	UE_LOG(LogHeroArenaBlinkCharges, Log,
+		TEXT("Blink countdown snapshot: epoch=%u cycle=%u snapshot=%.3f deadline=%.3f relative=%.3f legacy=%.3f display=%.3f"),
+		ChargeState.ResetEpoch, ChargeState.RechargeSequence, ChargeState.SnapshotServerTime,
+		ChargeState.NextChargeReadyServerTime, SnapshotRemaining,
+		ChargeState.NextChargeReadyServerTime > 0.0f && GameState ?
+			FMath::Max(0.0, double(ChargeState.NextChargeReadyServerTime) - GameState->GetServerWorldTimeSeconds()) : 0.0,
+		GetNextChargeRemaining());
 	if (ObservedResetEpoch != ChargeState.ResetEpoch)
 	{
 		PendingPredictionKeys.Reset();
@@ -366,4 +393,12 @@ void UHeroArenaBlinkChargeComponent::OnRep_ChargeState()
 void UHeroArenaBlinkChargeComponent::BroadcastState()
 {
 	OnChargeStateChanged.Broadcast(GetCurrentCharges(), GetNextChargeRemaining());
+}
+
+void UHeroArenaBlinkChargeComponent::PublishState()
+{
+	check(GetOwner() && GetOwner()->HasAuthority());
+	ChargeState.SnapshotServerTime = GetWorld()->GetTimeSeconds();
+	GetOwner()->ForceNetUpdate();
+	BroadcastState();
 }

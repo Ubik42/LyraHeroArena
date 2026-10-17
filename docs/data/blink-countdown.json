@@ -1,0 +1,1033 @@
+{
+  "scope": "UE 5.7.4, loopback dedicated server and one owning client. Staged position and Enhanced Input. Clock injection is explicitly separate from natural startup.",
+  "runs": [
+    {
+      "run": "countdown-after-bias",
+      "exit_codes": {
+        "server": 0,
+        "client": 0
+      },
+      "network": {
+        "lag_per_process_ms": 150,
+        "outgoing_loss_pct": 2,
+        "prewarm_seconds": 0.0
+      },
+      "injected_clock_bias_seconds": -8.0,
+      "burst": false,
+      "roles": {
+        "server": [
+          {
+            "stage": "before",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 36.162,
+            "estimated_server_seconds": 36.162
+          },
+          {
+            "stage": "countdown-00",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.71,
+            "pending": 0,
+            "local_seconds": 36.825,
+            "estimated_server_seconds": 36.825
+          },
+          {
+            "stage": "countdown-01",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.13,
+            "pending": 0,
+            "local_seconds": 37.405,
+            "estimated_server_seconds": 37.405
+          },
+          {
+            "stage": "countdown-02",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.57,
+            "pending": 0,
+            "local_seconds": 37.968,
+            "estimated_server_seconds": 37.968
+          },
+          {
+            "stage": "countdown-03",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.04,
+            "pending": 0,
+            "local_seconds": 38.5,
+            "estimated_server_seconds": 38.5
+          },
+          {
+            "stage": "countdown-04",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.53,
+            "pending": 0,
+            "local_seconds": 39.009,
+            "estimated_server_seconds": 39.009
+          },
+          {
+            "stage": "countdown-05",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.04,
+            "pending": 0,
+            "local_seconds": 39.493,
+            "estimated_server_seconds": 39.493
+          },
+          {
+            "stage": "countdown-06",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.48,
+            "pending": 0,
+            "local_seconds": 40.054,
+            "estimated_server_seconds": 40.054
+          },
+          {
+            "stage": "countdown-07",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 40.628,
+            "estimated_server_seconds": 40.628
+          },
+          {
+            "stage": "countdown-08",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 41.126,
+            "estimated_server_seconds": 41.126
+          },
+          {
+            "stage": "countdown-09",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 41.7,
+            "estimated_server_seconds": 41.7
+          },
+          {
+            "stage": "countdown-10",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 42.218,
+            "estimated_server_seconds": 42.218
+          },
+          {
+            "stage": "countdown-11",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 42.807,
+            "estimated_server_seconds": 42.807
+          },
+          {
+            "stage": "countdown-12",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 43.387,
+            "estimated_server_seconds": 43.387
+          },
+          {
+            "stage": "countdown-13",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 43.986,
+            "estimated_server_seconds": 43.986
+          }
+        ],
+        "client": [
+          {
+            "stage": "before",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 14.878,
+            "estimated_server_seconds": 36.257
+          },
+          {
+            "stage": "countdown-00",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.83,
+            "pending": 0,
+            "local_seconds": 15.52,
+            "estimated_server_seconds": 36.391
+          },
+          {
+            "stage": "countdown-01",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.32,
+            "pending": 0,
+            "local_seconds": 16.029,
+            "estimated_server_seconds": 37.366
+          },
+          {
+            "stage": "countdown-02",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.78,
+            "pending": 0,
+            "local_seconds": 16.566,
+            "estimated_server_seconds": 37.932
+          },
+          {
+            "stage": "countdown-03",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.27,
+            "pending": 0,
+            "local_seconds": 17.079,
+            "estimated_server_seconds": 38.444
+          },
+          {
+            "stage": "countdown-04",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.75,
+            "pending": 0,
+            "local_seconds": 17.597,
+            "estimated_server_seconds": 38.961
+          },
+          {
+            "stage": "countdown-05",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.27,
+            "pending": 0,
+            "local_seconds": 18.073,
+            "estimated_server_seconds": 39.437
+          },
+          {
+            "stage": "countdown-06",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.7,
+            "pending": 0,
+            "local_seconds": 18.649,
+            "estimated_server_seconds": 40.011
+          },
+          {
+            "stage": "countdown-07",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.12,
+            "pending": 0,
+            "local_seconds": 19.223,
+            "estimated_server_seconds": 40.584
+          },
+          {
+            "stage": "countdown-08",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 19.75,
+            "estimated_server_seconds": 41.11
+          },
+          {
+            "stage": "countdown-09",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 20.322,
+            "estimated_server_seconds": 41.68
+          },
+          {
+            "stage": "countdown-10",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 20.834,
+            "estimated_server_seconds": 42.191
+          },
+          {
+            "stage": "countdown-11",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 21.421,
+            "estimated_server_seconds": 42.777
+          },
+          {
+            "stage": "countdown-12",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 21.994,
+            "estimated_server_seconds": 43.349
+          },
+          {
+            "stage": "countdown-13",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 22.566,
+            "estimated_server_seconds": 43.92
+          }
+        ]
+      },
+      "log_sha256": {
+        "server": "a57f951ba1bb526924562ff4faa99bd37efe554925a2b3726a5b031e227df4b8",
+        "client": "b4b042ba37b744f9cce22fefff08b126d0682a1e1233b1ec1b022cd3dbc2a9af"
+      },
+      "snapshots": [
+        {
+          "epoch": 1,
+          "cycle": 0,
+          "snapshot_server_seconds": 21.715,
+          "deadline_server_seconds": 0.0,
+          "relative_seconds": 0.0,
+          "legacy_formula_seconds": 0.0,
+          "display_seconds": 0.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 0,
+          "snapshot_server_seconds": 33.908,
+          "deadline_server_seconds": 0.0,
+          "relative_seconds": 0.0,
+          "legacy_formula_seconds": 0.0,
+          "display_seconds": 0.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 1,
+          "snapshot_server_seconds": 36.537,
+          "deadline_server_seconds": 40.537,
+          "relative_seconds": 4.0,
+          "legacy_formula_seconds": 4.818,
+          "display_seconds": 4.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 1,
+          "snapshot_server_seconds": 40.628,
+          "deadline_server_seconds": 0.0,
+          "relative_seconds": 0.0,
+          "legacy_formula_seconds": 0.0,
+          "display_seconds": 0.0
+        }
+      ],
+      "errors": [],
+      "passed": true
+    },
+    {
+      "run": "countdown-after-burst",
+      "exit_codes": {
+        "server": 0,
+        "client": 0
+      },
+      "network": {
+        "lag_per_process_ms": 0,
+        "outgoing_loss_pct": 0,
+        "prewarm_seconds": 0.0
+      },
+      "injected_clock_bias_seconds": 0,
+      "burst": true,
+      "roles": {
+        "server": [
+          {
+            "stage": "before",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 36.308,
+            "estimated_server_seconds": 36.308
+          },
+          {
+            "stage": "countdown-00",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.69,
+            "pending": 0,
+            "local_seconds": 36.855,
+            "estimated_server_seconds": 36.855
+          },
+          {
+            "stage": "countdown-01",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 2.53,
+            "pending": 0,
+            "local_seconds": 38.02,
+            "estimated_server_seconds": 38.02
+          },
+          {
+            "stage": "countdown-02",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 1.85,
+            "pending": 0,
+            "local_seconds": 38.701,
+            "estimated_server_seconds": 38.701
+          },
+          {
+            "stage": "countdown-03",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 1.29,
+            "pending": 0,
+            "local_seconds": 39.256,
+            "estimated_server_seconds": 39.256
+          },
+          {
+            "stage": "countdown-04",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 0.71,
+            "pending": 0,
+            "local_seconds": 39.838,
+            "estimated_server_seconds": 39.838
+          },
+          {
+            "stage": "countdown-05",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 0.19,
+            "pending": 0,
+            "local_seconds": 40.355,
+            "estimated_server_seconds": 40.355
+          },
+          {
+            "stage": "countdown-06",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 3.73,
+            "pending": 0,
+            "local_seconds": 40.899,
+            "estimated_server_seconds": 40.899
+          },
+          {
+            "stage": "countdown-07",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 3.22,
+            "pending": 0,
+            "local_seconds": 41.411,
+            "estimated_server_seconds": 41.411
+          },
+          {
+            "stage": "countdown-08",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 2.7,
+            "pending": 0,
+            "local_seconds": 41.933,
+            "estimated_server_seconds": 41.933
+          },
+          {
+            "stage": "countdown-09",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 2.12,
+            "pending": 0,
+            "local_seconds": 42.507,
+            "estimated_server_seconds": 42.507
+          },
+          {
+            "stage": "countdown-10",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 1.59,
+            "pending": 0,
+            "local_seconds": 43.042,
+            "estimated_server_seconds": 43.042
+          },
+          {
+            "stage": "countdown-11",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 1.07,
+            "pending": 0,
+            "local_seconds": 43.557,
+            "estimated_server_seconds": 43.557
+          },
+          {
+            "stage": "countdown-12",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 0.5,
+            "pending": 0,
+            "local_seconds": 44.13,
+            "estimated_server_seconds": 44.13
+          },
+          {
+            "stage": "countdown-13",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 4.0,
+            "pending": 0,
+            "local_seconds": 44.661,
+            "estimated_server_seconds": 44.661
+          },
+          {
+            "stage": "countdown-14",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.48,
+            "pending": 0,
+            "local_seconds": 45.176,
+            "estimated_server_seconds": 45.176
+          },
+          {
+            "stage": "countdown-15",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.88,
+            "pending": 0,
+            "local_seconds": 45.782,
+            "estimated_server_seconds": 45.782
+          },
+          {
+            "stage": "countdown-16",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.38,
+            "pending": 0,
+            "local_seconds": 46.282,
+            "estimated_server_seconds": 46.282
+          },
+          {
+            "stage": "countdown-17",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.87,
+            "pending": 0,
+            "local_seconds": 46.789,
+            "estimated_server_seconds": 46.789
+          },
+          {
+            "stage": "countdown-18",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.37,
+            "pending": 0,
+            "local_seconds": 47.295,
+            "estimated_server_seconds": 47.295
+          },
+          {
+            "stage": "countdown-19",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.82,
+            "pending": 0,
+            "local_seconds": 47.838,
+            "estimated_server_seconds": 47.838
+          },
+          {
+            "stage": "countdown-20",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.23,
+            "pending": 0,
+            "local_seconds": 48.427,
+            "estimated_server_seconds": 48.427
+          },
+          {
+            "stage": "countdown-21",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 48.94,
+            "estimated_server_seconds": 48.94
+          },
+          {
+            "stage": "countdown-22",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 49.436,
+            "estimated_server_seconds": 49.436
+          },
+          {
+            "stage": "countdown-23",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 49.947,
+            "estimated_server_seconds": 49.947
+          },
+          {
+            "stage": "countdown-24",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 50.548,
+            "estimated_server_seconds": 50.548
+          },
+          {
+            "stage": "countdown-25",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 51.129,
+            "estimated_server_seconds": 51.129
+          },
+          {
+            "stage": "countdown-26",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 51.625,
+            "estimated_server_seconds": 51.625
+          },
+          {
+            "stage": "countdown-27",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 52.153,
+            "estimated_server_seconds": 52.153
+          },
+          {
+            "stage": "countdown-28",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 52.681,
+            "estimated_server_seconds": 52.681
+          },
+          {
+            "stage": "countdown-29",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 53.192,
+            "estimated_server_seconds": 53.192
+          },
+          {
+            "stage": "countdown-30",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 53.683,
+            "estimated_server_seconds": 53.683
+          },
+          {
+            "stage": "countdown-31",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 54.271,
+            "estimated_server_seconds": 54.271
+          }
+        ],
+        "client": [
+          {
+            "stage": "before",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 14.521,
+            "estimated_server_seconds": 36.401
+          },
+          {
+            "stage": "countdown-00",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.61,
+            "pending": 0,
+            "local_seconds": 15.09,
+            "estimated_server_seconds": 36.97
+          },
+          {
+            "stage": "countdown-01",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 2.43,
+            "pending": 0,
+            "local_seconds": 16.129,
+            "estimated_server_seconds": 38.019
+          },
+          {
+            "stage": "countdown-02",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 1.74,
+            "pending": 0,
+            "local_seconds": 16.819,
+            "estimated_server_seconds": 38.714
+          },
+          {
+            "stage": "countdown-03",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 1.2,
+            "pending": 0,
+            "local_seconds": 17.359,
+            "estimated_server_seconds": 39.259
+          },
+          {
+            "stage": "countdown-04",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 0.64,
+            "pending": 0,
+            "local_seconds": 17.923,
+            "estimated_server_seconds": 39.826
+          },
+          {
+            "stage": "countdown-05",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 0,
+            "remaining_seconds": 0.12,
+            "pending": 0,
+            "local_seconds": 18.443,
+            "estimated_server_seconds": 40.349
+          },
+          {
+            "stage": "countdown-06",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 3.53,
+            "pending": 0,
+            "local_seconds": 19.018,
+            "estimated_server_seconds": 40.927
+          },
+          {
+            "stage": "countdown-07",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 3.07,
+            "pending": 0,
+            "local_seconds": 19.481,
+            "estimated_server_seconds": 41.393
+          },
+          {
+            "stage": "countdown-08",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 2.5,
+            "pending": 0,
+            "local_seconds": 20.048,
+            "estimated_server_seconds": 41.963
+          },
+          {
+            "stage": "countdown-09",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 1.93,
+            "pending": 0,
+            "local_seconds": 20.624,
+            "estimated_server_seconds": 42.541
+          },
+          {
+            "stage": "countdown-10",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 1.4,
+            "pending": 0,
+            "local_seconds": 21.152,
+            "estimated_server_seconds": 43.071
+          },
+          {
+            "stage": "countdown-11",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 0.88,
+            "pending": 0,
+            "local_seconds": 21.668,
+            "estimated_server_seconds": 43.59
+          },
+          {
+            "stage": "countdown-12",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 1,
+            "remaining_seconds": 0.31,
+            "pending": 0,
+            "local_seconds": 22.239,
+            "estimated_server_seconds": 44.163
+          },
+          {
+            "stage": "countdown-13",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.88,
+            "pending": 0,
+            "local_seconds": 22.764,
+            "estimated_server_seconds": 44.69
+          },
+          {
+            "stage": "countdown-14",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 3.35,
+            "pending": 0,
+            "local_seconds": 23.287,
+            "estimated_server_seconds": 45.214
+          },
+          {
+            "stage": "countdown-15",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.78,
+            "pending": 0,
+            "local_seconds": 23.86,
+            "estimated_server_seconds": 45.79
+          },
+          {
+            "stage": "countdown-16",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 2.26,
+            "pending": 0,
+            "local_seconds": 24.375,
+            "estimated_server_seconds": 46.307
+          },
+          {
+            "stage": "countdown-17",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.75,
+            "pending": 0,
+            "local_seconds": 24.89,
+            "estimated_server_seconds": 46.823
+          },
+          {
+            "stage": "countdown-18",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 1.24,
+            "pending": 0,
+            "local_seconds": 25.402,
+            "estimated_server_seconds": 47.336
+          },
+          {
+            "stage": "countdown-19",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.68,
+            "pending": 0,
+            "local_seconds": 25.963,
+            "estimated_server_seconds": 47.898
+          },
+          {
+            "stage": "countdown-20",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 2,
+            "remaining_seconds": 0.11,
+            "pending": 0,
+            "local_seconds": 26.53,
+            "estimated_server_seconds": 48.467
+          },
+          {
+            "stage": "countdown-21",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 27.006,
+            "estimated_server_seconds": 48.944
+          },
+          {
+            "stage": "countdown-22",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 27.527,
+            "estimated_server_seconds": 49.466
+          },
+          {
+            "stage": "countdown-23",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 28.096,
+            "estimated_server_seconds": 50.037
+          },
+          {
+            "stage": "countdown-24",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 28.663,
+            "estimated_server_seconds": 50.605
+          },
+          {
+            "stage": "countdown-25",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 29.229,
+            "estimated_server_seconds": 51.172
+          },
+          {
+            "stage": "countdown-26",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 29.743,
+            "estimated_server_seconds": 51.687
+          },
+          {
+            "stage": "countdown-27",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 30.257,
+            "estimated_server_seconds": 52.201
+          },
+          {
+            "stage": "countdown-28",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 30.766,
+            "estimated_server_seconds": 52.712
+          },
+          {
+            "stage": "countdown-29",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 31.284,
+            "estimated_server_seconds": 53.231
+          },
+          {
+            "stage": "countdown-30",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 31.796,
+            "estimated_server_seconds": 53.743
+          },
+          {
+            "stage": "countdown-31",
+            "pawn": "B_Hero_ShooterMannequin_C_1",
+            "charges": 3,
+            "remaining_seconds": 0.0,
+            "pending": 0,
+            "local_seconds": 32.359,
+            "estimated_server_seconds": 54.308
+          }
+        ]
+      },
+      "log_sha256": {
+        "server": "38e634843e3e90b749b654f98837349d66e1e9c674852d8e0e7a52641112d73a",
+        "client": "8500a7b033b8e8e50cce62d517c7f34035ead74aee5ef1be177593254c4d0b55"
+      },
+      "snapshots": [
+        {
+          "epoch": 1,
+          "cycle": 0,
+          "snapshot_server_seconds": 22.239,
+          "deadline_server_seconds": 0.0,
+          "relative_seconds": 0.0,
+          "legacy_formula_seconds": 0.0,
+          "display_seconds": 0.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 0,
+          "snapshot_server_seconds": 33.918,
+          "deadline_server_seconds": 0.0,
+          "relative_seconds": 0.0,
+          "legacy_formula_seconds": 0.0,
+          "display_seconds": 0.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 1,
+          "snapshot_server_seconds": 36.549,
+          "deadline_server_seconds": 40.549,
+          "relative_seconds": 4.0,
+          "legacy_formula_seconds": 3.965,
+          "display_seconds": 4.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 1,
+          "snapshot_server_seconds": 37.679,
+          "deadline_server_seconds": 40.549,
+          "relative_seconds": 2.87,
+          "legacy_formula_seconds": 2.97,
+          "display_seconds": 2.87
+        },
+        {
+          "epoch": 2,
+          "cycle": 1,
+          "snapshot_server_seconds": 38.366,
+          "deadline_server_seconds": 40.549,
+          "relative_seconds": 2.183,
+          "legacy_formula_seconds": 2.266,
+          "display_seconds": 2.171
+        },
+        {
+          "epoch": 2,
+          "cycle": 2,
+          "snapshot_server_seconds": 40.629,
+          "deadline_server_seconds": 44.629,
+          "relative_seconds": 4.0,
+          "legacy_formula_seconds": 4.17,
+          "display_seconds": 4.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 3,
+          "snapshot_server_seconds": 44.661,
+          "deadline_server_seconds": 48.661,
+          "relative_seconds": 4.0,
+          "legacy_formula_seconds": 4.096,
+          "display_seconds": 4.0
+        },
+        {
+          "epoch": 2,
+          "cycle": 3,
+          "snapshot_server_seconds": 48.677,
+          "deadline_server_seconds": 0.0,
+          "relative_seconds": 0.0,
+          "legacy_formula_seconds": 0.0,
+          "display_seconds": 0.0
+        }
+      ],
+      "errors": [],
+      "passed": true
+    }
+  ]
+}

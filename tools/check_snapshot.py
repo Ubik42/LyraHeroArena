@@ -68,7 +68,7 @@ if (early['charges'],early['pending'],reset['charges'],reset['pending'])!=(2,1,3
     errors.append('Blink prediction or reset path was not exercised')
 
 # Separate executable processes: validate recorded transitions, not the stored pass flag.
-for case in ('separate-network', 'separate-network-baseline'):
+for case in ('separate-network', 'separate-network-baseline', 'countdown-lifecycle'):
     record=json.loads((ROOT/f'docs/data/{case}.json').read_text(encoding='utf-8'))
     if any(value!=0 for value in record['exit_codes'].values()):
         errors.append(case+': process exit')
@@ -102,6 +102,24 @@ if any(row['playing'] or row['warmup'] or [row['team1'],row['team2']]!=match['sc
     errors.append('Post-game phase or frozen score mismatch')
 if any(b['time']<=a['time'] or b['team1']<a['team1'] or b['team2']<a['team2'] for a,b in zip(match['samples'],match['samples'][1:])):
     errors.append('Match samples are not a continuous forward progression')
+
+# Validate the new countdown records independently of their stored pass flags.
+countdown=json.loads((ROOT/'docs/data/blink-countdown.json').read_text(encoding='utf-8'))
+if len(countdown['runs']) < 2:
+    errors.append('Missing countdown conditions')
+for run in countdown['runs']:
+    if any(code != 0 for code in run['exit_codes'].values()): errors.append('Countdown process exit')
+    for role,rows in run['roles'].items():
+        if rows[0]['charges'] != 3 or rows[-1]['charges'] != 3 or len({r['pawn'] for r in rows}) != 1:
+            errors.append('Countdown endpoint/Pawn mismatch')
+        if any(not 0 <= r['remaining_seconds'] <= 4.02 for r in rows): errors.append('Countdown exceeds cycle')
+        for a,b in zip(rows,rows[1:]):
+            if a['charges'] == b['charges'] < 3 and not a['pending'] and not b['pending'] and b['remaining_seconds'] > a['remaining_seconds'] + .02:
+                errors.append('Countdown rewinds within the same charge count')
+        if run['burst'] and not any(r['charges'] == 0 and r['pending'] == 0 for r in rows):
+            errors.append('Burst countdown did not consume all charges')
+    if run['injected_clock_bias_seconds'] and not any(s['legacy_formula_seconds'] > 4 and s['display_seconds'] <= 4.02 for s in run['snapshots']):
+        errors.append('Missing paired legacy/new clock comparison')
 
 # Public material excludes project payloads, credentials and workstation-specific paths.
 for folder in ('Plugins','docs','assets'):
