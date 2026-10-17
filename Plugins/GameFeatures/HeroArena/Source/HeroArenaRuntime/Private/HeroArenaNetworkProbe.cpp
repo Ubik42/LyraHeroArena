@@ -27,6 +27,9 @@
 #include "UObject/UObjectIterator.h"
 #include "Character/LyraHealthComponent.h"
 
+bool StartHeroArenaProcessCapture(const FString& Directory);
+void StopHeroArenaProcessCapture();
+
 #if !UE_BUILD_SHIPPING
 namespace HeroArenaNetworkProbe
 {
@@ -74,10 +77,41 @@ namespace HeroArenaNetworkProbe
             const TArray<FString> Allowed = { TEXT("HeroArena.Debug.RequestHero"), TEXT("HeroArena.Debug.SetSelectionLocked"),
                 TEXT("HeroArena.Debug.SetNetworkSimulation"), TEXT("HeroArena.Debug.SetBlinkBlocked"),
                 TEXT("HeroArena.Debug.LogBlinkNetwork"), TEXT("HeroArena.Debug.LogGAS"),
-                TEXT("HeroArena.Debug.LogMatchFrame"),
+                TEXT("HeroArena.Debug.LogMatchFrame"), TEXT("HeroArena.Debug.LogGameplayFrame"),
                 TEXT("HeroArena.Debug.DamagePlayer"), TEXT("HeroArena.Debug.LogPlayerState") };
             if (Allowed.Contains(Name) && !Args.Contains(TEXT("\n")) && !Args.Contains(TEXT("|")))
                 bAccepted = GEngine->Exec(World, *Args);
+        }
+        else if ((Operation == TEXT("Input") || Operation == TEXT("Hold")) && PC && PC->IsLocalController())
+        {
+            TArray<FString> Values; Args.ParseIntoArrayWS(Values);
+            const TArray<FString> Allowed = {
+                TEXT("/Game/Input/Actions/IA_Move"), TEXT("/Game/Input/Actions/IA_Look_Mouse"),
+                TEXT("/Game/Input/Actions/IA_Weapon_Fire_Auto"), TEXT("/Game/Input/Actions/IA_Weapon_Reload"),
+                TEXT("/HeroArena/Input/IA_Striker_SpiralGrenade"), TEXT("/HeroArena/Input/IA_Striker_RecoveryField"),
+                TEXT("/HeroArena/Input/IA_Striker_WeaponOverload") };
+            if (Values.Num() == 3 && Allowed.Contains(Values[0]))
+            {
+                const UInputAction* Action = LoadObject<UInputAction>(nullptr, *Values[0]);
+                auto* Input = PC->GetLocalPlayer() ? PC->GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>() : nullptr;
+                const float X = FCString::Atof(*Values[1]), Y = FCString::Atof(*Values[2]);
+                if (Action && Input && Input->GetPlayerInput() && FMath::IsFinite(X) && FMath::IsFinite(Y) && FMath::Abs(X) <= 20 && FMath::Abs(Y) <= 20)
+                {
+                    FInputActionValue Value(FVector2D(X, Y));
+                    Value.ConvertToType(Action->ValueType);
+                    if (Operation == TEXT("Hold")) Input->StartContinuousInputInjectionForAction(Action, Value, {}, {});
+                    else Input->GetPlayerInput()->InjectInputForAction(Action, Value);
+                    bAccepted = true;
+                }
+            }
+        }
+        else if (Operation == TEXT("CaptureStart") && World->GetNetMode() == NM_Client)
+        {
+            bAccepted = StartHeroArenaProcessCapture(FPaths::Combine(Folder, TEXT("frames")));
+        }
+        else if (Operation == TEXT("CaptureStop") && World->GetNetMode() == NM_Client)
+        {
+            StopHeroArenaProcessCapture(); bAccepted = true;
         }
         else if (Operation == TEXT("Blink") && PC && PC->IsLocalController())
         {
@@ -200,6 +234,7 @@ void StartHeroArenaNetworkProbe()
 void StopHeroArenaNetworkProbe()
 {
 #if !UE_BUILD_SHIPPING
+    StopHeroArenaProcessCapture();
     FTSTicker::GetCoreTicker().RemoveTicker(HeroArenaNetworkProbe::Handle);
 #endif
 }

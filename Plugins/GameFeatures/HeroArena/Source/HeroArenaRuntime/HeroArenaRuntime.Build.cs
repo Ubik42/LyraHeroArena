@@ -36,6 +36,7 @@ public class HeroArenaRuntime : ModuleRules
 				"UMG",
 				"AIModule",
 				"NavigationSystem"
+				, "MovieSceneCapture", "ImageWrapper", "RenderCore", "RHI"
 			}
 		);
 	}
