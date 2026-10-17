@@ -67,6 +67,33 @@ reset=blink['cases']['weak']['hero-reset']['3'][owner]
 if (early['charges'],early['pending'],reset['charges'],reset['pending'])!=(2,1,3,0):
     errors.append('Blink prediction or reset path was not exercised')
 
+# Separate executable processes: validate recorded transitions, not the stored pass flag.
+for case in ('separate-network', 'separate-network-baseline'):
+    record=json.loads((ROOT/f'docs/data/{case}.json').read_text(encoding='utf-8'))
+    if any(value!=0 for value in record['exit_codes'].values()):
+        errors.append(case+': process exit')
+    for role,stages in record['roles'].items():
+        for stage,expected in [('before',3),('rejected',3),('accepted',2),('recharged',3),('phase-reset',3),('respawn',3)]:
+            if stages[stage]['charges']!=expected or stages[stage]['pending']!=0:
+                errors.append(case+'/'+role+'/'+stage+': charge state')
+        for stage,hero,count in [('striker','Striker',7),('phase-reset','Phase',4),('respawn','Phase',4)]:
+            gas=stages[stage]['gas']
+            if gas['hero']!=hero or gas['count']!=count or len(set(gas['specs']))!=count or gas['pawn']!=gas['avatar']:
+                errors.append(case+'/'+role+'/'+stage+': GAS state')
+        if stages['phase-reset']['pawn']==stages['respawn']['pawn'] or stages['accepted']['pawn']!=stages['recharged']['pawn']:
+            errors.append(case+'/'+role+': lifecycle identity')
+        if math.dist(stages['before']['position'],stages['rejected']['position'])>2 or math.dist(stages['before']['position'],stages['accepted']['position'])<100:
+            errors.append(case+'/'+role+': movement')
+    for stage in ('before','rejected','accepted','recharged','phase-reset','respawn'):
+        a,b=[record['roles'][role][stage] for role in ('server','client')]
+        if a['player']!=b['player'] or math.dist(a['position'],b['position'])>2:
+            errors.append(case+'/'+stage+': replicated player state')
+    if record['client_prediction_rejections']<1:
+        errors.append(case+': rejection path not exercised')
+    if case=='separate-network':
+        early=record['roles']['client']['early']
+        if (early['charges'],early['pending'])!=(2,1):errors.append(case+': no early prediction')
+
 # Public material excludes project payloads, credentials and workstation-specific paths.
 for folder in ('Plugins','docs','assets'):
     for path in (ROOT/folder).rglob('*'):

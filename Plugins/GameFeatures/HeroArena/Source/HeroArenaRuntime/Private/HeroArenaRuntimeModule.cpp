@@ -90,6 +90,9 @@ namespace HeroArenaSelectionDebug
 	void LogBlinkNetwork(const TArray<FString>& Args, UWorld* World)
 	{
 		if (!World) return;
+		UE_LOG(LogTemp, Display, TEXT("HeroArena network clock: stage=%s net=%d local=%.3f estimated_server=%.3f"),
+			Args.Num() ? *Args[0] : TEXT("sample"), int32(World->GetNetMode()), World->GetTimeSeconds(),
+			World->GetGameState() ? World->GetGameState()->GetServerWorldTimeSeconds() : -1.0);
 #if DO_ENABLE_NET_TEST
 		if (const UNetDriver* Driver = World->GetNetDriver())
 		{
@@ -452,4 +455,14 @@ namespace HeroArenaSelectionDebug
 }
 #endif
 
-IMPLEMENT_MODULE(FDefaultModuleImpl, HeroArenaRuntime)
+void StartHeroArenaNetworkProbe();
+void StopHeroArenaNetworkProbe();
+
+class FHeroArenaRuntimeModule : public FDefaultModuleImpl
+{
+public:
+	virtual void StartupModule() override { StartHeroArenaNetworkProbe(); }
+	virtual void ShutdownModule() override { StopHeroArenaNetworkProbe(); }
+};
+
+IMPLEMENT_MODULE(FHeroArenaRuntimeModule, HeroArenaRuntime)

@@ -1,0 +1,563 @@
+{
+  "run": "net-process-baseline",
+  "roles": {
+    "server": {
+      "network-configured": {
+        "clock": {
+          "local": 41.309,
+          "estimated_server": 41.309
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0
+      },
+      "before": {
+        "clock": {
+          "local": 41.403,
+          "estimated_server": 41.403
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "rejected": {
+        "clock": {
+          "local": 43.295,
+          "estimated_server": 43.295
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "accepted": {
+        "clock": {
+          "local": 45.526,
+          "estimated_server": 45.526
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 2,
+        "remaining": 2.44,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "recharged": {
+        "clock": {
+          "local": 50.339,
+          "estimated_server": 50.339
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "striker": {
+        "clock": {
+          "local": 51.643,
+          "estimated_server": 51.643
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Striker",
+          "count": 7,
+          "specs": [
+            "Striker:Default__GA_Striker_SpiralGrenade_C",
+            "Striker:Default__HeroArenaGameplayAbility_BotSpiralGrenade",
+            "Striker:Default__HeroArenaGameplayAbility_RecoveryField",
+            "Striker:Default__HeroArenaGameplayAbility_SelectBulwark",
+            "Striker:Default__HeroArenaGameplayAbility_SelectStriker",
+            "Striker:Default__HeroArenaGameplayAbility_Sprint",
+            "Striker:Default__HeroArenaGameplayAbility_WeaponOverload"
+          ]
+        }
+      },
+      "phase-reset": {
+        "clock": {
+          "local": 52.956,
+          "estimated_server": 52.956
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "death": {
+        "clock": {
+          "local": 54.27,
+          "estimated_server": 54.27
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": false,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "respawn": {
+        "clock": {
+          "local": 62.519,
+          "estimated_server": 62.519
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_2",
+        "local": false,
+        "position": [
+          543.89,
+          -88.32,
+          142.29
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_2",
+          "avatar": "B_Hero_ShooterMannequin_C_2",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      }
+    },
+    "client": {
+      "network-configured": {
+        "clock": {
+          "local": 19.321,
+          "estimated_server": 41.315
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0
+      },
+      "before": {
+        "clock": {
+          "local": 19.54,
+          "estimated_server": 41.533
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "early": {
+        "clock": {
+          "local": 19.756,
+          "estimated_server": 41.749
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 2,
+        "remaining": 0.0,
+        "pending": 1
+      },
+      "rejected": {
+        "clock": {
+          "local": 21.384,
+          "estimated_server": 43.377
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2008.96,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "accepted": {
+        "clock": {
+          "local": 23.597,
+          "estimated_server": 45.601
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 2,
+        "remaining": 2.36,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "recharged": {
+        "clock": {
+          "local": 28.382,
+          "estimated_server": 50.394
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "striker": {
+        "clock": {
+          "local": 29.719,
+          "estimated_server": 51.733
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Striker",
+          "count": 7,
+          "specs": [
+            "Striker:Default__GA_Striker_SpiralGrenade_C",
+            "Striker:Default__HeroArenaGameplayAbility_BotSpiralGrenade",
+            "Striker:Default__HeroArenaGameplayAbility_RecoveryField",
+            "Striker:Default__HeroArenaGameplayAbility_SelectBulwark",
+            "Striker:Default__HeroArenaGameplayAbility_SelectStriker",
+            "Striker:Default__HeroArenaGameplayAbility_Sprint",
+            "Striker:Default__HeroArenaGameplayAbility_WeaponOverload"
+          ]
+        }
+      },
+      "phase-reset": {
+        "clock": {
+          "local": 30.995,
+          "estimated_server": 53.011
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "death": {
+        "clock": {
+          "local": 32.329,
+          "estimated_server": 54.346
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_1",
+        "local": true,
+        "position": [
+          2214.08,
+          136.24,
+          140.17
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_1",
+          "avatar": "B_Hero_ShooterMannequin_C_1",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      },
+      "respawn": {
+        "clock": {
+          "local": 40.573,
+          "estimated_server": 62.617
+        },
+        "player": 256,
+        "pawn": "B_Hero_ShooterMannequin_C_2",
+        "local": true,
+        "position": [
+          543.9,
+          -88.3,
+          142.3
+        ],
+        "charges": 3,
+        "remaining": 0.0,
+        "pending": 0,
+        "gas": {
+          "player": 256,
+          "pawn": "B_Hero_ShooterMannequin_C_2",
+          "avatar": "B_Hero_ShooterMannequin_C_2",
+          "hero": "Phase",
+          "count": 4,
+          "specs": [
+            "Phase:Default__HeroArenaGameplayAbility_Blink",
+            "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+            "Phase:Default__HeroArenaGameplayAbility_Recall",
+            "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+          ]
+        }
+      }
+    }
+  },
+  "source_sha256": {
+    "server": "aa17cda9a0aa1233e12df718b403e23536859cf41df450d373ff738773335aa6",
+    "client": "1d35bae68f479154ba6651ea525b8752c90057ba6c5ef8cd7e61679d4821e661"
+  },
+  "server_prediction_rejections": 0,
+  "client_prediction_rejections": 1,
+  "network": {
+    "lag_per_process_ms": 0,
+    "outgoing_loss_pct": 0
+  },
+  "exit_codes": {
+    "server": 0,
+    "client": 0
+  },
+  "scope": "Loopback dedicated server + separate rendered owning client; development fault injection and staged starting point. Not a packaged build, WAN or load test.",
+  "errors": [],
+  "passed": true
+}
