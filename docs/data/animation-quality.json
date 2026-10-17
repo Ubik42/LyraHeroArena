@@ -1,0 +1,267 @@
+{
+  "date": "2026-10-17",
+  "engine": "UE 5.7.4",
+  "map": "L_ShooterPerf",
+  "seed": 1337,
+  "ai": 200,
+  "localPlayers": 1,
+  "scope": "Independent PIE runs, matched camera poses and route generation; trajectories are not frame-locked. Quality recording only, not a timing benchmark.",
+  "variants": {
+    "baseline": {
+      "sourceFrames": 233,
+      "nativeDimensions": [
+        1591,
+        843
+      ],
+      "discardedView": "Third camera was occluded by a wall; its snapshot is retained but is not visible-quality evidence.",
+      "sourceSpanSeconds": 17.839,
+      "trimmedWindows": [
+        {
+          "section": 0,
+          "sourceSection": 0,
+          "gameStart": 4.651,
+          "gameEnd": 9.651,
+          "view": [
+            -3200,
+            -1800,
+            500,
+            -8,
+            35,
+            0,
+            75
+          ],
+          "crop": false
+        },
+        {
+          "section": 1,
+          "sourceSection": 1,
+          "gameStart": 10.728,
+          "gameEnd": 15.728,
+          "view": [
+            -2700,
+            -1400,
+            260,
+            -2,
+            35,
+            0,
+            65
+          ],
+          "crop": false
+        },
+        {
+          "section": 2,
+          "sourceSection": 0,
+          "gameStart": 4.651,
+          "gameEnd": 9.651,
+          "view": [
+            -3200,
+            -1800,
+            500,
+            -8,
+            35,
+            0,
+            75
+          ],
+          "crop": true
+        }
+      ],
+      "snapshots": [
+        {
+          "time": 3.9481950141489506,
+          "camera": "X=-3200.000 Y=-1800.000 Z=500.000",
+          "characters": 201,
+          "uroEnabled": 0,
+          "postProcessDisabled": 0,
+          "protected": 0,
+          "activeUroUpdateRates": {},
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        },
+        {
+          "time": 10.35291612520814,
+          "camera": "X=-3200.000 Y=-1800.000 Z=500.000",
+          "characters": 201,
+          "uroEnabled": 0,
+          "postProcessDisabled": 0,
+          "protected": 0,
+          "activeUroUpdateRates": {},
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        },
+        {
+          "time": 16.350638765841722,
+          "camera": "X=-2700.000 Y=-1400.000 Z=260.000",
+          "characters": 201,
+          "uroEnabled": 0,
+          "postProcessDisabled": 0,
+          "protected": 0,
+          "activeUroUpdateRates": {},
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        },
+        {
+          "time": 22.200540270656347,
+          "camera": "X=-5000.000 Y=-2800.000 Z=430.000",
+          "characters": 201,
+          "uroEnabled": 0,
+          "postProcessDisabled": 0,
+          "protected": 0,
+          "activeUroUpdateRates": {},
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        }
+      ],
+      "metadataSHA256": "4cef4835eb2e78f4f0eb82f406fa3c25f8a7f12e44910742e16d681e70c18434"
+    },
+    "optimized": {
+      "sourceFrames": 247,
+      "nativeDimensions": [
+        1591,
+        843
+      ],
+      "discardedView": "Third camera was occluded by a wall; its snapshot is retained but is not visible-quality evidence.",
+      "sourceSpanSeconds": 17.841,
+      "trimmedWindows": [
+        {
+          "section": 0,
+          "sourceSection": 0,
+          "gameStart": 4.722,
+          "gameEnd": 9.722000000000001,
+          "view": [
+            -3200,
+            -1800,
+            500,
+            -8,
+            35,
+            0,
+            75
+          ],
+          "crop": false
+        },
+        {
+          "section": 1,
+          "sourceSection": 1,
+          "gameStart": 10.774999999999999,
+          "gameEnd": 15.774999999999999,
+          "view": [
+            -2700,
+            -1400,
+            260,
+            -2,
+            35,
+            0,
+            65
+          ],
+          "crop": false
+        },
+        {
+          "section": 2,
+          "sourceSection": 0,
+          "gameStart": 4.722,
+          "gameEnd": 9.722000000000001,
+          "view": [
+            -3200,
+            -1800,
+            500,
+            -8,
+            35,
+            0,
+            75
+          ],
+          "crop": true
+        }
+      ],
+      "snapshots": [
+        {
+          "time": 4.025702442973852,
+          "camera": "X=-3200.000 Y=-1800.000 Z=500.000",
+          "characters": 201,
+          "uroEnabled": 197,
+          "postProcessDisabled": 146,
+          "protected": 4,
+          "activeUroUpdateRates": {
+            "3": 193,
+            "4": 4
+          },
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        },
+        {
+          "time": 10.471568670123816,
+          "camera": "X=-3200.000 Y=-1800.000 Z=500.000",
+          "characters": 201,
+          "uroEnabled": 198,
+          "postProcessDisabled": 142,
+          "protected": 3,
+          "activeUroUpdateRates": {
+            "3": 196,
+            "4": 2
+          },
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        },
+        {
+          "time": 16.442598562687635,
+          "camera": "X=-2700.000 Y=-1400.000 Z=260.000",
+          "characters": 201,
+          "uroEnabled": 186,
+          "postProcessDisabled": 102,
+          "protected": 15,
+          "activeUroUpdateRates": {
+            "3": 184,
+            "4": 2
+          },
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        },
+        {
+          "time": 22.33075885102153,
+          "camera": "X=-5000.000 Y=-2800.000 Z=430.000",
+          "characters": 201,
+          "uroEnabled": 200,
+          "postProcessDisabled": 200,
+          "protected": 1,
+          "activeUroUpdateRates": {
+            "3": 198,
+            "4": 2
+          },
+          "availableLodCounts": {
+            "1": 201
+          },
+          "currentLods": {
+            "0": 201
+          }
+        }
+      ],
+      "metadataSHA256": "ba1eccb9d1c9d51729afd06dd1a3a4cfbbda2e0677765bc5aca504cb110239de"
+    }
+  }
+}

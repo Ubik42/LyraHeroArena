@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-17",
-  "sourceRevision": "27c4f004b16321f5ba8306a9634bbab09f6732c7",
+  "sourceRevision": "5cf516eeb7453739e92b8ef78e81d0248564ab7f",
   "engine": "UE 5.7.4 / CL 51494982",
   "normalization": "UTF-8 without BOM; LF newlines",
   "scope": "Three authored plugin source trees only; does not include host Lyra modifications or asset assembly.",
@@ -181,7 +181,7 @@
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabBotCreationComponent.cpp": "ea0e2e553f3ee02438db016fc9e708518f866a1415c310ef139bda704c11f443",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabCrowdAIController.cpp": "e39800210173e926fe6d131b632f1f1b4125364fdd6e596c4e960eba72057806",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabCrowdAISubsystem.cpp": "eb15285ede1eaf4223e8eeb14f5cb8d7db03b1fd8f9b811314eeb1effc72d52b",
-    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabModule.cpp": "ca72a06be28159be09b134b0ef9d514bb63a4d0b5d56e083f745329fb0b0d073",
+    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabModule.cpp": "a309969844191ca10349e605b154d7bc0698ac5bac4e83c5e01dfd7ec079e927",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabWorldSubsystem.cpp": "688a09975489eae18254de5496b1adef2a95710970ccb7d2e289335b01fe1d61",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceExperimentTypes.h": "24820e453d145d190c447cb7ca81e5e951611058b43656606e2efbab0e194c45",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabBotCreationComponent.h": "e77a2d422c9a434fca95a5f44855f057e73127dc4caf4402c9eb0d42a5c39529",
