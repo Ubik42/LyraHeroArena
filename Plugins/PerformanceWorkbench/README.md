@@ -25,19 +25,19 @@
 
 AI 与寻路实验由工作台使用 NullRHI 启动，用于隔离逻辑侧 CPU 开销；动画、渲染、物理和 Niagara 实验保留正常 RHI。时间轨道会把累计计数转换为每帧增量，与正式汇总保持同一统计口径。
 
-![多角色 AI 决策 A/B 时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-多角色AI决策时间轨道.png)
+![多角色 AI 决策 A/B 时间轨道](../../assets/readme/性能工作台-多角色AI决策时间轨道.png)
 
-![Dedicated Server 网络 A/B 时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-网络时间轨道.png)
+![Dedicated Server 网络 A/B 时间轨道](../../assets/readme/性能工作台-网络时间轨道.png)
 
-![客户端网络 A/B 时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-网络客户端时间轨道.png)
+![客户端网络 A/B 时间轨道](../../assets/readme/性能工作台-网络客户端时间轨道.png)
 
-![寻路重规划 A/B 时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-寻路重规划时间轨道.png)
+![寻路重规划 A/B 时间轨道](../../assets/readme/性能工作台-寻路重规划时间轨道.png)
 
-![多角色动画 LOD A/B 时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-多角色动画LOD时间轨道.png)
+![多角色动画 LOD A/B 时间轨道](../../assets/readme/性能工作台-多角色动画LOD时间轨道.png)
 
-![Niagara 生命周期 A/B 时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-Niagara生命周期时间轨道.png)
+![Niagara 生命周期 A/B 时间轨道](../../assets/readme/性能工作台-Niagara生命周期时间轨道.png)
 
-![Hero Arena 角色附加通道与 GPU 分阶段时间轨道](../../Documentation/Images/PerformanceWorkbench/性能工作台-GPU分阶段时间轨道.png)
+![Hero Arena 角色附加通道与 GPU 分阶段时间轨道](../../assets/readme/性能工作台-GPU分阶段时间轨道.png)
 
 正式产品范围：
 

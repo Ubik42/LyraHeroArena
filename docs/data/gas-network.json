@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-17",
+  "engine": "UE 5.7.4 D3D12",
+  "mode": "Listen Server / two PIE worlds in one editor process",
+  "owner_player_id": 257,
+  "stages": {
+    "before": {
+      "2": {
+        "world": "L_Convolution_Blockout",
+        "net": 2,
+        "player": 257,
+        "player_state": "LyraPlayerState_10",
+        "pawn": "B_Hero_ShooterMannequin_C_10",
+        "avatar": "B_Hero_ShooterMannequin_C_10",
+        "hero": "Striker",
+        "count": 7,
+        "specs": [
+          "Striker:Default__GA_Striker_SpiralGrenade_C",
+          "Striker:Default__HeroArenaGameplayAbility_BotSpiralGrenade",
+          "Striker:Default__HeroArenaGameplayAbility_RecoveryField",
+          "Striker:Default__HeroArenaGameplayAbility_SelectBulwark",
+          "Striker:Default__HeroArenaGameplayAbility_SelectStriker",
+          "Striker:Default__HeroArenaGameplayAbility_Sprint",
+          "Striker:Default__HeroArenaGameplayAbility_WeaponOverload"
+        ]
+      },
+      "3": {
+        "world": "L_Convolution_Blockout",
+        "net": 3,
+        "player": 257,
+        "player_state": "LyraPlayerState_0",
+        "pawn": "B_Hero_ShooterMannequin_C_0",
+        "avatar": "B_Hero_ShooterMannequin_C_0",
+        "hero": "Striker",
+        "count": 7,
+        "specs": [
+          "Striker:Default__GA_Striker_SpiralGrenade_C",
+          "Striker:Default__HeroArenaGameplayAbility_BotSpiralGrenade",
+          "Striker:Default__HeroArenaGameplayAbility_RecoveryField",
+          "Striker:Default__HeroArenaGameplayAbility_SelectBulwark",
+          "Striker:Default__HeroArenaGameplayAbility_SelectStriker",
+          "Striker:Default__HeroArenaGameplayAbility_Sprint",
+          "Striker:Default__HeroArenaGameplayAbility_WeaponOverload"
+        ]
+      }
+    },
+    "switch": {
+      "2": {
+        "world": "L_Convolution_Blockout",
+        "net": 2,
+        "player": 257,
+        "player_state": "LyraPlayerState_10",
+        "pawn": "B_Hero_ShooterMannequin_C_10",
+        "avatar": "B_Hero_ShooterMannequin_C_10",
+        "hero": "Phase",
+        "count": 4,
+        "specs": [
+          "Phase:Default__HeroArenaGameplayAbility_Blink",
+          "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+          "Phase:Default__HeroArenaGameplayAbility_Recall",
+          "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+        ]
+      },
+      "3": {
+        "world": "L_Convolution_Blockout",
+        "net": 3,
+        "player": 257,
+        "player_state": "LyraPlayerState_0",
+        "pawn": "B_Hero_ShooterMannequin_C_0",
+        "avatar": "B_Hero_ShooterMannequin_C_0",
+        "hero": "Phase",
+        "count": 4,
+        "specs": [
+          "Phase:Default__HeroArenaGameplayAbility_Blink",
+          "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+          "Phase:Default__HeroArenaGameplayAbility_Recall",
+          "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+        ]
+      }
+    },
+    "respawn": {
+      "2": {
+        "world": "L_Convolution_Blockout",
+        "net": 2,
+        "player": 257,
+        "player_state": "LyraPlayerState_10",
+        "pawn": "B_Hero_ShooterMannequin_C_14",
+        "avatar": "B_Hero_ShooterMannequin_C_14",
+        "hero": "Phase",
+        "count": 4,
+        "specs": [
+          "Phase:Default__HeroArenaGameplayAbility_Blink",
+          "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+          "Phase:Default__HeroArenaGameplayAbility_Recall",
+          "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+        ]
+      },
+      "3": {
+        "world": "L_Convolution_Blockout",
+        "net": 3,
+        "player": 257,
+        "player_state": "LyraPlayerState_0",
+        "pawn": "B_Hero_ShooterMannequin_C_14",
+        "avatar": "B_Hero_ShooterMannequin_C_14",
+        "hero": "Phase",
+        "count": 4,
+        "specs": [
+          "Phase:Default__HeroArenaGameplayAbility_Blink",
+          "Phase:Default__HeroArenaGameplayAbility_PhasePistolTuning",
+          "Phase:Default__HeroArenaGameplayAbility_Recall",
+          "Phase:Default__HeroArenaGameplayAbility_StickyBomb"
+        ]
+      }
+    }
+  },
+  "source_sha256": "f3e04c6dd740d4fe757e3a3023cea335f93cd7685ac01ba1367a200ebf895238",
+  "scope": "Development commands trigger death and hero request; no latency/loss injection or cross-process test.",
+  "count_meaning": "HeroDefinition-sourced AbilitySpecs, including selection and Bot support abilities; not playable skill count."
+}

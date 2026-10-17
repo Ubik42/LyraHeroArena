@@ -1,6 +1,6 @@
-# Lyra Hero Arena
+# Lyra 英雄射击：GAS 深度实践与性能工程
 
-基于 **Unreal Engine 5.7.4 / Lyra Starter Game 5.7** 开发的多人英雄射击与性能工程项目。工程在一套可运行的 5v5 对局中完成玩法扩展，并将多角色优化与性能采集整理为两个可独立介绍的方向。
+本项目基于 **UE 5.7.4 与 Lyra 5.7** 开发，包含五英雄射击、200 角色性能实验以及中文性能工作台三个自研模块。项目复用 Lyra 的基础移动、武器系统、GAS 框架、队伍机制和美术资产，扩展实现了英雄技能、英雄选择、职责 Bot、战术 UI 及实验数据采集等功能，目前仍在持续开发。
 
 > 公开仓库只包含自研 C++、技术说明和实机截图，不分发 Lyra、Fab 或 Unreal Engine 资产。
 
@@ -13,7 +13,7 @@
 
 ## 项目内容
 
-### Lyra Hero Arena｜五英雄多人对战游戏
+### 五英雄射击与技能架构
 
 在 Lyra 的武器、队伍、GAS、PawnData、CommonUI 和联网框架上扩展五名英雄与 5v5 比赛流程。
 
@@ -24,6 +24,30 @@
 - 选人界面、队友职责与生命标记、战术 HUD、计分板和赛后流程已接入实际对局。
 
 自有玩法集中在 `HeroArena` Game Feature。C++ 处理权威规则、生命周期和网络边界，Blueprint 与 Data Asset 负责装配与表现。
+
+### GAS 深度实践：英雄能力与重生生命周期
+
+玩家选择的英雄数据保存在 PlayerState 的 HeroSelectionComponent。客户端调用 `RequestHeroSelection` 后经 RPC `ServerRequestHeroSelection` 发往服务器，服务端逐项校验英雄名单、HeroId、锁定状态并过滤重复请求。能力变更依托 Lyra 原生 ASC 与 Pawn 初始化流程：通过 **AbilitySet 授予句柄撤销上一位英雄的能力后再授予新能力**，并将 `Spec.SourceObject` 指定为对应 HeroDefinition 以追踪能力来源；武器与装备通过 QuickBarComponent、InventoryManagerComponent 与 EquipmentManagerComponent 替换，新 Pawn 完成能力系统初始化后应用保留的配置。
+
+终极技能能量由造成的伤害、治疗、击杀及助攻等战斗贡献累加；角色死亡保留当前能量，更换英雄时能量清零。重生开始时，系统调用 `PushContentToLayer_ForPlayer` 将选人窗口重新压入 CommonUI 栈，重生完成后关闭该窗口。
+
+### 英雄切换与重生同步验证
+
+| 阶段 | 监听服务器 | 拥有客户端 |
+| --- | --- | --- |
+| Striker 初始状态 | 7 项英雄来源 AbilitySpec | 7 项英雄来源 AbilitySpec |
+| 切换为 Phase | 4 项，无旧来源残留 | 4 项，无旧来源残留 |
+| 死亡重生后 | 4 项，ASC Avatar 指向新 Pawn | 4 项，ASC Avatar 指向新 Pawn |
+
+Striker 的 7 项包含选人控制与 Bot 辅助 AbilitySpec。测试于 2026-10-17 在 UE 5.7.4 D3D12 同进程双 PIE 环境下执行，通过开发命令触发死亡与换人；本轮未做弱网、跨进程独立服务器与完整对局复测。详细条件与来源见 [GAS 双端记录](docs/data/gas-network.json) 和 [接入与验证](docs/接入与验证.md)。
+
+[单机实机录像：选人、死亡与重生（1 玩家 + 9 Bot，13 秒）](https://ubik42.github.io/?work=lyra-hero-arena)。该录像与上表双端测试分别采集。
+
+| 实现入口 | 对应内容 |
+| --- | --- |
+| [HeroSelectionComponent](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Hero/HeroArenaHeroSelectionComponent.cpp) | 服务器选人校验、能力撤销与授予、装备替换 |
+| [HeroSelectUIComponent](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaHeroSelectUIComponent.cpp) | 重生消息、CommonUI 选人窗口生命周期 |
+| [GAS 只读诊断](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/HeroArenaRuntimeModule.cpp) | 按英雄来源输出 AbilitySpec、Pawn 与 ASC Avatar |
 
 ### 多角色高负载场景性能优化
 
@@ -41,7 +65,7 @@
 
 物理距离 LOD、角色阴影和部分动态 Niagara 方案保留了测试记录，但没有作为默认游戏改动：它们在现有场景中没有形成稳定的整帧收益，或会改变画面与负载条件。
 
-### UE Performance Workbench｜性能实验工作台
+### UE 性能实验工作台
 
 `PerformanceWorkbench` 是运行在 Unreal Editor 内的中文实验工具；`PerformanceLab` 是不依赖 Editor 的运行时采集模块。两者通过版本化 Preset 和 JSON/CSV 结果连接。
 
@@ -67,7 +91,12 @@ Plugins/
 ├── PerformanceLab/           # 运行时压力场、采集与场景状态
 └── PerformanceWorkbench/     # Editor 内实验编排与结果比较
 docs/
-└── 技术报告.md
+├── 技术报告.md
+├── 接入与验证.md
+├── data/                     # 源码指纹、逐次采样摘要与 GAS 双端记录
+└── integration/              # Gameplay Tag 接入配置
+tools/
+└── check_snapshot.py         # 源码、链接与记录检查
 ```
 
 ## 当前状态
@@ -76,9 +105,9 @@ docs/
 - 性能实验覆盖七个方向，工作台可读取并比较 14 条轨道；本仓库中的数字来自固定条件下的阶段采样，不作为其他项目的通用性能承诺。
 - 下一阶段以实际对局的可读性、机器人技能决策和发布演示收口为主，不继续横向增加英雄、模式或无明确热点的性能案例。
 
-开发环境为 Windows 11、Unreal Engine 5.7.4（CL 51494982）和 Lyra Starter Game 5.7。公开源码快照不能独立运行；地图、角色、动画、武器、音频和 UI 需由具备许可的 Epic/Fab 账户取得并完成工程装配。
+开发环境为 Windows 11、Unreal Engine 5.7.4（CL 51494982）和 Lyra Starter Game 5.7。本公开快照包含三个自研插件的 **199 个源码与描述文件**及工程说明，与完整开发工程提交 `c513fdbb` 对齐。工程运行还需合并 Lyra 宿主接入改动、装配 48 个 HeroArena 项目资产、引入具备许可的 Epic/Fab 内容并配置相关 Gameplay Tag；完整开发工程已编译和实机运行，公开快照尚未提供独立启动所需的全部内容。
 
-架构、实验条件与结果边界见 [技术报告](docs/技术报告.md)。
+架构与实验结果见 [技术报告](docs/技术报告.md)；宿主依赖、资产清单、运行入口和本轮检查范围见 [接入与验证](docs/接入与验证.md)。
 
 ## 来源与许可
 

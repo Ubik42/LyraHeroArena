@@ -1,0 +1,70 @@
+"""Check the published source snapshot, local documentation links and recorded aggregates.
+
+This is an offline content check, not an Unreal build or gameplay test.
+Run: python tools/check_snapshot.py
+"""
+import hashlib
+import json
+import math
+from pathlib import Path
+import re
+import statistics
+from urllib.parse import unquote
+
+ROOT=Path(__file__).resolve().parents[1]
+errors=[]
+manifest=json.loads((ROOT/'docs/data/source-manifest.json').read_text(encoding='utf-8'))
+for name,expected in manifest['files'].items():
+    path=ROOT/name
+    if not path.is_file():
+        errors.append('Missing source: '+name)
+        continue
+    actual=hashlib.sha256(path.read_text(encoding='utf-8-sig').replace('\r\n','\n').encode()).hexdigest()
+    if actual!=expected:
+        errors.append('Source hash differs: '+name)
+
+for path in ROOT.rglob('*.md'):
+    if '.git' in path.parts:
+        continue
+    text=path.read_text(encoding='utf-8-sig')
+    links=re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',text)+re.findall(r'<img[^>]+src="([^"]+)"',text)
+    for link in links:
+        if re.match(r'^[a-zA-Z][a-zA-Z0-9+.-]*:|^#',link):
+            continue
+        target=unquote(link.split('#')[0])
+        if target and not (path.parent/target).is_file():
+            errors.append(f'Broken local link: {path.relative_to(ROOT)} -> {link}')
+
+performance=json.loads((ROOT/'docs/data/performance-results.json').read_text(encoding='utf-8'))
+for key,case in performance['cases'].items():
+    for metric in case['metrics']:
+        for variant,field in [('Baseline','baseline'),('Optimized','optimized')]:
+            values=[run['metrics'][metric['metric']][metric['statistic']] for run in case['runs'] if run['variant']==variant]
+            if len(values)!=3 or not math.isclose(statistics.median(values),metric[field],rel_tol=1e-9):
+                errors.append(f'Aggregate mismatch: {key}/{metric["metric"]}/{variant}')
+
+network=json.loads((ROOT/'docs/data/gas-network.json').read_text(encoding='utf-8'))
+for net in ('2','3'):
+    before,switched,respawn=[network['stages'][stage][net] for stage in ('before','switch','respawn')]
+    if not (before['hero']=='Striker' and before['count']==7 and switched['hero']==respawn['hero']=='Phase'
+            and switched['count']==respawn['count']==4 and switched['specs']==respawn['specs']
+            and all(spec.startswith('Phase:') for spec in respawn['specs'])
+            and before['pawn']!=respawn['pawn'] and respawn['pawn']==respawn['avatar']):
+        errors.append('GAS lifecycle record mismatch: '+net)
+
+# Public material excludes project payloads, credentials and workstation-specific paths.
+for folder in ('Plugins','docs','assets'):
+    for path in (ROOT/folder).rglob('*'):
+        if not path.is_file():
+            continue
+        if path.suffix.lower() in {'.uasset','.umap','.dll','.exe','.pdb','.pem','.key'}:
+            errors.append('Unexpected payload: '+str(path.relative_to(ROOT)))
+        if path.suffix.lower() in {'.md','.json','.ini','.cpp','.h','.cs','.uplugin'}:
+            text=path.read_text(encoding='utf-8-sig')
+            if re.search(r'\b[A-Za-z]:[\\/]|-----BEGIN .*PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{20,}|AIza[A-Za-z0-9_-]{30,}',text):
+                errors.append('Review local path or credential pattern: '+str(path.relative_to(ROOT)))
+
+if errors:
+    raise SystemExit('\n'.join(errors))
+print(f'PASS: {len(manifest["files"])} source hashes; local Markdown/image links; 12-run aggregates; GAS records; payload/path scan.')
+print('Scope: checks saved content only, not runtime, build compatibility or legal clearance.')

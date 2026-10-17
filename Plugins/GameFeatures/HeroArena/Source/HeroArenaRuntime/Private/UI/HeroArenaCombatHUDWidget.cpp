@@ -155,7 +155,8 @@ TSharedRef<SWidget> UHeroArenaCombatHUDWidget::RebuildWidget()
 	}
 
 	TSharedRef<SWidget> Root = SNew(SOverlay)
-		+ SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Top).Padding(0.0f, 88.0f, 0.0f, 0.0f)
+		// Lyra's score and three control-point indicators occupy the top 200 Slate units.
+		+ SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Top).Padding(0.0f, 220.0f, 0.0f, 0.0f)
 		[
 			SAssignNew(ObjectiveToast, SBorder)
 			.Visibility(EVisibility::Collapsed)

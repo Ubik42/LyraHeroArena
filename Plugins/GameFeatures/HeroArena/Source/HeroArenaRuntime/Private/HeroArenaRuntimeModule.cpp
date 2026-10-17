@@ -7,6 +7,7 @@
 #include "AbilitySystem/Attributes/LyraCombatSet.h"
 #include "AbilitySystem/Attributes/LyraHealthSet.h"
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
+#include "Abilities/GameplayAbility.h"
 
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -24,6 +25,36 @@
 #if !UE_BUILD_SHIPPING
 namespace HeroArenaSelectionDebug
 {
+	// Read-only diagnostics. On clients, GAS specs are available for the owning player only.
+	void LogGAS(const TArray<FString>& Args, UWorld* World)
+	{
+		if (!World) return;
+		for (TActorIterator<ALyraPlayerState> It(World); It; ++It)
+		{
+			ALyraPlayerState* PS = *It;
+			if (PS->IsABot()) continue;
+			ULyraAbilitySystemComponent* ASC = PS->GetLyraAbilitySystemComponent();
+			const UHeroArenaHeroSelectionComponent* Selection = PS->FindComponentByClass<UHeroArenaHeroSelectionComponent>();
+			const UHeroArenaHeroDefinition* Hero = Selection ? Selection->GetSelectedHero() : nullptr;
+			TArray<FString> HeroSpecs;
+			if (ASC)
+			{
+				for (const FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+				{
+					if (const UHeroArenaHeroDefinition* Source = Cast<UHeroArenaHeroDefinition>(Spec.SourceObject.Get()))
+					{
+						HeroSpecs.Add(FString::Printf(TEXT("%s:%s"), *Source->HeroId.ToString(), *GetNameSafe(Spec.Ability)));
+					}
+				}
+			}
+			HeroSpecs.Sort();
+			UE_LOG(LogTemp, Display, TEXT("HeroArena GAS snapshot: world=%s net=%d player=%d ps=%s pawn=%s avatar=%s hero=%s hero_specs=%d [%s]"),
+				*World->GetName(), static_cast<int32>(World->GetNetMode()), PS->GetPlayerId(), *GetNameSafe(PS),
+				*GetNameSafe(PS->GetPawn()), *GetNameSafe(ASC ? ASC->GetAvatarActor() : nullptr),
+				Hero ? *Hero->HeroId.ToString() : TEXT("None"), HeroSpecs.Num(), *FString::Join(HeroSpecs, TEXT(",")));
+		}
+	}
+
 	void RequestHero(const TArray<FString>& Args, UWorld* World)
 	{
 		APlayerController* PlayerController = World ? World->GetFirstPlayerController() : nullptr;
@@ -271,6 +302,9 @@ namespace HeroArenaSelectionDebug
 	FAutoConsoleCommandWithWorldAndArgs LogPlayerStateCommand(
 		TEXT("HeroArena.Debug.LogPlayerState"), TEXT("Log one server PlayerController's gameplay attribute snapshot."),
 		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogPlayerState));
+	FAutoConsoleCommandWithWorldAndArgs LogGASCommand(
+		TEXT("HeroArena.Debug.LogGAS"), TEXT("Read hero selection, ASC avatar and hero-owned ability specs in this world."),
+		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogGAS));
 	FAutoConsoleCommandWithWorldAndArgs LogBlinkChargesCommand(
 		TEXT("HeroArena.Debug.LogBlinkCharges"), TEXT("Log one server PlayerController's Phase Blink charge snapshot."),
 		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogBlinkCharges));

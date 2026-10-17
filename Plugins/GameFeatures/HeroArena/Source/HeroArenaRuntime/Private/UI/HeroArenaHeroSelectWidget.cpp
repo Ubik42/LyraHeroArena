@@ -10,6 +10,7 @@
 #include "Widgets/Input/SButton.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
+#include "Widgets/Layout/SScaleBox.h"
 #include "Widgets/Layout/SSpacer.h"
 #include "Widgets/SBoxPanel.h"
 #include "Widgets/SOverlay.h"
@@ -53,10 +54,14 @@ TSharedRef<SWidget> UHeroArenaHeroSelectWidget::RebuildWidget()
 		+ SOverlay::Slot()
 		.HAlign(HAlign_Center)
 		.VAlign(VAlign_Center)
-		.Padding(48.0f)
+		.Padding(24.0f)
 		[
+			SNew(SScaleBox)
+			.Stretch(EStretch::ScaleToFit)
+			.StretchDirection(EStretchDirection::DownOnly)
+			[
 			SNew(SBox)
-			.WidthOverride(1040.0f)
+			.WidthOverride(1280.0f)
 			[
 				SNew(SBorder)
 				.BorderImage(FCoreStyle::Get().GetBrush("WhiteBrush"))
@@ -145,6 +150,7 @@ TSharedRef<SWidget> UHeroArenaHeroSelectWidget::RebuildWidget()
 						]
 					]
 				]
+			]
 			]
 		];
 
@@ -357,6 +363,7 @@ void UHeroArenaHeroSelectWidget::RebuildHeroCards()
 					[
 						SNew(STextBlock)
 						.Text(GetRoleText(Hero))
+						.AutoWrapText(true)
 						.ColorAndOpacity(HeroArenaHeroSelectUI::AccentColor)
 						.Font(FCoreStyle::GetDefaultFontStyle("Bold", 15))
 					]

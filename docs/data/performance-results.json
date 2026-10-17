@@ -1,0 +1,736 @@
+{
+  "schemaVersion": 1,
+  "collectedOn": "2026-10-17",
+  "origin": "Historical UE runtime results, collected 2026-08-31; not rerun on the collection date.",
+  "aggregation": "Median of three per-run statistics for each variant; P95 is not a pooled percentile.",
+  "cases": {
+    "animation": {
+      "sessionId": "formal-crowd-200-animation-20260831-165343",
+      "conditions": {
+        "sourceRevision": "d1b2455",
+        "presetId": "crowd-200-animation",
+        "map": "L_ShooterPerf",
+        "seed": 1337,
+        "targetAgentCount": 200,
+        "rhiName": "D3D12",
+        "warmupSeconds": 5,
+        "measurementSeconds": 15,
+        "environment": {
+          "cpu": "13th Gen Intel(R) Core(TM) i7-13700F",
+          "gpu": "NVIDIA GeForce RTX 4080",
+          "gpuDriverInternal": "32.0.15.9186",
+          "gpuDriverUser": "591.86",
+          "gpuVendorId": 4318,
+          "gpuDeviceId": 9988,
+          "os": "10.0.26200.1.256.64bit",
+          "resolutionX": 1280,
+          "resolutionY": 720,
+          "windowed": true
+        }
+      },
+      "metrics": [
+        {
+          "metric": "csvAnimationTimeMs",
+          "statistic": "mean",
+          "label": {
+            "zh": "动画平均耗时",
+            "en": "Animation mean"
+          },
+          "unit": "ms",
+          "baseline": 15.17960918727914,
+          "optimized": 10.989284935897432,
+          "changePercent": -27.604954776393686
+        },
+        {
+          "metric": "csvAnimationTimeMs",
+          "statistic": "p95",
+          "label": {
+            "zh": "动画 P95",
+            "en": "Animation P95"
+          },
+          "unit": "ms",
+          "baseline": 18.0835,
+          "optimized": 12.7786,
+          "changePercent": -29.33558216053308
+        },
+        {
+          "metric": "frameTimeMs",
+          "statistic": "p95",
+          "label": {
+            "zh": "整帧 P95",
+            "en": "Frame P95"
+          },
+          "unit": "ms",
+          "baseline": 65.1697963476181,
+          "optimized": 58.480098843574524,
+          "changePercent": -10.265027480461175
+        }
+      ],
+      "quality": {
+        "possessedAIPawnCount": {
+          "Baseline": 200,
+          "Optimized": 200
+        },
+        "navMovingAgentCount": {
+          "Baseline": 184.8671586715867,
+          "Optimized": 185.9503311258278
+        },
+        "animationFullRateProtectedCount": {
+          "Baseline": 0,
+          "Optimized": 61.83112582781457
+        },
+        "animationPostProcessDisabledCount": {
+          "Baseline": 0,
+          "Optimized": 26.28205128205128
+        }
+      },
+      "runs": [
+        {
+          "runId": "formal-crowd-200-animation-20260831-165343-run-01-baseline",
+          "variant": "Baseline",
+          "sampleCount": 271,
+          "metrics": {
+            "animationFullRateProtectedCount": {
+              "sampleCount": 271,
+              "mean": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 271,
+              "mean": 200,
+              "p95": 200,
+              "min": 200,
+              "max": 200
+            },
+            "csvAnimationTimeMs": {
+              "sampleCount": 271,
+              "mean": 15.843934686346874,
+              "p95": 20.0324,
+              "min": 12.6265,
+              "max": 25.3132
+            },
+            "navMovingAgentCount": {
+              "sampleCount": 271,
+              "mean": 184.8671586715867,
+              "p95": 191,
+              "min": 176,
+              "max": 192
+            },
+            "animationPostProcessDisabledCount": {
+              "sampleCount": 271,
+              "mean": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0
+            },
+            "frameTimeMs": {
+              "sampleCount": 271,
+              "mean": 55.51807418795529,
+              "p95": 72.07009941339493,
+              "min": 43.953102082014084,
+              "max": 84.81340110301971
+            }
+          },
+          "summarySha256": "12bb08fd9fdbcbfd2e73632b82d168c003326eaffbe5068b4c4e93e3eeefc92b",
+          "csvSha256": "f720a0549b65c15168b053e751d2469a7b53636a1234c7d59279428d25b7597b"
+        },
+        {
+          "runId": "formal-crowd-200-animation-20260831-165343-run-02-optimized",
+          "variant": "Optimized",
+          "sampleCount": 313,
+          "metrics": {
+            "animationFullRateProtectedCount": {
+              "sampleCount": 313,
+              "mean": 61.61980830670927,
+              "p95": 66,
+              "min": 56,
+              "max": 67
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 313,
+              "mean": 200,
+              "p95": 200,
+              "min": 200,
+              "max": 200
+            },
+            "csvAnimationTimeMs": {
+              "sampleCount": 313,
+              "mean": 10.818294568690096,
+              "p95": 12.6556,
+              "min": 8.3696,
+              "max": 18.8459
+            },
+            "navMovingAgentCount": {
+              "sampleCount": 313,
+              "mean": 187.0223642172524,
+              "p95": 193,
+              "min": 177,
+              "max": 195
+            },
+            "animationPostProcessDisabledCount": {
+              "sampleCount": 313,
+              "mean": 26.536741214057507,
+              "p95": 32,
+              "min": 19,
+              "max": 33
+            },
+            "frameTimeMs": {
+              "sampleCount": 313,
+              "mean": 48.01032651727573,
+              "p95": 58.480098843574524,
+              "min": 39.24209997057915,
+              "max": 81.2705010175705
+            }
+          },
+          "summarySha256": "ba50447a0754230587ec48c4ae65f4178cbc2f576980d43d7e77925398b8172d",
+          "csvSha256": "2b2f66159eb8b7e084d8c126b791d2051dd25152b4bf7bb2cd57a7348c799286"
+        },
+        {
+          "runId": "formal-crowd-200-animation-20260831-165343-run-03-optimized",
+          "variant": "Optimized",
+          "sampleCount": 312,
+          "metrics": {
+            "animationFullRateProtectedCount": {
+              "sampleCount": 312,
+              "mean": 63.01923076923077,
+              "p95": 65,
+              "min": 59,
+              "max": 67
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 312,
+              "mean": 200,
+              "p95": 200,
+              "min": 200,
+              "max": 200
+            },
+            "csvAnimationTimeMs": {
+              "sampleCount": 312,
+              "mean": 10.989284935897432,
+              "p95": 12.7786,
+              "min": 8.7445,
+              "max": 17.9197
+            },
+            "navMovingAgentCount": {
+              "sampleCount": 312,
+              "mean": 183.7403846153846,
+              "p95": 188,
+              "min": 176,
+              "max": 192
+            },
+            "animationPostProcessDisabledCount": {
+              "sampleCount": 312,
+              "mean": 26.28205128205128,
+              "p95": 31,
+              "min": 19,
+              "max": 33
+            },
+            "frameTimeMs": {
+              "sampleCount": 312,
+              "mean": 48.14283011290125,
+              "p95": 58.205898851156235,
+              "min": 38.31550106406212,
+              "max": 81.05549961328506
+            }
+          },
+          "summarySha256": "a9446b5be83d0e4fa0c0513f8bf652ed14802368402732db87fa5ceeb6a9ed7d",
+          "csvSha256": "cd82afabcb95860b3008b46e0465b69038516c0f2aad70d225dd517e316c64f1"
+        },
+        {
+          "runId": "formal-crowd-200-animation-20260831-165343-run-04-baseline",
+          "variant": "Baseline",
+          "sampleCount": 283,
+          "metrics": {
+            "animationFullRateProtectedCount": {
+              "sampleCount": 283,
+              "mean": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 283,
+              "mean": 200,
+              "p95": 200,
+              "min": 200,
+              "max": 200
+            },
+            "csvAnimationTimeMs": {
+              "sampleCount": 283,
+              "mean": 15.17960918727914,
+              "p95": 18.063,
+              "min": 12.5876,
+              "max": 23.6251
+            },
+            "navMovingAgentCount": {
+              "sampleCount": 283,
+              "mean": 185.98939929328623,
+              "p95": 191,
+              "min": 178,
+              "max": 194
+            },
+            "animationPostProcessDisabledCount": {
+              "sampleCount": 283,
+              "mean": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0
+            },
+            "frameTimeMs": {
+              "sampleCount": 283,
+              "mean": 53.14202506634877,
+              "p95": 63.06689977645874,
+              "min": 43.789900839328766,
+              "max": 76.7986997961998
+            }
+          },
+          "summarySha256": "f1b678a6167e0606296b2edf610d913a9bb642ea99a629d342e326858d6f3221",
+          "csvSha256": "435fcc10e2a1b918408061e6e6385c2388b0f88ce8a45a3dd4a4208fedc3e653"
+        },
+        {
+          "runId": "formal-crowd-200-animation-20260831-165343-run-05-baseline",
+          "variant": "Baseline",
+          "sampleCount": 280,
+          "metrics": {
+            "animationFullRateProtectedCount": {
+              "sampleCount": 280,
+              "mean": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 280,
+              "mean": 200,
+              "p95": 200,
+              "min": 200,
+              "max": 200
+            },
+            "csvAnimationTimeMs": {
+              "sampleCount": 280,
+              "mean": 15.158002857142852,
+              "p95": 18.0835,
+              "min": 12.4403,
+              "max": 24.4416
+            },
+            "navMovingAgentCount": {
+              "sampleCount": 280,
+              "mean": 183.19642857142858,
+              "p95": 188,
+              "min": 173,
+              "max": 190
+            },
+            "animationPostProcessDisabledCount": {
+              "sampleCount": 280,
+              "mean": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0
+            },
+            "frameTimeMs": {
+              "sampleCount": 280,
+              "mean": 53.591944303895744,
+              "p95": 65.1697963476181,
+              "min": 43.690696358680725,
+              "max": 79.99490201473236
+            }
+          },
+          "summarySha256": "46014375b7d76fabe7ff1b7eb85df76270e5169c61aa485d9c99a7c93c6bc0d5",
+          "csvSha256": "4134c8ba93f4b2000ff8639aeb36c1b11b79823b1a69da299d0f6c969750efdc"
+        },
+        {
+          "runId": "formal-crowd-200-animation-20260831-165343-run-06-optimized",
+          "variant": "Optimized",
+          "sampleCount": 302,
+          "metrics": {
+            "animationFullRateProtectedCount": {
+              "sampleCount": 302,
+              "mean": 61.83112582781457,
+              "p95": 64,
+              "min": 59,
+              "max": 65
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 302,
+              "mean": 200,
+              "p95": 200,
+              "min": 200,
+              "max": 200
+            },
+            "csvAnimationTimeMs": {
+              "sampleCount": 302,
+              "mean": 11.202510596026489,
+              "p95": 13.4434,
+              "min": 8.9452,
+              "max": 18.1323
+            },
+            "navMovingAgentCount": {
+              "sampleCount": 302,
+              "mean": 185.9503311258278,
+              "p95": 191,
+              "min": 177,
+              "max": 193
+            },
+            "animationPostProcessDisabledCount": {
+              "sampleCount": 302,
+              "mean": 26.25496688741722,
+              "p95": 33,
+              "min": 18,
+              "max": 35
+            },
+            "frameTimeMs": {
+              "sampleCount": 302,
+              "mean": 49.755924449160396,
+              "p95": 62.47600167989731,
+              "min": 39.654698222875595,
+              "max": 76.74530148506165
+            }
+          },
+          "summarySha256": "ee6f3f4d557b535fcca587d9e24fd6fdd8d826ca1cbc3d1660e5e2fcedc87ce6",
+          "csvSha256": "0b2657325953bcbe59be8f1a87489125ef3e831295535f9297672db77d1e5c44"
+        }
+      ]
+    },
+    "hud": {
+      "sessionId": "formal-hero-arena-hud-refresh-20260831-203159",
+      "conditions": {
+        "sourceRevision": "712a1cd",
+        "presetId": "hero-arena-hud-refresh",
+        "map": "L_Convolution_Blockout",
+        "seed": 1337,
+        "targetAgentCount": 9,
+        "rhiName": "D3D12",
+        "warmupSeconds": 8,
+        "measurementSeconds": 10,
+        "environment": {
+          "cpu": "13th Gen Intel(R) Core(TM) i7-13700F",
+          "gpu": "NVIDIA GeForce RTX 4080",
+          "gpuDriverInternal": "32.0.15.9186",
+          "gpuDriverUser": "591.86",
+          "gpuVendorId": 4318,
+          "gpuDeviceId": 9988,
+          "os": "10.0.26200.1.256.64bit",
+          "resolutionX": 1280,
+          "resolutionY": 720,
+          "windowed": true
+        }
+      },
+      "metrics": [
+        {
+          "metric": "csvHeroArenaHUDRefreshTimeMs",
+          "statistic": "mean",
+          "label": {
+            "zh": "HUD 刷新平均耗时",
+            "en": "HUD refresh mean"
+          },
+          "unit": "ms",
+          "baseline": 0.062023869104908654,
+          "optimized": 0.005739769452449568,
+          "changePercent": -90.74587004119142
+        },
+        {
+          "metric": "csvUITimeMs",
+          "statistic": "mean",
+          "label": {
+            "zh": "UI 总平均耗时",
+            "en": "UI total mean"
+          },
+          "unit": "ms",
+          "baseline": 1.6659563868613176,
+          "optimized": 1.5535463016330457,
+          "changePercent": -6.747480673251827
+        },
+        {
+          "metric": "frameTimeMs",
+          "statistic": "p95",
+          "label": {
+            "zh": "整帧 P95",
+            "en": "Frame P95"
+          },
+          "unit": "ms",
+          "baseline": 11.26759871840477,
+          "optimized": 11.242400854825974,
+          "changePercent": -0.22363117651357234
+        }
+      ],
+      "quality": {
+        "possessedAIPawnCount": {
+          "Baseline": 9,
+          "Optimized": 9
+        },
+        "csvHeroArenaHUDRefreshCountPerSecond": {
+          "Baseline": 103.9,
+          "Optimized": 9.6
+        }
+      },
+      "runs": [
+        {
+          "runId": "formal-hero-arena-hud-refresh-20260831-203159-run-01-baseline",
+          "variant": "Baseline",
+          "sampleCount": 1096,
+          "metrics": {
+            "csvUITimeMs": {
+              "sampleCount": 1096,
+              "mean": 1.6659563868613176,
+              "p95": 2.2962,
+              "min": 1.1024,
+              "max": 3.433
+            },
+            "csvHeroArenaHUDRefreshCountPerSecond": {
+              "sampleCount": 1,
+              "mean": 109.6,
+              "p95": 109.6,
+              "min": 109.6,
+              "max": 109.6
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 1096,
+              "mean": 8.989051094890511,
+              "p95": 9,
+              "min": 8,
+              "max": 9
+            },
+            "csvHeroArenaHUDRefreshTimeMs": {
+              "sampleCount": 1096,
+              "mean": 0.059192244525547395,
+              "p95": 0.0912,
+              "min": 0.0345,
+              "max": 0.2342
+            },
+            "frameTimeMs": {
+              "sampleCount": 1096,
+              "mean": 9.128662223934475,
+              "p95": 10.660100728273392,
+              "min": 6.913401186466217,
+              "max": 117.50639975070953
+            }
+          },
+          "summarySha256": "e2c01eb3ad6010c5c5f708fc07f52cc5ae783de296b621a2be971d188af90c80",
+          "csvSha256": "0b6a27cf15b9d1af64296fd814829439e49a0784574ccb7e5878bb5548960aa7"
+        },
+        {
+          "runId": "formal-hero-arena-hud-refresh-20260831-203159-run-02-optimized",
+          "variant": "Optimized",
+          "sampleCount": 1041,
+          "metrics": {
+            "csvUITimeMs": {
+              "sampleCount": 1041,
+              "mean": 1.5535463016330457,
+              "p95": 2.1256,
+              "min": 0.9224,
+              "max": 3.4201
+            },
+            "csvHeroArenaHUDRefreshCountPerSecond": {
+              "sampleCount": 1,
+              "mean": 9.6,
+              "p95": 9.6,
+              "min": 9.6,
+              "max": 9.6
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 1041,
+              "mean": 9,
+              "p95": 9,
+              "min": 9,
+              "max": 9
+            },
+            "csvHeroArenaHUDRefreshTimeMs": {
+              "sampleCount": 1041,
+              "mean": 0.005739769452449568,
+              "p95": 0.0562,
+              "min": 0,
+              "max": 0.1538
+            },
+            "frameTimeMs": {
+              "sampleCount": 1041,
+              "mean": 9.607442460531917,
+              "p95": 11.28220185637474,
+              "min": 6.767198443412781,
+              "max": 87.0652049779892
+            }
+          },
+          "summarySha256": "e8fd64d094415870512343e918ef07835ecc6f1e6a003ed54f7e665308f9bd0b",
+          "csvSha256": "73e876de6cd03019f6d92eaf7432bc5efcbf34721efa1e03d21b277a1acd5855"
+        },
+        {
+          "runId": "formal-hero-arena-hud-refresh-20260831-203159-run-03-optimized",
+          "variant": "Optimized",
+          "sampleCount": 1065,
+          "metrics": {
+            "csvUITimeMs": {
+              "sampleCount": 1065,
+              "mean": 1.6210412206572775,
+              "p95": 2.3061,
+              "min": 0.959,
+              "max": 4.6654
+            },
+            "csvHeroArenaHUDRefreshCountPerSecond": {
+              "sampleCount": 1,
+              "mean": 9.6,
+              "p95": 9.6,
+              "min": 9.6,
+              "max": 9.6
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 1065,
+              "mean": 9,
+              "p95": 9,
+              "min": 9,
+              "max": 9
+            },
+            "csvHeroArenaHUDRefreshTimeMs": {
+              "sampleCount": 1065,
+              "mean": 0.005804788732394369,
+              "p95": 0.0568,
+              "min": 0,
+              "max": 0.1282
+            },
+            "frameTimeMs": {
+              "sampleCount": 1065,
+              "mean": 9.394750513241325,
+              "p95": 11.242400854825974,
+              "min": 7.073402404785156,
+              "max": 84.3258947134018
+            }
+          },
+          "summarySha256": "542666db8aec92416a98a1793bfd4cfc4ae7734e9ad61198d508b0f53bf8ba13",
+          "csvSha256": "32167020b4d8b0a0651dc59b2f79d1e2c02eafb769b801e29f0dab2ab7dea2f5"
+        },
+        {
+          "runId": "formal-hero-arena-hud-refresh-20260831-203159-run-04-baseline",
+          "variant": "Baseline",
+          "sampleCount": 1000,
+          "metrics": {
+            "csvUITimeMs": {
+              "sampleCount": 1000,
+              "mean": 1.7033154999999998,
+              "p95": 2.2958,
+              "min": 1.0177,
+              "max": 3.9479
+            },
+            "csvHeroArenaHUDRefreshCountPerSecond": {
+              "sampleCount": 1,
+              "mean": 100,
+              "p95": 100,
+              "min": 100,
+              "max": 100
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 1000,
+              "mean": 9,
+              "p95": 9,
+              "min": 9,
+              "max": 9
+            },
+            "csvHeroArenaHUDRefreshTimeMs": {
+              "sampleCount": 1000,
+              "mean": 0.06500280000000001,
+              "p95": 0.0987,
+              "min": 0.0366,
+              "max": 0.6722
+            },
+            "frameTimeMs": {
+              "sampleCount": 1000,
+              "mean": 10.00766310468316,
+              "p95": 11.751599609851837,
+              "min": 7.7052004635334015,
+              "max": 118.20590496063232
+            }
+          },
+          "summarySha256": "5e08897f88d31748c4555a2d83d4b46cde719f32d67468b1a055df984902dd80",
+          "csvSha256": "edb5806b61ec3684960287207917ac3bcb4255a314519577d6efe4f8a3142d8b"
+        },
+        {
+          "runId": "formal-hero-arena-hud-refresh-20260831-203159-run-05-baseline",
+          "variant": "Baseline",
+          "sampleCount": 1039,
+          "metrics": {
+            "csvUITimeMs": {
+              "sampleCount": 1039,
+              "mean": 1.630626948989412,
+              "p95": 2.2123,
+              "min": 1.017,
+              "max": 3.1122
+            },
+            "csvHeroArenaHUDRefreshCountPerSecond": {
+              "sampleCount": 1,
+              "mean": 103.9,
+              "p95": 103.9,
+              "min": 103.9,
+              "max": 103.9
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 1039,
+              "mean": 9,
+              "p95": 9,
+              "min": 9,
+              "max": 9
+            },
+            "csvHeroArenaHUDRefreshTimeMs": {
+              "sampleCount": 1039,
+              "mean": 0.062023869104908654,
+              "p95": 0.0967,
+              "min": 0.0355,
+              "max": 0.2028
+            },
+            "frameTimeMs": {
+              "sampleCount": 1039,
+              "mean": 9.628997877225839,
+              "p95": 11.26759871840477,
+              "min": 7.142499089241028,
+              "max": 137.17089593410492
+            }
+          },
+          "summarySha256": "560d184b83705443014f7b48a1724c372988b2ce5fc3d5ebfdaa8c52d2b94f4b",
+          "csvSha256": "636cc6beaf20b11208520c7b135736c6c8b91336ba52d9d819a8fb4df28b9206"
+        },
+        {
+          "runId": "formal-hero-arena-hud-refresh-20260831-203159-run-06-optimized",
+          "variant": "Optimized",
+          "sampleCount": 1079,
+          "metrics": {
+            "csvUITimeMs": {
+              "sampleCount": 1079,
+              "mean": 1.5192962928637626,
+              "p95": 2.051,
+              "min": 0.9699,
+              "max": 3.1721
+            },
+            "csvHeroArenaHUDRefreshCountPerSecond": {
+              "sampleCount": 1,
+              "mean": 9.6,
+              "p95": 9.6,
+              "min": 9.6,
+              "max": 9.6
+            },
+            "possessedAIPawnCount": {
+              "sampleCount": 1079,
+              "mean": 9,
+              "p95": 9,
+              "min": 9,
+              "max": 9
+            },
+            "csvHeroArenaHUDRefreshTimeMs": {
+              "sampleCount": 1079,
+              "mean": 0.005529101019462466,
+              "p95": 0.0532,
+              "min": 0,
+              "max": 0.1364
+            },
+            "frameTimeMs": {
+              "sampleCount": 1079,
+              "mean": 9.272901671036623,
+              "p95": 11.176198720932007,
+              "min": 6.800901144742966,
+              "max": 77.37450301647186
+            }
+          },
+          "summarySha256": "84dc40e5cef25b0bd87586fb2efeba6218c56208d3883d5e7b63eff5a90de904",
+          "csvSha256": "102fe09e2c3e5a42975c87440accdffa239315dd07c9019cd98eca0f827e37d2"
+        }
+      ]
+    }
+  }
+}
