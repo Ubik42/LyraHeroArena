@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-17",
-  "sourceRevision": "84468c8d96a7618450f38ffba66b1aff42162a75",
+  "sourceRevision": "67048b00045f183294844c690fedbd7c31512ace",
   "engine": "UE 5.7.4 / CL 51494982",
   "normalization": "UTF-8 without BOM; LF newlines",
   "scope": "Three authored plugin source trees only; does not include host Lyra modifications or asset assembly.",
   "files": {
     "Plugins/GameFeatures/HeroArena/HeroArena.uplugin": "f2717f42da7d9a8195c960bdbae83117233d1b252b66edda6048e9c8f3954af3",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/HeroArenaRuntime.Build.cs": "d3a5ed04ae4a7106a43fd1d3abcf73f616606aee3d159f8ab013673b3720a2b4",
-    "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/HeroArenaRuntimeModule.cpp": "1cd9e2f01289dca310b8374ee46a21928ba2fb4eee381632b5338f755149c647",
+    "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/HeroArenaRuntimeModule.cpp": "5b160c11df5e1b262fe016e91b3c088d8dba1c532ff068a52d489bf5a5ebf92f",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/HeroArenaNetworkProbe.cpp": "9453ed766cb9da43d77531e7bd8c63d7e1af109a15cfe581134c16c5fd9df425",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Public/Abilities/HeroArenaBulwarkAbilitySet.h": "7ddf904d503a31aaaabb99ebe4faf9f758246dbdd36b478f28d9f10e77ecad15",
     "Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Public/Abilities/HeroArenaGameplayAbility_Barrier.h": "d9293f89b2f17cda8c4b457b7b7bbde4b9f7440141dd78c24439bd3492483679",

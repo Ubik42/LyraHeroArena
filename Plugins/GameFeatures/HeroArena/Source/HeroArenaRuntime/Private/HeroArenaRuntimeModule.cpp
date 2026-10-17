@@ -26,10 +26,53 @@
 #include "System/LyraAssetManager.h"
 #include "System/LyraGameData.h"
 #include "Teams/LyraTeamSubsystem.h"
+#include "AbilitySystem/Phases/LyraGamePhaseSubsystem.h"
+#include "UObject/UnrealType.h"
+#include "UObject/StructOnScope.h"
 
 #if !UE_BUILD_SHIPPING
 namespace HeroArenaSelectionDebug
 {
+	// Independent of Pawn lifetime so death and post-game remain observable.
+	void LogMatchFrame(const TArray<FString>& Args, UWorld* World)
+	{
+		if (!World) return;
+		const ULyraTeamSubsystem* Teams = World->GetSubsystem<ULyraTeamSubsystem>();
+		ULyraGamePhaseSubsystem* Phases = World->GetSubsystem<ULyraGamePhaseSubsystem>();
+		auto IsPhase = [Phases](const TCHAR* Name)
+		{
+			const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(Name), false);
+			// Lyra 5.7 does not export this native method across DLLs. Call its
+			// existing reflected read-only query without changing the host module.
+			UFunction* Query = Phases ? Phases->FindFunction(TEXT("IsPhaseActive")) : nullptr;
+			const FStructProperty* Input = Query ? FindFProperty<FStructProperty>(Query, TEXT("PhaseTag")) : nullptr;
+			const FBoolProperty* Result = Query ? FindFProperty<FBoolProperty>(Query, TEXT("ReturnValue")) : nullptr;
+			if (!Tag.IsValid() || !Input || !Result || Input->Struct != FGameplayTag::StaticStruct()) return false;
+			FStructOnScope Parameters(Query);
+			*Input->ContainerPtrToValuePtr<FGameplayTag>(Parameters.GetStructMemory()) = Tag;
+			Phases->ProcessEvent(Query, Parameters.GetStructMemory());
+			return Result->GetPropertyValue_InContainer(Parameters.GetStructMemory());
+		};
+		int32 TargetScore = -1, WinningTeam = -1;
+		if (const AGameStateBase* GS = World->GetGameState())
+		{
+			for (const UActorComponent* Component : GS->GetComponents())
+			{
+				if (!Component || !Component->GetClass()->GetName().Contains(TEXT("ControlPointScoring"))) continue;
+				if (const FIntProperty* Property = FindFProperty<FIntProperty>(Component->GetClass(), TEXT("TargetScore")))
+					TargetScore = Property->GetPropertyValue_InContainer(Component);
+				if (const FIntProperty* Property = FindFProperty<FIntProperty>(Component->GetClass(), TEXT("WinningTeamId")))
+					WinningTeam = Property->GetPropertyValue_InContainer(Component);
+			}
+		}
+		const FGameplayTag ScoreTag = FGameplayTag::RequestGameplayTag(TEXT("ShooterGame.ControlPoint.TeamScore"), false);
+		UE_LOG(LogTemp, Display, TEXT("HeroArena match frame: {\"time\":%.3f,\"warmup\":%s,\"playing\":%s,\"postGame\":%s,\"team1\":%d,\"team2\":%d,\"targetScore\":%d,\"winner\":%d}"),
+			World->GetTimeSeconds(), IsPhase(TEXT("ShooterGame.GamePhase.Warmup")) ? TEXT("true") : TEXT("false"),
+			IsPhase(TEXT("ShooterGame.GamePhase.Playing")) ? TEXT("true") : TEXT("false"),
+			IsPhase(TEXT("ShooterGame.GamePhase.PostGame")) ? TEXT("true") : TEXT("false"),
+			Teams && ScoreTag.IsValid() ? Teams->GetTeamTagStackCount(1, ScoreTag) : -1,
+			Teams && ScoreTag.IsValid() ? Teams->GetTeamTagStackCount(2, ScoreTag) : -1, TargetScore, WinningTeam);
+	}
 	// Read-only recording aid. The external driver still uses normal Enhanced Input.
 	void LogGameplayFrame(const TArray<FString>& Args, UWorld* World)
 	{
@@ -416,6 +459,9 @@ namespace HeroArenaSelectionDebug
 	FAutoConsoleCommandWithWorldAndArgs LogGameplayFrameCommand(
 		TEXT("HeroArena.Debug.LogGameplayFrame"), TEXT("Development read-only snapshot for input-driven recording; computes one objective path and visible enemy location."),
 		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogGameplayFrame));
+	FAutoConsoleCommandWithWorldAndArgs LogMatchFrameCommand(
+		TEXT("HeroArena.Debug.LogMatchFrame"), TEXT("Development read-only score and phase snapshot, including pawn-less post-game."),
+		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogMatchFrame));
 	FAutoConsoleCommandWithWorldAndArgs LogBlinkNetworkCommand(
 		TEXT("HeroArena.Debug.LogBlinkNetwork"), TEXT("Read player positions and Blink counts in the current world. Non-owner charge values are not authoritative."),
 		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogBlinkNetwork));

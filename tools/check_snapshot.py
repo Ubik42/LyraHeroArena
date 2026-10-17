@@ -94,6 +94,15 @@ for case in ('separate-network', 'separate-network-baseline'):
         early=record['roles']['client']['early']
         if (early['charges'],early['pending'])!=(2,1):errors.append(case+': no early prediction')
 
+match=json.loads((ROOT/'docs/data/full-match.json').read_text(encoding='utf-8'))
+post=[row for row in match['samples'] if row['postGame']]
+if not post or match['score'][match['winner']-1]!=match['targetScore'] or match['postGameHoldSeconds']<5:
+    errors.append('Complete match did not reach its recorded winning condition')
+if any(row['playing'] or row['warmup'] or [row['team1'],row['team2']]!=match['score'] for row in post):
+    errors.append('Post-game phase or frozen score mismatch')
+if any(b['time']<=a['time'] or b['team1']<a['team1'] or b['team2']<a['team2'] for a,b in zip(match['samples'],match['samples'][1:])):
+    errors.append('Match samples are not a continuous forward progression')
+
 # Public material excludes project payloads, credentials and workstation-specific paths.
 for folder in ('Plugins','docs','assets'):
     for path in (ROOT/folder).rglob('*'):
@@ -108,5 +117,5 @@ for folder in ('Plugins','docs','assets'):
 
 if errors:
     raise SystemExit('\n'.join(errors))
-print(f'PASS: {len(manifest["files"])} source hashes; local Markdown/image links; 12-run aggregates; GAS and Blink records; payload/path scan.')
+print(f'PASS: {len(manifest["files"])} source hashes; local Markdown/image links; 12-run aggregates; GAS, Blink and full-match records; payload/path scan.')
 print('Scope: checks saved content only, not runtime, build compatibility or legal clearance.')

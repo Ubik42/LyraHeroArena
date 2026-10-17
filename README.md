@@ -29,6 +29,8 @@
 
 #### 游骑：恢复场与轮换控制点
 
+[完整占点对局与结算](docs/完整占点对局.md)：从开局零分到比赛结束，连续展示 A/B/C 轮换、交火、死亡重生与目标争夺。单机 1 玩家 + 9 Bot，Enhanced Input 自动输入；计分和终局复用 Lyra，自有组件管理轮换点及停用点的计分缓存。
+
 [连续实机片段与机制说明](https://ubik42.github.io/?work=lyra-hero-arena)：约 65 秒，单机 1 玩家 + 9 Bot，通过 Enhanced Input 自动输入。保留完整过程与等待，按游戏时间播放，无声；未开启无敌、传送、伤害注入或强制占点。
 
 **RecoveryField** 采用 LocalPredicted GameplayAbility，激活时先 CommitAbility，只有 Authority 生成恢复场 Actor。Actor 保存队伍与到期时间，服务器定时检索范围内友方，经标准 GameplayEffect 路径治疗；实际治疗成功后递增 HealingPulseSequence 并 ForceNetUpdate，客户端 OnRep 驱动 Niagara 脉冲。该段录像验证单机流程，多人治疗效果仍需单独验证。
@@ -53,7 +55,7 @@ Recall 使用 **ServerOnly GameplayAbility**，服务器采样 Pawn 的位置、
 
 普通网络与模拟弱网均完成同进程双 PIE 验证。两端 NetDriver 各配置 150 ms 出站延迟与 2% 出站丢包后，记录到拒绝恢复 3 格、成功释放 2 格、连续释放 0 格、恢复 1 格以及换人重置 3 格；稳定采样时双端位置一致，客户端待确认请求为零。测试采用开发专用故障注入，延迟配置不等同于实测 RTT。详见 [双 PIE 记录](docs/data/blink-network.json) 与 [运行方法](docs/接入与验证.md#blink-预测拒绝与弱网检查)。
 
-另完成 **独立 Dedicated Server + 拥有客户端**的普通网络与弱网运行：预测拒绝后恢复 3 格，正常释放后双端 2 格并在同一 Pawn 上补充；Striker 7 项来源能力切至 Phase 4 项，重生后新 Pawn 与 ASC Avatar 对应。范围为非打包、同机 Loopback 单客户端，完整比赛及公网仍待补充。开发驱动、截图、阶段数据、冷启动倒计时问题与复现步骤见 [跨进程网络案例](docs/跨进程网络案例.md)。
+另完成 **独立 Dedicated Server + 拥有客户端**的普通网络与弱网运行：预测拒绝后恢复 3 格，正常释放后双端 2 格并在同一 Pawn 上补充；Striker 7 项来源能力切至 Phase 4 项，重生后新 Pawn 与 ASC Avatar 对应。范围为非打包、同机 Loopback 单客户端，联网完整比赛及公网仍待补充。开发驱动、截图、阶段数据、冷启动倒计时问题与复现步骤见 [跨进程网络案例](docs/跨进程网络案例.md)。
 
 | 实现入口 | 对应内容 |
 | --- | --- |
