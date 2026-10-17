@@ -11,6 +11,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameFramework/PlayerController.h"
+#include "LyraGameplayTags.h"
 #include "UObject/ConstructorHelpers.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(HeroArenaGameplayAbility_Blink)
@@ -32,6 +33,8 @@ UHeroArenaGameplayAbility_Blink::UHeroArenaGameplayAbility_Blink(const FObjectIn
 	ConstructorHelpers::FObjectFinder<UAnimMontage> ForwardDashMontage(
 		TEXT("/Game/Characters/Heroes/Mannequin/Animations/Actions/AM_MM_Dash_Forward.AM_MM_Dash_Forward"));
 	BlinkMontage = ForwardDashMontage.Object;
+	FailureTagToUserFacingMessages.Add(LyraGameplayTags::Ability_ActivateFail_Cost,
+		NSLOCTEXT("HeroArenaAbilityFeedback", "BlinkNoCharges", "闪现充能不足，请等待恢复"));
 }
 
 bool UHeroArenaGameplayAbility_Blink::CanActivateAbility(
@@ -39,8 +42,25 @@ bool UHeroArenaGameplayAbility_Blink::CanActivateAbility(
 	const FGameplayTagContainer* SourceTags, const FGameplayTagContainer* TargetTags,
 	FGameplayTagContainer* OptionalRelevantTags) const
 {
-	return Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags) &&
-		GetChargeComponent(ActorInfo) && GetChargeComponent(ActorInfo)->HasAvailableCharge();
+	if (!Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags))
+	{
+		return false;
+	}
+	const UHeroArenaBlinkChargeComponent* Charges = GetChargeComponent(ActorInfo);
+	if (!Charges)
+	{
+		return false;
+	}
+	if (!Charges->HasAvailableCharge())
+	{
+		// Let GAS deliver failure feedback on the owning client; queries stay side-effect free.
+		if (OptionalRelevantTags)
+		{
+			OptionalRelevantTags->AddTag(LyraGameplayTags::Ability_ActivateFail_Cost);
+		}
+		return false;
+	}
+	return true;
 }
 
 void UHeroArenaGameplayAbility_Blink::ActivateAbility(

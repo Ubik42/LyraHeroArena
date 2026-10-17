@@ -27,6 +27,23 @@
 
 ### GAS 深度实践：英雄能力与重生生命周期
 
+#### Phase 闪回：充能、落点与历史状态
+
+Blink 使用 **LocalPredicted GameplayAbility**，沿朝向执行 Capsule Sweep，遇障碍时缩短位移；有效距离不足 80 单位时拒绝释放且保留充能。三格充能由 PlayerState 组件维护，服务器依次恢复并仅向拥有客户端复制。充能耗尽通过 GAS 失败 Tag 进入 Lyra 消息通道，战术 HUD 匹配所属玩家并显示中文原因。
+
+Recall 使用 **ServerOnly GameplayAbility**，服务器采样 Pawn 的位置、朝向、生命与同一手枪实例的弹匣。触发时检查约 3 秒前的记录、对象身份与落点碰撞；落点受阻则尝试较新的合法样本。成功后恢复历史数值，清空旧记录并进入冷却；重生、换人和武器变化会清除不匹配记录。
+
+[闪回技能实机演示与机制说明](https://ubik42.github.io/?work=lyra-hero-arena)：约 14 秒，单机 1 玩家 + 9 Bot，自动输入射击与技能，录制前设置起点、选人并开启无敌保护。展示三次闪现、第四次拒绝、回溯位置和弹匣变化；网络预测及弱网修正仍待单独验证。
+
+| 实现入口 | 对应内容 |
+| --- | --- |
+| [Blink](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Abilities/HeroArenaGameplayAbility_Blink.cpp) | 激活条件、碰撞缩距、失败 Tag 与表现 |
+| [BlinkChargeComponent](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Components/HeroArenaBlinkChargeComponent.cpp) | 拥有者充能复制、本地暂扣和顺序恢复 |
+| [RecallHistoryComponent](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Components/HeroArenaRecallHistoryComponent.cpp) | 历史采样、对象身份与合法落点检查 |
+| [CombatHUDWidget](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/UI/HeroArenaCombatHUDWidget.cpp) | 技能状态与所属玩家失败提示 |
+
+#### 换人与重生
+
 玩家选择的英雄数据保存在 PlayerState 的 HeroSelectionComponent。客户端调用 `RequestHeroSelection` 后经 RPC `ServerRequestHeroSelection` 发往服务器，服务端逐项校验英雄名单、HeroId、锁定状态并过滤重复请求。能力变更依托 Lyra 原生 ASC 与 Pawn 初始化流程：通过 **AbilitySet 授予句柄撤销上一位英雄的能力后再授予新能力**，并将 `Spec.SourceObject` 指定为对应 HeroDefinition 以追踪能力来源；武器与装备通过 QuickBarComponent、InventoryManagerComponent 与 EquipmentManagerComponent 替换，新 Pawn 完成能力系统初始化后应用保留的配置。
 
 终极技能能量由造成的伤害、治疗、击杀及助攻等战斗贡献累加；角色死亡保留当前能量，更换英雄时能量清零。重生开始时，系统调用 `PushContentToLayer_ForPlayer` 将选人窗口重新压入 CommonUI 栈，重生完成后关闭该窗口。

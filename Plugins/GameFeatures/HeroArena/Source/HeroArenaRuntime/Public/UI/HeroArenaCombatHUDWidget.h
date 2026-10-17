@@ -12,6 +12,7 @@ class UHeroArenaHeroDefinition;
 class UHeroArenaHeroSelectionComponent;
 struct FLyraControlPointStatusMessage;
 struct FLyraVerbMessage;
+struct FLyraAbilitySimpleFailureMessage;
 
 /** Compact Hero Arena-specific combat feedback layered beside Lyra's native HUD. */
 UCLASS()
@@ -38,6 +39,7 @@ private:
 	void RefreshRuntimeState();
 	void HandleControlPointCaptured(FGameplayTag Channel, const FLyraControlPointStatusMessage& Message);
 	void HandleRespawnCompleted(FGameplayTag Channel, const FLyraVerbMessage& Message);
+	void HandleAbilityFailure(FGameplayTag Channel, const FLyraAbilitySimpleFailureMessage& Message);
 	void RefreshObjectiveState();
 	void RefreshReturnGuidance();
 	FString GetObjectiveDistanceText(const class UHeroArenaControlPointRotationComponent* Rotation) const;
@@ -50,6 +52,7 @@ private:
 	TWeakObjectPtr<UHeroArenaHeroSelectionComponent> SelectionComponent;
 	FGameplayMessageListenerHandle ControlPointListener;
 	FGameplayMessageListenerHandle RespawnCompletedListener;
+	FGameplayMessageListenerHandle AbilityFailureListener;
 	FName CurrentHeroId;
 	TArray<FName> CooldownTags;
 	TArray<bool> PassiveSkills;
@@ -60,6 +63,8 @@ private:
 	TSharedPtr<STextBlock> TeamCompositionText;
 	TSharedPtr<STextBlock> ObjectiveText;
 	TSharedPtr<SBorder> ObjectiveToast;
+	TSharedPtr<SBorder> AbilityFailureToast;
+	TSharedPtr<STextBlock> AbilityFailureText;
 	TSharedPtr<SBorder> AccentRail;
 	TSharedPtr<SProgressBar> UltimateChargeBar;
 	TArray<TSharedPtr<STextBlock>> SkillKeyTexts;
@@ -67,6 +72,7 @@ private:
 	TArray<TSharedPtr<STextBlock>> SkillStateTexts;
 	FLinearColor CurrentAccent = FLinearColor(0.20f, 0.68f, 0.80f, 1.0f);
 	double ToastEndTime = 0.0;
+	double AbilityFailureEndTime = 0.0;
 	double NextBindAttemptTime = 0.0;
 	double NextRuntimeRefreshTime = 0.0;
 	double NextTeamRefreshTime = 0.0;

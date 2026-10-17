@@ -1,6 +1,7 @@
 #include "UI/HeroArenaCombatHUDWidget.h"
 
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/LyraAbilitySimpleFailureMessage.h"
 #include "Components/HeroArenaBlinkChargeComponent.h"
 #include "Components/HeroArenaBattlePulseComponent.h"
 #include "Components/HeroArenaControlPointRotationComponent.h"
@@ -155,6 +156,19 @@ TSharedRef<SWidget> UHeroArenaCombatHUDWidget::RebuildWidget()
 	}
 
 	TSharedRef<SWidget> Root = SNew(SOverlay)
+		+ SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Bottom).Padding(0.0f, 0.0f, 0.0f, 250.0f)
+		[
+			SAssignNew(AbilityFailureToast, SBorder)
+			.Visibility(EVisibility::Collapsed)
+			.BorderImage(FCoreStyle::Get().GetBrush("WhiteBrush"))
+			.BorderBackgroundColor(FLinearColor(0.12f, 0.045f, 0.025f, 0.94f))
+			.Padding(FMargin(16.0f, 8.0f))
+			[
+				SAssignNew(AbilityFailureText, STextBlock)
+				.ColorAndOpacity(FLinearColor(1.0f, 0.78f, 0.45f, 1.0f))
+				.Font(FCoreStyle::GetDefaultFontStyle("Bold", 14))
+			]
+		]
 		// Lyra's score and three control-point indicators occupy the top 200 Slate units.
 		+ SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Top).Padding(0.0f, 220.0f, 0.0f, 0.0f)
 		[
@@ -219,6 +233,7 @@ void UHeroArenaCombatHUDWidget::ReleaseSlateResources(const bool bReleaseChildre
 	Super::ReleaseSlateResources(bReleaseChildren);
 	HeroNameText.Reset(); RoleText.Reset(); StatusText.Reset(); TeamCompositionText.Reset(); ObjectiveText.Reset(); ObjectiveToast.Reset(); AccentRail.Reset(); UltimateChargeBar.Reset();
 	SkillKeyTexts.Reset(); SkillLabelTexts.Reset(); SkillStateTexts.Reset();
+	AbilityFailureToast.Reset(); AbilityFailureText.Reset();
 }
 
 void UHeroArenaCombatHUDWidget::NativeConstruct()
@@ -231,6 +246,9 @@ void UHeroArenaCombatHUDWidget::NativeConstruct()
 	RespawnCompletedListener = UGameplayMessageSubsystem::Get(this).RegisterListener(
 		FGameplayTag::RequestGameplayTag(TEXT("Ability.Respawn.Completed.Message")),
 		this, &ThisClass::HandleRespawnCompleted);
+	AbilityFailureListener = UGameplayMessageSubsystem::Get(this).RegisterListener(
+		FGameplayTag::RequestGameplayTag(TEXT("Ability.UserFacingSimpleActivateFail.Message")),
+		this, &ThisClass::HandleAbilityFailure);
 }
 
 void UHeroArenaCombatHUDWidget::NativeDestruct()
@@ -248,13 +266,39 @@ void UHeroArenaCombatHUDWidget::NativeDestruct()
 	{
 		UGameplayMessageSubsystem::Get(this).UnregisterListener(RespawnCompletedListener);
 	}
+	if (AbilityFailureListener.IsValid())
+	{
+		UGameplayMessageSubsystem::Get(this).UnregisterListener(AbilityFailureListener);
+	}
+	AbilityFailureEndTime = 0.0;
 	Super::NativeDestruct();
+}
+
+void UHeroArenaCombatHUDWidget::HandleAbilityFailure(
+	FGameplayTag Channel, const FLyraAbilitySimpleFailureMessage& Message)
+{
+	// World message channels are shared; never show another player's failure on this HUD.
+	if (!GetOwningPlayer() || Message.PlayerController != GetOwningPlayer() ||
+		Message.UserFacingReason.IsEmpty() || !AbilityFailureToast.IsValid() || !AbilityFailureText.IsValid())
+	{
+		return;
+	}
+	HeroArenaCombatHUD::SetTextIfChanged(AbilityFailureText, Message.UserFacingReason);
+	AbilityFailureToast->SetVisibility(EVisibility::SelfHitTestInvisible);
+	AbilityFailureEndTime = FPlatformTime::Seconds() + 1.8;
+	UE_LOG(LogHeroArenaCombatHUD, Log, TEXT("Ability failure shown: player=%s reason=%s"),
+		*GetNameSafe(GetOwningPlayer()), *Message.UserFacingReason.ToString());
 }
 
 void UHeroArenaCombatHUDWidget::NativeTick(const FGeometry& MyGeometry, const float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 	const double Now = FPlatformTime::Seconds();
+	if (AbilityFailureToast.IsValid() && AbilityFailureEndTime > 0.0 && Now >= AbilityFailureEndTime)
+	{
+		AbilityFailureToast->SetVisibility(EVisibility::Collapsed);
+		AbilityFailureEndTime = 0.0;
+	}
 	if (!SelectionComponent.IsValid() && Now >= NextBindAttemptTime)
 	{
 		NextBindAttemptTime = Now + 0.5;
