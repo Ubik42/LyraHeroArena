@@ -2,6 +2,7 @@
 #include "Hero/HeroArenaHeroDefinition.h"
 #include "Actors/HeroArenaRelayBeacon.h"
 #include "Components/HeroArenaBlinkChargeComponent.h"
+#include "Components/HeroArenaControlPointRotationComponent.h"
 #include "Effects/HeroArenaPurificationRules.h"
 
 #include "AbilitySystem/Attributes/LyraCombatSet.h"
@@ -18,6 +19,9 @@
 #include "Player/LyraPlayerState.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/GameStateBase.h"
+#include "NavigationSystem.h"
+#include "NavigationPath.h"
 #include "LyraGameplayTags.h"
 #include "System/LyraAssetManager.h"
 #include "System/LyraGameData.h"
@@ -26,6 +30,63 @@
 #if !UE_BUILD_SHIPPING
 namespace HeroArenaSelectionDebug
 {
+	// Read-only recording aid. The external driver still uses normal Enhanced Input.
+	void LogGameplayFrame(const TArray<FString>& Args, UWorld* World)
+	{
+		APlayerController* PC = World ? World->GetFirstPlayerController() : nullptr;
+		APawn* Pawn = PC ? PC->GetPawn() : nullptr;
+		ALyraPlayerState* PS = PC ? PC->GetPlayerState<ALyraPlayerState>() : nullptr;
+		if (!Pawn || !PS) return;
+		const ULyraAbilitySystemComponent* ASC = PS->GetLyraAbilitySystemComponent();
+		const ULyraHealthSet* Health = ASC ? ASC->GetSet<ULyraHealthSet>() : nullptr;
+		FVector Camera; FRotator CameraRotation;
+		PC->GetPlayerViewPoint(Camera, CameraRotation);
+		const FVector Position = Pawn->GetActorLocation();
+		FVector Objective = Position;
+		int32 Point = -1, Owner = -1;
+		if (const AGameStateBase* GS = World->GetGameState())
+		{
+			if (const auto* Rotation = GS->FindComponentByClass<UHeroArenaControlPointRotationComponent>())
+			{
+				Objective = Rotation->GetCurrentPointLocation();
+				Point = Rotation->GetActivePointIndex(); Owner = Rotation->GetActiveOwnerTeam();
+			}
+		}
+		FVector Waypoint = Position;
+		bool bPathValid = false;
+		if (UNavigationPath* Path = UNavigationSystemV1::FindPathToLocationSynchronously(World, Position, Objective, Pawn))
+		{
+			bPathValid = Path->IsValid() && !Path->IsPartial();
+			if (bPathValid)
+			{
+				for (const FVector& Node : Path->PathPoints)
+				{
+					if (FVector::DistSquared2D(Position, Node) > FMath::Square(100.f)) { Waypoint = Node; break; }
+				}
+			}
+		}
+		FVector Target = FVector::ZeroVector;
+		int32 TargetId = -1;
+		float BestDistance = FMath::Square(3500.f);
+		for (TActorIterator<ALyraPlayerState> It(World); It; ++It)
+		{
+			APawn* Enemy = It->GetPawn();
+			const auto* EnemyASC = It->GetLyraAbilitySystemComponent();
+			const auto* EnemyHealth = EnemyASC ? EnemyASC->GetSet<ULyraHealthSet>() : nullptr;
+			if (!Enemy || It->GetTeamId() == PS->GetTeamId() || !EnemyHealth || EnemyHealth->GetHealth() <= 0.f) continue;
+			const float Distance = FVector::DistSquared(Position, Enemy->GetActorLocation());
+			if (Distance < BestDistance && PC->LineOfSightTo(Enemy, Camera))
+			{
+				BestDistance = Distance; Target = Enemy->GetActorLocation() + FVector(0,0,35); TargetId = It->GetPlayerId();
+			}
+		}
+		const FRotator Control = PC->GetControlRotation();
+		UE_LOG(LogTemp, Display, TEXT("HeroArena gameplay frame: {\"time\":%.3f,\"player\":%d,\"team\":%d,\"health\":%.2f,\"position\":[%.2f,%.2f,%.2f],\"control\":[%.2f,%.2f],\"camera\":[%.2f,%.2f,%.2f],\"targetId\":%d,\"target\":[%.2f,%.2f,%.2f],\"waypoint\":[%.2f,%.2f,%.2f],\"pathValid\":%s,\"objective\":[%.2f,%.2f,%.2f],\"point\":%d,\"owner\":%d}"),
+			World->GetTimeSeconds(), PS->GetPlayerId(), PS->GetTeamId(), Health ? Health->GetHealth() : 0.f,
+			Position.X,Position.Y,Position.Z,Control.Pitch,Control.Yaw,Camera.X,Camera.Y,Camera.Z,
+			TargetId,Target.X,Target.Y,Target.Z,Waypoint.X,Waypoint.Y,Waypoint.Z,bPathValid?TEXT("true"):TEXT("false"),
+			Objective.X,Objective.Y,Objective.Z,Point,Owner);
+	}
 	void LogBlinkNetwork(const TArray<FString>& Args, UWorld* World)
 	{
 		if (!World) return;
@@ -349,6 +410,9 @@ namespace HeroArenaSelectionDebug
 			SourceIndex, *GetNameSafe(Beacon), Damage, Beacon->GetBeaconHealth());
 	}
 
+	FAutoConsoleCommandWithWorldAndArgs LogGameplayFrameCommand(
+		TEXT("HeroArena.Debug.LogGameplayFrame"), TEXT("Development read-only snapshot for input-driven recording; computes one objective path and visible enemy location."),
+		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogGameplayFrame));
 	FAutoConsoleCommandWithWorldAndArgs LogBlinkNetworkCommand(
 		TEXT("HeroArena.Debug.LogBlinkNetwork"), TEXT("Read player positions and Blink counts in the current world. Non-owner charge values are not authoritative."),
 		FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&LogBlinkNetwork));

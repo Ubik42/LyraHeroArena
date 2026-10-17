@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-17",
+  "engine": "UE 5.7.4 / CL 51494982",
+  "sourceRevision": "27c4f004b16321f5ba8306a9634bbab09f6732c7",
+  "continuousTake": {
+    "mode": "Standalone, one human-controlled pawn and nine bots",
+    "control": "Scripted Enhanced Input; read-only path and line-of-sight snapshots",
+    "capture": "Native viewport frames, replayed by game-time timestamps; no audio",
+    "outcomeOverrides": false,
+    "invulnerabilityCommand": false,
+    "teleportCommand": false,
+    "observedDeaths": 3,
+    "observedOwners": [
+      0,
+      1,
+      2
+    ],
+    "earlyHealthRecovery": {
+      "fromTime": 3.486,
+      "toTime": 3.686,
+      "fromHealth": 46.0,
+      "toHealth": 54.0
+    },
+    "driverSha256": "878f32063bdc1146f96d56cf3f2b105b73d711df6b4a939cb0a05e7424aabe5e"
+  },
+  "targetPositionTest": {
+    "recording": "Separate takes, not the published combat video",
+    "before": {
+      "time": 3.066,
+      "point": -1,
+      "objective": [
+        -3169.25,
+        1829.77,
+        -99948.0
+      ],
+      "pathValid": false
+    },
+    "afterInitial": {
+      "time": 2.871,
+      "point": -1,
+      "objective": [
+        -3169.25,
+        1829.77,
+        52.0
+      ],
+      "pathValid": true
+    },
+    "afterTransition": {
+      "time": 51.561,
+      "point": -1,
+      "objective": [
+        -0.0,
+        -3659.53,
+        52.0
+      ],
+      "pathValid": true
+    },
+    "afterBActive": {
+      "time": 57.662,
+      "point": 1,
+      "objective": [
+        -0.0,
+        -3659.53,
+        52.0
+      ],
+      "pathValid": true
+    }
+  },
+  "scope": "Short offline combat fragment, not a complete match, multiplayer healing validation or performance measurement."
+}

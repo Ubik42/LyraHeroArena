@@ -100,7 +100,8 @@ void UHeroArenaControlPointRotationComponent::DiscoverControlPoints()
 		SetPointActive(Point, false);
 	}
 	PendingPointIndex = 0;
-	CurrentPointLocation = ControlPoints[PendingPointIndex]->GetActorLocation();
+	// Inactive volumes are parked below the map; navigation/UI need the authored location.
+	CurrentPointLocation = OriginalTransforms.FindChecked(ControlPoints[PendingPointIndex]).GetLocation();
 	bTransitioning = true;
 	ChangeAtServerTime = GetServerTime() + TransitionDuration;
 	GetWorld()->GetTimerManager().SetTimer(RotationTimer, this, &ThisClass::TickRotation, 0.5f, true);
@@ -265,7 +266,7 @@ void UHeroArenaControlPointRotationComponent::StartTransition()
 		SetPointActive(Point, false);
 	}
 	PendingPointIndex = (ActivePointIndex + 1) % ControlPoints.Num();
-	CurrentPointLocation = ControlPoints[PendingPointIndex]->GetActorLocation();
+	CurrentPointLocation = OriginalTransforms.FindChecked(ControlPoints[PendingPointIndex]).GetLocation();
 	ActivePointIndex = INDEX_NONE;
 	ActiveOwnerTeam = 0;
 	CapturingTeam = 0;

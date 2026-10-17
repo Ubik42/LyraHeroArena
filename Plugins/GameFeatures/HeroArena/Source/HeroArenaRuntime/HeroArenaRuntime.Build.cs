@@ -34,7 +34,8 @@ public class HeroArenaRuntime : ModuleRules
 				"Slate",
 				"SlateCore",
 				"UMG",
-				"AIModule"
+				"AIModule",
+				"NavigationSystem"
 			}
 		);
 	}

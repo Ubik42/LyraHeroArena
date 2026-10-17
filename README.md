@@ -27,6 +27,16 @@
 
 ### GAS 深度实践：英雄能力与重生生命周期
 
+#### 游骑：恢复场与轮换控制点
+
+[连续实机片段与机制说明](https://ubik42.github.io/?work=lyra-hero-arena)：约 65 秒，单机 1 玩家 + 9 Bot，通过 Enhanced Input 自动输入。保留完整过程与等待，按游戏时间播放，无声；未开启无敌、传送、伤害注入或强制占点。
+
+**RecoveryField** 采用 LocalPredicted GameplayAbility，激活时先 CommitAbility，只有 Authority 生成恢复场 Actor。Actor 保存队伍与到期时间，服务器定时检索范围内友方，经标准 GameplayEffect 路径治疗；实际治疗成功后递增 HealingPulseSequence 并 ForceNetUpdate，客户端 OnRep 驱动 Niagara 脉冲。该段录像验证单机流程，多人治疗效果仍需单独验证。
+
+控制点组件保存各点的原始 Transform。非活动点被隐藏并移到地下，旧逻辑却读取其当前位置作为下一目标，导致预告期间目标高度错误、导航失败。本次修复改读 OriginalTransforms，在初始预告及 A→B 切换中确认目标高度与路径恢复正常。
+
+代码入口：[恢复场能力](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Abilities/HeroArenaGameplayAbility_RecoveryField.cpp)、[恢复场 Actor](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Actors/HeroArenaRecoveryField.cpp)、[控制点轮换](Plugins/GameFeatures/HeroArena/Source/HeroArenaRuntime/Private/Components/HeroArenaControlPointRotationComponent.cpp)。录制条件见 [接入与验证](docs/接入与验证.md#连续玩法录制)。
+
 #### Phase 闪回：充能、落点与历史状态
 
 Blink 使用 **LocalPredicted GameplayAbility**，沿朝向执行 Capsule Sweep，遇障碍时缩短位移；有效距离不足 80 单位时拒绝释放且保留充能。三格充能由 PlayerState 组件维护，服务器依次恢复并仅向拥有客户端复制。充能耗尽通过 GAS 失败 Tag 进入 Lyra 消息通道，战术 HUD 匹配所属玩家并显示中文原因。
