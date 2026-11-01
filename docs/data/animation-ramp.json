@@ -1,0 +1,548 @@
+{
+  "date": "2026-11-01",
+  "fps": 30,
+  "samples": [
+    {
+      "gameTime": 8.007476691156626,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5390.903 Y=6000.429 Z=2193.984",
+        "distance": 606.5038611319768,
+        "speed": 199.99999999998408,
+        "onGround": true,
+        "leftFoot": "X=5392.605 Y=5996.992 Z=2114.041",
+        "rightFoot": "X=5353.604 Y=6001.875 Z=2140.830",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 9.280199192464352,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5645.448 Y=6000.351 Z=2286.631",
+        "distance": 606.5914014934244,
+        "speed": 200.00000000003465,
+        "onGround": true,
+        "leftFoot": "X=5650.211 Y=5993.458 Z=2205.713",
+        "rightFoot": "X=5603.013 Y=6002.997 Z=2217.073",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 10.391704492270947,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5867.749 Y=6000.284 Z=2367.542",
+        "distance": 606.5934367774136,
+        "speed": 200.00000000003806,
+        "onGround": true,
+        "leftFoot": "X=5837.628 Y=5991.895 Z=2316.036",
+        "rightFoot": "X=5851.796 Y=5998.240 Z=2285.452",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 11.406989090144634,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6070.806 Y=6000.222 Z=2441.449",
+        "distance": 606.5979548730998,
+        "speed": 200.00000000000787,
+        "onGround": true,
+        "leftFoot": "X=6055.107 Y=6000.675 Z=2361.797",
+        "rightFoot": "X=6040.364 Y=6004.002 Z=2390.871",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 12.52544579282403,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6294.497 Y=6000.154 Z=2522.866",
+        "distance": 606.5732996010195,
+        "speed": 199.99999999997598,
+        "onGround": true,
+        "leftFoot": "X=6285.014 Y=5986.995 Z=2453.353",
+        "rightFoot": "X=6254.731 Y=5999.671 Z=2436.510",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 13.558519091457129,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6501.112 Y=6000.091 Z=2598.067",
+        "distance": 606.5773321343369,
+        "speed": 200.00000000003172,
+        "onGround": true,
+        "leftFoot": "X=6465.310 Y=5995.376 Z=2512.289",
+        "rightFoot": "X=6491.945 Y=6006.331 Z=2519.664",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 13.841978389769793,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6557.803 Y=6000.074 Z=2618.701",
+        "distance": 1802.2013709497776,
+        "speed": 199.99999999998056,
+        "onGround": true,
+        "leftFoot": "X=6545.563 Y=5987.125 Z=2552.657",
+        "rightFoot": "X=6519.917 Y=5998.757 Z=2531.177",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 14.666918590664864,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6722.791 Y=6000.023 Z=2678.752",
+        "distance": 1802.2062268391196,
+        "speed": 200.0000000000052,
+        "onGround": true,
+        "leftFoot": "X=6725.609 Y=5995.862 Z=2600.204",
+        "rightFoot": "X=6684.165 Y=6001.713 Z=2625.194",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 15.796450093388557,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6593.625 Y=6000.007 Z=2631.739",
+        "distance": 1802.297975675818,
+        "speed": 200.000000000031,
+        "onGround": true,
+        "leftFoot": "X=6592.463 Y=5992.605 Z=2552.378",
+        "rightFoot": "X=6592.985 Y=6010.090 Z=2568.007",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 16.830337893217802,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6386.847 Y=6000.006 Z=2556.479",
+        "distance": 1802.3066565200586,
+        "speed": 199.99999999998107,
+        "onGround": true,
+        "leftFoot": "X=6410.132 Y=5994.737 Z=2483.260",
+        "rightFoot": "X=6357.925 Y=6009.328 Z=2477.834",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 17.886494290083647,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6175.616 Y=6000.005 Z=2479.597",
+        "distance": 1802.2978460938614,
+        "speed": 200.0000000000255,
+        "onGround": true,
+        "leftFoot": "X=6159.200 Y=5995.349 Z=2405.747",
+        "rightFoot": "X=6179.153 Y=6007.245 Z=2408.825",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 18.92522369325161,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5967.870 Y=6000.004 Z=2403.983",
+        "distance": 1802.290270587131,
+        "speed": 199.999999999967,
+        "onGround": true,
+        "leftFoot": "X=5959.369 Y=5991.664 Z=2337.519",
+        "rightFoot": "X=5955.865 Y=6002.073 Z=2316.892",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 19.35412899032235,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5882.089 Y=6000.004 Z=2372.762",
+        "distance": 2801.4752170799015,
+        "speed": 200.00000000003178,
+        "onGround": true,
+        "leftFoot": "X=5891.392 Y=5996.170 Z=2289.677",
+        "rightFoot": "X=5860.110 Y=6010.475 Z=2302.086",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 19.925399590283632,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5767.835 Y=6000.003 Z=2331.176",
+        "distance": 2801.4715564905,
+        "speed": 199.9999999999635,
+        "onGround": true,
+        "leftFoot": "X=5768.039 Y=5994.487 Z=2247.067",
+        "rightFoot": "X=5757.451 Y=6006.347 Z=2266.939",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 21.066336292773485,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5539.648 Y=6000.002 Z=2248.123",
+        "distance": 2801.476839972598,
+        "speed": 199.99999999997615,
+        "onGround": true,
+        "leftFoot": "X=5526.556 Y=5993.078 Z=2177.000",
+        "rightFoot": "X=5553.028 Y=6007.390 Z=2178.444",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 22.179331690073013,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5317.049 Y=6000.001 Z=2167.104",
+        "distance": 2801.474308777178,
+        "speed": 199.99999999997772,
+        "onGround": true,
+        "leftFoot": "X=5307.242 Y=5994.921 Z=2101.720",
+        "rightFoot": "X=5312.830 Y=6007.322 Z=2082.612",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 23.322560891509056,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5088.403 Y=6000.000 Z=2092.150",
+        "distance": 2801.446888154176,
+        "speed": 200.00000000000145,
+        "onGround": true,
+        "leftFoot": "X=5104.855 Y=5995.289 Z=2018.320",
+        "rightFoot": "X=5066.706 Y=6009.081 Z=2025.086",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 24.365806590765715,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5180.324 Y=6000.000 Z=2117.225",
+        "distance": 2801.4212369136303,
+        "speed": 200.00000000000037,
+        "onGround": true,
+        "leftFoot": "X=5143.335 Y=5995.756 Z=2027.715",
+        "rightFoot": "X=5197.206 Y=6013.607 Z=2034.213",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 24.80241409316659,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5267.646 Y=6000.000 Z=2149.007",
+        "distance": 606.5699516021173,
+        "speed": 200.00000000000037,
+        "onGround": true,
+        "leftFoot": "X=5289.485 Y=5999.323 Z=2076.869",
+        "rightFoot": "X=5240.632 Y=6013.288 Z=2078.117",
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 25.379620391875505,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5383.087 Y=6000.000 Z=2191.024",
+        "distance": 606.5923328773735,
+        "speed": 200.00000000000037,
+        "onGround": true,
+        "leftFoot": "X=5367.366 Y=5989.366 Z=2128.876",
+        "rightFoot": "X=5356.816 Y=5998.406 Z=2105.852",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 26.429401490837336,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5593.043 Y=6000.000 Z=2267.442",
+        "distance": 606.5985479218378,
+        "speed": 200.00000000000037,
+        "onGround": true,
+        "leftFoot": "X=5577.933 Y=6000.478 Z=2187.642",
+        "rightFoot": "X=5562.260 Y=6003.669 Z=2217.319",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 27.486043591052294,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=5804.372 Y=6000.000 Z=2344.359",
+        "distance": 606.5948916717899,
+        "speed": 200.00000000000034,
+        "onGround": true,
+        "leftFoot": "X=5784.822 Y=5988.192 Z=2285.667",
+        "rightFoot": "X=5773.929 Y=5997.209 Z=2257.925",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 28.486007891595364,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6004.365 Y=6000.000 Z=2417.151",
+        "distance": 606.5854667024777,
+        "speed": 200.00000000000037,
+        "onGround": true,
+        "leftFoot": "X=5981.852 Y=5999.222 Z=2333.169",
+        "rightFoot": "X=5981.339 Y=6004.223 Z=2362.498",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    },
+    {
+      "gameTime": 29.500090591609478,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=6207.181 Y=6000.000 Z=2490.970",
+        "distance": 606.592221620647,
+        "speed": 200.00000000000043,
+        "onGround": true,
+        "leftFoot": "X=6188.656 Y=5989.501 Z=2428.388",
+        "rightFoot": "X=6174.007 Y=5998.315 Z=2405.533",
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      }
+    }
+  ],
+  "sourceStart": 8.237,
+  "sourceFrames": 1850,
+  "sourceSpan": 21.970999999999997,
+  "selectedUniqueFrames": 659,
+  "cuts": [
+    {
+      "stage": "near",
+      "commandDistance": 600,
+      "gameTime": 8.007476691156626
+    },
+    {
+      "stage": "middle",
+      "commandDistance": 1800,
+      "gameTime": 13.841978389769793
+    },
+    {
+      "stage": "far",
+      "commandDistance": 2800,
+      "gameTime": 19.35412899032235
+    },
+    {
+      "stage": "return",
+      "commandDistance": 600,
+      "gameTime": 24.80241409316659
+    }
+  ],
+  "take": "animation-ramp-take2",
+  "scope": "Live CharacterMovement on a temporary 20-degree collision ramp. Camera distance changes; no animation pose edits. Game-time playback, no performance timing claim.",
+  "captureDimensions": [
+    882,
+    462
+  ],
+  "frameManifestSHA256": "ee9c2fa00e216cd8454c68ba3bb9fc498c525fcf92034da08f2b28782ab1a714",
+  "nativeRecordSHA256": "453db6d6a74800d3f5774d3eec8809211f46a8d58b2f30e5d7b06079b9f54b71",
+  "host": "UE 5.7.4 Windows D3D12 PIE, one AI and one local player",
+  "fixture": "Transient 20-degree ramp with collision, driven by AddMovementInput and CharacterMovement; original actor transform/controller tick restored on Observe off",
+  "notes": "Closest preceding native frame at 30fps; no motion interpolation. Labels use latest sampled state and display its time. Not a frame-time benchmark.",
+  "presentation": "Native diagnostic panel disabled. Remotion crops the upper/lower edge of the source frame; remaining game HUD elements are retained. No animation or pose editing."
+}

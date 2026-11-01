@@ -15,6 +15,10 @@
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
 #include "CanvasItem.h"
+#include "Engine/StaticMeshActor.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "HAL/IConsoleManager.h"
@@ -50,9 +54,76 @@ namespace PerformanceLabPresentation
     FTSTicker::FDelegateHandle ObserverTicker;
     FDelegateHandle ObserverDraw;
     float ObserverDistance = 600.f;
+    bool bRampRoute = false;
+    bool bSavedControllerTick = true;
+    float SavedWalkSpeed = 0.f;
+    FTransform SavedActorTransform;
+    int32 RouteGoal = 1;
+    TArray<TWeakObjectPtr<AStaticMeshActor>> RouteGeometry;
+
+    void StopRampRoute()
+    {
+        if (bRampRoute)
+        {
+            if (ALyraCharacter* Actor = Observed.Get())
+            {
+                Actor->GetCharacterMovement()->StopMovementImmediately();
+                Actor->GetCharacterMovement()->MaxWalkSpeed = SavedWalkSpeed;
+                Actor->SetActorTransform(SavedActorTransform, false, nullptr, ETeleportType::TeleportPhysics);
+                if (AController* Controller = Actor->GetController()) Controller->SetActorTickEnabled(bSavedControllerTick);
+            }
+        }
+        bRampRoute = false;
+        for (auto& Item : RouteGeometry) if (Item.IsValid()) Item->Destroy();
+        RouteGeometry.Reset();
+    }
+
+    void StartRampRoute()
+    {
+        ALyraCharacter* Actor = Observed.Get();
+        if (!Actor || bRampRoute) return;
+        UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cube.Cube"));
+        if (!Cube) return;
+        // Temporary collision fixture, isolated above the stock map. No assets are saved.
+        auto AddBlock = [&](FVector Position, FVector Scale, float Pitch)
+        {
+            FActorSpawnParameters Spawn; Spawn.ObjectFlags |= RF_Transient;
+            AStaticMeshActor* Block = Actor->GetWorld()->SpawnActor<AStaticMeshActor>(Position,FRotator(Pitch,0,0),Spawn);
+            if (!Block) return false;
+            Block->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
+            Block->GetStaticMeshComponent()->SetStaticMesh(Cube);
+            Block->GetStaticMeshComponent()->SetCollisionProfileName(TEXT("BlockAll"));
+            Block->SetActorScale3D(Scale);
+            RouteGeometry.Add(Block);
+            return true;
+        };
+        if (!AddBlock(FVector(6000,6000,1980),FVector(40,8,.4),0)
+            || !AddBlock(FVector(6000,6000,2300),FVector(18,6,.4),20))
+        {
+            StopRampRoute(); return;
+        }
+        // Keep the native diagnostic panel out of the continuous film.
+        if (ObserverDraw.IsValid()) { UDebugDrawService::Unregister(ObserverDraw); ObserverDraw.Reset(); }
+        SavedActorTransform = Actor->GetActorTransform();
+        SavedWalkSpeed = Actor->GetCharacterMovement()->MaxWalkSpeed;
+        if (AAIController* Controller = Cast<AAIController>(Actor->GetController()))
+        {
+            bSavedControllerTick = Controller->IsActorTickEnabled();
+            Controller->StopMovement();
+            Controller->ClearFocus(EAIFocusPriority::Gameplay);
+            Controller->SetActorTickEnabled(false);
+        }
+        Actor->GetCharacterMovement()->StopMovementImmediately();
+        Actor->GetCharacterMovement()->MaxWalkSpeed = 180.f;
+        Actor->SetActorLocationAndRotation(FVector(5000,6000,2100),FRotator::ZeroRotator,false,nullptr,ETeleportType::TeleportPhysics);
+        RouteGoal = 1;
+        bRampRoute = true;
+        UE_LOG(LogTemp, Display, TEXT("Observer ramp route: 20-degree collision ramp; CharacterMovement input; no pose manipulation"));
+    }
 
     void StopObserver()
     {
+        StopRampRoute();
         if (ObserverTicker.IsValid()) FTSTicker::GetCoreTicker().RemoveTicker(ObserverTicker);
         if (ObserverDraw.IsValid()) UDebugDrawService::Unregister(ObserverDraw);
         ObserverTicker.Reset(); ObserverDraw.Reset();
@@ -96,6 +167,7 @@ namespace PerformanceLabPresentation
     {
         if (!World || Args.Num()<1) return;
         if (Args[0] == TEXT("off")) { StopObserver(); return; }
+        if (Args[0] == TEXT("ramp")) { StartRampRoute(); return; }
         APlayerController* PC = World->GetFirstPlayerController();
         if (!PC) return;
         ALyraCharacter* Target = nullptr;
@@ -121,8 +193,16 @@ namespace PerformanceLabPresentation
             {
                 ALyraCharacter* Actor=Observed.Get(); ACameraActor* Camera=ObserverCamera.Get();
                 if (!Actor || !Camera) return true; // Safe across PIE teardown; next command/shutdown removes delegates.
-                const FVector Aim=Actor->GetActorLocation()+FVector(0,0,35);
-                const FVector Position=Aim+FVector(ObserverDistance,0,90);
+                if (bRampRoute && !Actor->GetWorld()->IsPaused())
+                {
+                    const FVector Goal(RouteGoal ? 6800 : 5000,6000,0);
+                    const FVector Direction=(Goal-Actor->GetActorLocation()).GetSafeNormal2D();
+                    if (FVector::DistSquared2D(Goal,Actor->GetActorLocation()) < FMath::Square(50.f)) RouteGoal=1-RouteGoal;
+                    if (AController* Controller=Actor->GetController()) Controller->SetControlRotation(Direction.Rotation());
+                    Actor->AddMovementInput(Direction,1.f,true);
+                }
+                const FVector Aim=Actor->GetActorLocation()+FVector(0,0,10);
+                const FVector Position=Aim+(bRampRoute ? FVector(0,ObserverDistance,80) : FVector(ObserverDistance,0,90));
                 Camera->SetActorLocationAndRotation(Position,(Aim-Position).Rotation());
                 // Telephoto keeps the actor readable while crossing actual significance distances.
                 Camera->GetCameraComponent()->SetFieldOfView(FMath::RadiansToDegrees(2.f*FMath::Atan(300.f/ObserverDistance)));
@@ -141,6 +221,7 @@ namespace PerformanceLabPresentation
         PC->GetPlayerViewPoint(Location, Rotation);
         const auto Root = MakeShared<FJsonObject>();
         Root->SetNumberField(TEXT("time"), World->GetTimeSeconds());
+        Root->SetBoolField(TEXT("rampRoute"), bRampRoute);
         Root->SetStringField(TEXT("camera"), Location.ToString());
         Root->SetStringField(TEXT("rotation"), Rotation.ToString());
         TArray<TSharedPtr<FJsonValue>> Characters;
@@ -153,6 +234,9 @@ namespace PerformanceLabPresentation
             Row->SetStringField(TEXT("position"), It->GetActorLocation().ToString());
             Row->SetNumberField(TEXT("distance"), FVector::Distance(Location, It->GetActorLocation()));
             Row->SetNumberField(TEXT("speed"), It->GetVelocity().Size2D());
+            Row->SetBoolField(TEXT("onGround"),It->GetCharacterMovement()->IsMovingOnGround());
+            Row->SetStringField(TEXT("leftFoot"),Mesh->GetSocketLocation(TEXT("foot_l")).ToString());
+            Row->SetStringField(TEXT("rightFoot"),Mesh->GetSocketLocation(TEXT("foot_r")).ToString());
             Row->SetBoolField(TEXT("ai"), Cast<AAIController>(It->GetController()) != nullptr);
             Row->SetBoolField(TEXT("protected"), It->IsAnimationFullRateProtected());
             Row->SetBoolField(TEXT("uro"), Mesh->bEnableUpdateRateOptimizations);
