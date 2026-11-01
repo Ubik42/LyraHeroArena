@@ -270,10 +270,15 @@ namespace PerformanceLabPresentation
 }
 #endif
 
+#if !UE_BUILD_SHIPPING
+namespace ModularPoseLab { void Shutdown(); }
+#endif
+
 void FPerformanceLabModule::ShutdownModule()
 {
 #if !UE_BUILD_SHIPPING
     PerformanceLabPresentation::StopObserver();
+    ModularPoseLab::Shutdown();
 #endif
 }
 

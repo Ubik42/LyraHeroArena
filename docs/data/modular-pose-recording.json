@@ -1,0 +1,2077 @@
+{
+  "run": "modular-pose-v3-20261101",
+  "take": "modular-pose-take1",
+  "sourceStart": 17.898,
+  "sourceSpan": 11.971,
+  "sourceFrames": 1100,
+  "cuts": [
+    {
+      "mode": "leader",
+      "gameTime": 22.002724912017584
+    },
+    {
+      "mode": "independent",
+      "gameTime": 26.059933714568615
+    }
+  ],
+  "snapshots": [
+    {
+      "mode": "independent",
+      "worldTime": 17.773380011320114,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.800 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6057.825 Y=6002.042 Z=2314.820"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6000.726 Z=2214.007"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.800 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6057.825 Y=6002.042 Z=2314.820"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6000.726 Z=2214.007"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.800 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6057.825 Y=6002.042 Z=2314.820"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6000.726 Z=2214.007"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 17.98674611374736,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.316 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6052.781 Y=6006.449 Z=2311.164"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5973.256 Z=2218.654"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.316 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6052.781 Y=6006.449 Z=2311.164"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5973.256 Z=2218.654"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.316 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6052.781 Y=6006.449 Z=2311.164"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5973.256 Z=2218.654"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 18.500856813043356,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.297 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6052.929 Y=6006.269 Z=2311.237"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5973.864 Z=2218.434"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.297 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6052.929 Y=6006.269 Z=2311.237"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5973.864 Z=2218.434"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.297 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6052.929 Y=6006.269 Z=2311.237"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5973.864 Z=2218.434"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 19.018555711954832,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.824 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.806 Y=5993.289 Z=2320.767"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6014.989 Z=2216.674"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.824 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.806 Y=5993.289 Z=2320.767"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6014.989 Z=2216.674"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.824 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.806 Y=5993.289 Z=2320.767"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6014.989 Z=2216.674"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 19.530952613800764,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.581 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.370 Y=5995.018 Z=2319.815"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6013.819 Z=2215.951"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.581 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.370 Y=5995.018 Z=2319.815"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6013.819 Z=2215.951"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.581 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.370 Y=5995.018 Z=2319.815"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6013.819 Z=2215.951"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 20.044944912195206,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.400 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6051.898 Y=6006.414 Z=2310.745"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5968.602 Z=2220.083"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.400 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6051.898 Y=6006.414 Z=2310.745"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5968.602 Z=2220.083"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.400 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6051.898 Y=6006.414 Z=2310.745"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5968.602 Z=2220.083"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 20.56162741407752,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.906 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6054.106 Y=6005.654 Z=2311.897"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5979.919 Z=2216.766"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.906 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6054.106 Y=6005.654 Z=2311.897"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5979.919 Z=2216.766"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.906 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6054.106 Y=6005.654 Z=2311.897"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5979.919 Z=2216.766"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 21.072602313011885,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.334 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.159 Y=5991.968 Z=2321.637"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6016.674 Z=2217.420"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.334 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.159 Y=5991.968 Z=2321.637"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6016.674 Z=2217.420"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.334 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.159 Y=5991.968 Z=2321.637"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6016.674 Z=2217.420"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 21.588259611278772,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.749 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6060.571 Y=5996.708 Z=2318.358"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6010.348 Z=2215.014"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.749 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6060.571 Y=5996.708 Z=2318.358"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6010.348 Z=2215.014"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.749 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6060.571 Y=5996.708 Z=2318.358"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6010.348 Z=2215.014"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "leader",
+      "worldTime": 22.002724912017584,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6058.427 Y=6001.208 Z=2315.459",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6004.026 Z=2214.031",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6058.427 Y=6001.208 Z=2315.459",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6004.026 Z=2214.031",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6058.427 Y=6001.208 Z=2315.459",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6004.026 Z=2214.031",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 0.25720834732055664
+    },
+    {
+      "mode": "leader",
+      "worldTime": 22.229444213211536,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6050.294 Y=6006.703 Z=2310.100",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5960.904 Z=2223.097",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6050.294 Y=6006.703 Z=2310.100",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5960.904 Z=2223.097",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6050.294 Y=6006.703 Z=2310.100",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5960.904 Z=2223.097",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 0.4839276373386383
+    },
+    {
+      "mode": "leader",
+      "worldTime": 22.745445013046265,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6058.002 Y=6001.808 Z=2315.002",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6001.759 Z=2214.000",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6058.002 Y=6001.808 Z=2315.002",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6001.759 Z=2214.000",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6058.002 Y=6001.808 Z=2315.002",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6001.759 Z=2214.000",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 0.9999285340309143
+    },
+    {
+      "mode": "leader",
+      "worldTime": 23.26633621379733,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.590 Y=5989.654 Z=2322.906",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6018.267 Z=2218.613",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.590 Y=5989.654 Z=2322.906",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6018.267 Z=2218.613",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.590 Y=5989.654 Z=2322.906",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6018.267 Z=2218.613",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 1.520819902420044
+    },
+    {
+      "mode": "leader",
+      "worldTime": 23.778756514191628,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.800 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6057.791 Y=6002.089 Z=2314.786",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6000.518 Z=2214.010",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.800 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6057.791 Y=6002.089 Z=2314.786",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6000.518 Z=2214.010",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.800 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6057.791 Y=6002.089 Z=2314.786",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6000.518 Z=2214.010",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 0.03323998674750328
+    },
+    {
+      "mode": "leader",
+      "worldTime": 24.292499411851168,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6050.380 Y=6006.655 Z=2310.139",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5961.341 Z=2222.872",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6050.380 Y=6006.655 Z=2310.139",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5961.341 Z=2222.872",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6050.380 Y=6006.655 Z=2310.139",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5961.341 Z=2222.872",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 0.5469827651977539
+    },
+    {
+      "mode": "leader",
+      "worldTime": 24.808676913380623,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6059.180 Y=6000.085 Z=2316.351",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6007.411 Z=2214.219",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6059.180 Y=6000.085 Z=2316.351",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6007.411 Z=2214.219",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.814 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6059.180 Y=6000.085 Z=2316.351",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6007.411 Z=2214.219",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 1.0631601810455322
+    },
+    {
+      "mode": "leader",
+      "worldTime": 25.329394213855267,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.484 Y=5990.000 Z=2322.550",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6017.544 Z=2218.271",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.484 Y=5990.000 Z=2322.550",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6017.544 Z=2218.271",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.200 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.484 Y=5990.000 Z=2322.550",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6017.544 Z=2218.271",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 1.5838769674301147
+    },
+    {
+      "mode": "leader",
+      "worldTime": 25.84903171285987,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.737 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6056.308 Y=6003.944 Z=2313.444",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5992.001 Z=2214.587",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.737 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6056.308 Y=6003.944 Z=2313.444",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5992.001 Z=2214.587",
+              "leaderErrorCm": 0
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": true,
+          "animationInstance": false,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6001.737 Z=2356.000",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6056.308 Y=6003.944 Z=2313.444",
+              "leaderErrorCm": 0
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5992.001 Z=2214.587",
+              "leaderErrorCm": 0
+            }
+          ]
+        }
+      ],
+      "animationInstances": 1,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": 0.10351438075304031
+    },
+    {
+      "mode": "independent",
+      "worldTime": 26.059933714568615,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6000.000 Y=6000.000 Z=2200.000"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 26.38846781104803,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.457 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6051.139 Y=6006.200 Z=2310.424"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5964.529 Z=2221.448"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.457 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6051.139 Y=6006.200 Z=2310.424"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5964.529 Z=2221.448"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5998.457 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6051.139 Y=6006.200 Z=2310.424"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5964.529 Z=2221.448"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 26.91373611241579,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.906 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6060.759 Y=5996.511 Z=2318.679"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6011.316 Z=2215.200"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.906 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6060.759 Y=5996.511 Z=2318.679"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6011.316 Z=2215.200"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.906 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6060.759 Y=5996.511 Z=2318.679"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6011.316 Z=2215.200"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 27.441212613135576,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.391 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.035 Y=5992.321 Z=2321.321"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6016.090 Z=2217.151"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.391 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.035 Y=5992.321 Z=2321.321"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6016.090 Z=2217.151"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.391 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6062.035 Y=5992.321 Z=2321.321"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6016.090 Z=2217.151"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 27.972517114132643,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.600 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6053.053 Y=6006.455 Z=2311.303"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5974.744 Z=2218.238"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.600 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6053.053 Y=6006.455 Z=2311.303"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5974.744 Z=2218.238"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.600 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6053.053 Y=6006.455 Z=2311.303"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5974.744 Z=2218.238"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 28.505112010985613,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.355 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6053.011 Y=6006.245 Z=2311.280"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5974.287 Z=2218.310"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.355 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6053.011 Y=6006.245 Z=2311.280"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5974.287 Z=2218.310"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.355 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6053.011 Y=6006.245 Z=2311.280"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=5974.287 Z=2218.310"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 29.032098211348057,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.455 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.905 Y=5992.695 Z=2321.000"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6015.241 Z=2216.866"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.455 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.905 Y=5992.695 Z=2321.000"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6015.241 Z=2216.866"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=5999.455 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.905 Y=5992.695 Z=2321.000"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6015.241 Z=2216.866"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    },
+    {
+      "mode": "independent",
+      "worldTime": 29.552230812609196,
+      "parts": [
+        {
+          "component": "RobotPart1",
+          "mesh": "/Game/ModularPoseLab/SK_RobotLower.SK_RobotLower",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 3,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.581 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.121 Y=5995.521 Z=2319.327"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6012.632 Z=2215.613"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart2",
+          "mesh": "/Game/ModularPoseLab/SK_RobotUpper.SK_RobotUpper",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.581 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.121 Y=5995.521 Z=2319.327"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6012.632 Z=2215.613"
+            }
+          ]
+        },
+        {
+          "component": "RobotPart3",
+          "mesh": "/Game/ModularPoseLab/SK_RobotHead.SK_RobotHead",
+          "followsLeader": false,
+          "animationInstance": true,
+          "visible": true,
+          "lod0Sections": 2,
+          "bones": [
+            {
+              "bone": "head",
+              "position": "X=6000.000 Y=6000.581 Z=2356.000"
+            },
+            {
+              "bone": "forearm_l",
+              "position": "X=6061.121 Y=5995.521 Z=2319.327"
+            },
+            {
+              "bone": "foot_l",
+              "position": "X=6017.000 Y=6012.632 Z=2215.613"
+            }
+          ]
+        }
+      ],
+      "animationInstances": 3,
+      "visibleComponents": 3,
+      "visibleLod0Sections": 7,
+      "leaderAnimationTime": -1
+    }
+  ],
+  "scope": "Original rigid-skinned robot, 3 visible parts; independent animation versus shared Leader Pose. Game-time playback; no timing benchmark."
+}

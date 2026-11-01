@@ -183,7 +183,7 @@
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabBotCreationComponent.cpp": "67918812bfd7fafdfdfa1dceecb811e2983a5834639179a6b74121936885d511",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabCrowdAIController.cpp": "e39800210173e926fe6d131b632f1f1b4125364fdd6e596c4e960eba72057806",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabCrowdAISubsystem.cpp": "eb15285ede1eaf4223e8eeb14f5cb8d7db03b1fd8f9b811314eeb1effc72d52b",
-    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabModule.cpp": "c8f06cb9b7446de156ceca71ae2b199d06b67b7c94439f393df4b97fa80bb2a4",
+    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabModule.cpp": "933d69c664cd18511569467ebf99821ced107379d5fdfea79d757f81532c0768",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabWorldSubsystem.cpp": "688a09975489eae18254de5496b1adef2a95710970ccb7d2e289335b01fe1d61",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceExperimentTypes.h": "24820e453d145d190c447cb7ca81e5e951611058b43656606e2efbab0e194c45",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabBotCreationComponent.h": "e77a2d422c9a434fca95a5f44855f057e73127dc4caf4402c9eb0d42a5c39529",
@@ -206,7 +206,9 @@
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Private/PerformanceTimelineView.cpp": "937542776abf5192821142251a5983a234c025e859739a68f97e4edd55e8f0b4",
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Private/PerformanceTimelineView.h": "0ed6d380dc9d914fb57d92d305a40eb402ad09856612c408b6a7b3f1148ac303",
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Private/PerformanceWorkbenchModule.cpp": "609aa646de1d2065f7984e6997b72e8523126083dd90857701965e70f45bfd74",
-    "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Public/PerformanceWorkbenchModule.h": "5bca50cc5122d8dbb3ac615abe4f57ae207970d599f586718773886a0c2fa688"
+    "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Public/PerformanceWorkbenchModule.h": "5bca50cc5122d8dbb3ac615abe4f57ae207970d599f586718773886a0c2fa688",
+    "Plugins/PerformanceLab/Source/PerformanceLab/Private/ModularPoseLab.cpp": "a8527e4ab3fc42856b5ee6a2b0e91d7726725c55a86e9946a8788bde744331c0"
   },
-  "animationObserverUpdated": "2026-11-01"
+  "animationObserverUpdated": "2026-11-01",
+  "modularPoseUpdated": "2026-11-01"
 }
