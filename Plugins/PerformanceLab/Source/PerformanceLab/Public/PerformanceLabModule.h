@@ -4,4 +4,6 @@
 
 class FPerformanceLabModule final : public IModuleInterface
 {
+public:
+    virtual void ShutdownModule() override;
 };

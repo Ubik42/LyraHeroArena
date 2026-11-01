@@ -163,3 +163,7 @@ tools/
 Lyra 原有的射击、队伍、GAS、装备、基础机器人、地图和资产不计入自研内容。`HeroArena`、`PerformanceLab` 与 `PerformanceWorkbench` 为本项目新增模块；对 Lyra 源码的少量接入在技术报告中说明。
 
 Unreal Engine、Lyra Starter Game 及 Epic 内容遵循 Epic Games 的许可条款。本仓库不授予第三方内容的再分发权。
+
+### 同角色距离策略观察（2026-11-01）
+
+12 AI 观察场景中，跟随同一角色经过近、中、远距离并返回，记录 URO 与足部后处理的切换。[操作、源码与状态记录](docs/动画策略观察.md)。本批与历史 200 AI 计时分开。

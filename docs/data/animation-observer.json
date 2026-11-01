@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-01",
+  "engine": "UE 5.7.4",
+  "map": "L_ShooterPerf",
+  "scope": "Single live AI tracked in a 12-AI PIE observation. Camera FOV narrows at distance. Images and state sampled on adjacent frames. Not a frame-time or visual-equivalence benchmark. URO intervals are cached and inactive when uro=false.",
+  "samples": [
+    {
+      "stage": "near",
+      "sampleGameTime": 10.600087318569422,
+      "captureGameTime": 10.577416516840458,
+      "captureFrame": 801,
+      "actualAI": 12,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=-2359.195 Y=-788.726 Z=142.150",
+        "distance": 614.0341634136648,
+        "speed": 199.9999999999988,
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      },
+      "image": "/media/repositories/lyra-hero-arena/animation-observer/near.jpg"
+    },
+    {
+      "stage": "middle",
+      "sampleGameTime": 13.832666117697954,
+      "captureGameTime": 13.811564017087221,
+      "captureFrame": 1102,
+      "actualAI": 12,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=-1834.477 Y=-755.508 Z=142.150",
+        "distance": 1804.3350575766133,
+        "speed": 0,
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      },
+      "image": "/media/repositories/lyra-hero-arena/animation-observer/middle.jpg"
+    },
+    {
+      "stage": "far",
+      "sampleGameTime": 17.07833841815591,
+      "captureGameTime": 17.058009017258883,
+      "captureFrame": 1406,
+      "actualAI": 12,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=-2295.914 Y=-653.028 Z=142.150",
+        "distance": 2804.97599992962,
+        "speed": 249.56019587682133,
+        "ai": true,
+        "protected": false,
+        "uro": true,
+        "postProcessDisabled": true,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      },
+      "image": "/media/repositories/lyra-hero-arena/animation-observer/far.jpg"
+    },
+    {
+      "stage": "return",
+      "sampleGameTime": 20.32946041598916,
+      "captureGameTime": 20.306633416563272,
+      "captureFrame": 1700,
+      "actualAI": 12,
+      "actor": {
+        "name": "B_Hero_ShooterMannequin_C_1",
+        "position": "X=-1991.823 Y=-948.220 Z=142.150",
+        "distance": 608.3724655395007,
+        "speed": 212.51129150390378,
+        "ai": true,
+        "protected": true,
+        "uro": false,
+        "postProcessDisabled": false,
+        "recentlyRendered": true,
+        "lod": 0,
+        "availableLODs": 1,
+        "updateRate": 3,
+        "evaluationRate": 3
+      },
+      "image": "/media/repositories/lyra-hero-arena/animation-observer/return.jpg"
+    }
+  ]
+}

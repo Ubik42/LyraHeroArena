@@ -12,6 +12,14 @@
 void UPerformanceLabBotCreationComponent::SpawnOneBot()
 {
 #if WITH_SERVER_CODE
+    // The experiment load and the actual spawner must use the same explicit count.
+    // Blueprint defaults and editor user settings otherwise still spawn 200 bots.
+    int32 RequestedAgents = 0;
+    if (FParse::Value(FCommandLine::Get(), TEXT("PerfLabAgents="), RequestedAgents)
+        && SpawnedBotList.Num() >= FMath::Clamp(RequestedAgents, 1, 2000))
+    {
+        return;
+    }
     TSubclassOf<AAIController> ControllerClass = BotControllerClass;
     if (FParse::Param(FCommandLine::Get(), TEXT("PerfLabCrowdStateMachine"))
         || FParse::Param(FCommandLine::Get(), TEXT("PerfLabNavigationLoad")))

@@ -180,16 +180,16 @@
     "Plugins/PerformanceLab/PerformanceLab.uplugin": "1148f9b3a750f8a6df5013a82789b3a96fec493236132f7e032c5721a12ef641",
     "Plugins/PerformanceLab/Source/PerformanceLab/PerformanceLab.Build.cs": "8af38165f1ee370d643b5705bb658f5b184870b639f3c91b4283817a5d6b48d6",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceExperimentTypes.cpp": "29c53881909881fc9d61c236a8507032db886200675c79fcd4021020a9e2b324",
-    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabBotCreationComponent.cpp": "ea0e2e553f3ee02438db016fc9e708518f866a1415c310ef139bda704c11f443",
+    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabBotCreationComponent.cpp": "67918812bfd7fafdfdfa1dceecb811e2983a5834639179a6b74121936885d511",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabCrowdAIController.cpp": "e39800210173e926fe6d131b632f1f1b4125364fdd6e596c4e960eba72057806",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabCrowdAISubsystem.cpp": "eb15285ede1eaf4223e8eeb14f5cb8d7db03b1fd8f9b811314eeb1effc72d52b",
-    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabModule.cpp": "a309969844191ca10349e605b154d7bc0698ac5bac4e83c5e01dfd7ec079e927",
+    "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabModule.cpp": "23e29625304da82163ff593c37c010ab6c793f04c363d666a1d059d1af9d5dc6",
     "Plugins/PerformanceLab/Source/PerformanceLab/Private/PerformanceLabWorldSubsystem.cpp": "688a09975489eae18254de5496b1adef2a95710970ccb7d2e289335b01fe1d61",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceExperimentTypes.h": "24820e453d145d190c447cb7ca81e5e951611058b43656606e2efbab0e194c45",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabBotCreationComponent.h": "e77a2d422c9a434fca95a5f44855f057e73127dc4caf4402c9eb0d42a5c39529",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabCrowdAIController.h": "8d04f45f249be2a4ec9470974575028ccfe4fc05231ba123d257af83abc7836c",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabCrowdAISubsystem.h": "47adae07e84281488bcf125144a82597aa768e74528569aa511861b61dffaf85",
-    "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabModule.h": "35b8bedb52b978bd412680080171717edf1132f3beb314fd9458fb78ab176275",
+    "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabModule.h": "6c2e090bc38c6fb1fed23eccb55d094524f3cc9c32e155db046b6cdad2034726",
     "Plugins/PerformanceLab/Source/PerformanceLab/Public/PerformanceLabWorldSubsystem.h": "99f6d19ff31d062bd25c12981c7a79e5fcbc0db4006491a4448f1e3227da988b",
     "Plugins/PerformanceWorkbench/PerformanceWorkbench.uplugin": "c3c80c231a45a79869e4c91354be290cba60a52fb31eeb8f41346557952087ce",
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/PerformanceWorkbench.Build.cs": "1fd59e5d4e8b80eb62aedb54df1fef8b499954e4bcb3ea5cad92d5d0d55964ce",
@@ -207,5 +207,6 @@
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Private/PerformanceTimelineView.h": "0ed6d380dc9d914fb57d92d305a40eb402ad09856612c408b6a7b3f1148ac303",
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Private/PerformanceWorkbenchModule.cpp": "609aa646de1d2065f7984e6997b72e8523126083dd90857701965e70f45bfd74",
     "Plugins/PerformanceWorkbench/Source/PerformanceWorkbench/Public/PerformanceWorkbenchModule.h": "5bca50cc5122d8dbb3ac615abe4f57ae207970d599f586718773886a0c2fa688"
-  }
+  },
+  "animationObserverUpdated": "2026-11-01"
 }
